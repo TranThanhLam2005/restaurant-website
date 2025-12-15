@@ -8,12 +8,12 @@ import {
   TestimonialsSection,
   GalarySection,
   BranchSection,
-  FooterSection
+  FooterSection,
 } from "@/features/landing";
 
 export default function MarketingPage() {
   return (
-    <main className="min-h-screen bg-black text-white scroll-smooth">
+    <main className="min-h-screen scroll-smooth px-2">
       <HeroCTA />
       <HeroSection />
       <AboutSection />

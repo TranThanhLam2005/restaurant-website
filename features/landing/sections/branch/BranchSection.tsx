@@ -38,68 +38,95 @@ export default function BranchSection() {
       description: "Our flagship location in the heart of the city",
       address: "123 Main Street, Downtown",
       hours: "Mon-Sun: 11AM - 11PM",
-      image: "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA"
+      image:
+        "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Waterfront Branch",
       description: "Stunning views with exceptional dining",
       address: "456 Harbor Drive, Waterfront",
       hours: "Mon-Sun: 10AM - 12AM",
-      image: "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA"
+      image:
+        "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Garden District",
       description: "Intimate dining in a charming neighborhood",
       address: "789 Garden Lane, West Side",
       hours: "Tue-Sun: 12PM - 10PM",
-      image: "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA"
-    }
+      image:
+        "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
+    },
+    {
+      name: "Garden District",
+      description: "Intimate dining in a charming neighborhood",
+      address: "789 Garden Lane, West Side",
+      hours: "Tue-Sun: 12PM - 10PM",
+      image:
+        "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
+    },
+    {
+      name: "Garden District",
+      description: "Intimate dining in a charming neighborhood",
+      address: "789 Garden Lane, West Side",
+      hours: "Tue-Sun: 12PM - 10PM",
+      image:
+        "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
+    },
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-black to-gray-950">
+    <section className="py-24 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold tracking-tight mb-4">Our Locations</h2>
-          <p className="text-gray-400 text-xl">Visit us at any of our branches</p>
+          <h2 className="text-5xl font-bold tracking-tight mb-4 text-[#4A3728]">
+            Our Locations
+          </h2>
+          <p className="text-[#6B5444] text-xl">
+            Visit us at any of our branches
+          </p>
         </div>
-        
+
         <div className="max-w-4xl mx-auto">
-          <Carousel setApi={setApi} className="w-full">
+          <Carousel setApi={setApi}>
             <CarouselContent>
               {branches.map((branch, index) => (
                 <CarouselItem key={index}>
-                  <Card className="bg-white/5 border-white/10 overflow-hidden">
+                  <Card>
                     <div className="aspect-video w-full overflow-hidden">
-                      <img 
-                        src={branch.image} 
+                      <img
+                        src={branch.image}
                         alt={branch.name}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                     <CardHeader>
-                      <CardTitle className="text-3xl mb-2">{branch.name}</CardTitle>
-                      <CardDescription className="text-gray-400 text-lg mb-4">
-                        {branch.description}
-                      </CardDescription>
-                      
-                      <div className="space-y-3 text-gray-300">
+                      <CardTitle>{branch.name}</CardTitle>
+                      <CardDescription>{branch.description}</CardDescription>
+
+                      <div className="space-y-3 text-[#5D4A3A]">
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-5 h-5 text-gray-400" />
+                          <MapPin className="w-5 h-5 text-[#8B7355]" />
                           <span>{branch.address}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Clock className="w-5 h-5 text-gray-400" />
+                          <Clock className="w-5 h-5 text-[#8B7355]" />
                           <span>{branch.hours}</span>
                         </div>
                       </div>
-                      
-                      <CardFooter className="px-0 pt-4">
+
+                      <CardFooter>
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
-                            <Star key={i} fill="currentColor" className="w-5 h-5 text-yellow-500" />
+                            <Star
+                              key={i}
+                              fill="currentColor"
+                              className="w-5 h-5 text-[#B8860B]"
+                            />
                           ))}
-                          <span className="ml-2 text-lg font-semibold">5.0</span>
+                          <span className="ml-2 text-lg font-semibold text-[#4A3728]">
+                            5.0
+                          </span>
                         </div>
                       </CardFooter>
                     </CardHeader>
@@ -107,18 +134,15 @@ export default function BranchSection() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="-left-12 bg-white/5 border-white/10 hover:bg-white/10" />
-            <CarouselNext className="-right-12 bg-white/5 border-white/10 hover:bg-white/10" />
+            <CarouselPrevious className="-left-12 bg-[#F5F1EB] border-[#8B7355]/30 hover:bg-[#E8DED0] text-[#4A3728]" />
+            <CarouselNext className="-right-12 bg-[#F5F1EB] border-[#8B7355]/30 hover:bg-[#E8DED0] text-[#4A3728]" />
           </Carousel>
-          
+
           <div className="mt-8 space-y-4">
-            <div className="text-center text-sm text-gray-400">
+            <div className="text-center text-sm text-[#6B5444]">
               Branch {current} of {count}
             </div>
-            <Progress 
-              value={(current / count) * 100} 
-              className="h-1 bg-white/10"
-            />
+            <Progress value={(current / count) * 100} />
           </div>
         </div>
       </div>
