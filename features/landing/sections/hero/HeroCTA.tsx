@@ -4,7 +4,7 @@ import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {Search} from "lucide-react";
 export default function HeroCTA() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-[#8B7355]/20 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
           RoadHouse
@@ -17,7 +17,9 @@ export default function HeroCTA() {
           </TabsList>
         </Tabs>
         <div className="flex items-center gap-4">
-          <Search className="w-5 h-5" />
+          <div className="bg-muted p-2 rounded-full">
+            <Search className="w-5 h-5 text-foreground" />
+          </div>
           <Avatar>
             <AvatarImage
               src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"

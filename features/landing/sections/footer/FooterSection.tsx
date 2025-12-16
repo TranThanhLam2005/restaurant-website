@@ -1,101 +1,87 @@
 "use client";
 import {Instagram, Facebook, Twitter, Mail, Phone, MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {Separator} from "@/components/ui/separator";
 
 export default function FooterSection() {
   return (
-    <footer className="bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] border-t border-[#8B7355]/30 rounded-4xl">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#4A3728] to-[#6B5444] bg-clip-text text-transparent">
-              RoadHouse
-            </h3>
-            <p className="text-[#5D4A3A]">
-              Creating unforgettable dining experiences since 2020
-            </p>
-            <div className="flex gap-3">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-[#8B7355]/20 rounded-full text-[#4A3728]"
-              >
-                <Instagram className="w-5 h-5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-[#8B7355]/20 rounded-full text-[#4A3728]"
-              >
-                <Facebook className="w-5 h-5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-[#8B7355]/20 rounded-full text-[#4A3728]"
-              >
-                <Twitter className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="font-semibold text-lg text-[#4A3728]">
-              Quick Links
-            </h4>
-            <ul className="space-y-2 text-[#6B5444]">
-              <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
-                Menu
-              </li>
-              <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
-                Reservations
-              </li>
-              <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
-                About Us
-              </li>
-              <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
-                Contact
-              </li>
-            </ul>
-          </div>
-
-          {/* Hours */}
-          <div className="space-y-4">
-            <h4 className="font-semibold text-lg text-[#4A3728]">
-              Opening Hours
-            </h4>
-            <ul className="space-y-2 text-[#6B5444]">
-              <li>Monday - Friday: 11am - 11pm</li>
-              <li>Saturday: 10am - 12am</li>
-              <li>Sunday: 10am - 10pm</li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="space-y-4">
-            <h4 className="font-semibold text-lg text-[#4A3728]">Contact</h4>
-            <ul className="space-y-3 text-[#6B5444]">
-              <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>123 Restaurant St, City</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                <span>hello@roadhouse.com</span>
-              </li>
-            </ul>
+    <footer className="px-6 py-16 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl">
+      <div className="grid md:grid-cols-4 gap-12">
+        {/* Brand */}
+        <div className="space-y-4">
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
+            RoadHouse
+          </h1>
+          <p className="text-foreground">
+            Creating unforgettable dining experiences since 2020
+          </p>
+          <div className="flex gap-3">
+            <Button size="icon" variant="ghost">
+              <Instagram className="w-5 h-5" />
+            </Button>
+            <Button size="icon" variant="ghost">
+              <Facebook className="w-5 h-5" />
+            </Button>
+            <Button size="icon" variant="ghost">
+              <Twitter className="w-5 h-5" />
+            </Button>
           </div>
         </div>
 
-        <div className="border-t border-[#8B7355]/30 mt-12 pt-8 text-center text-[#6B5444] text-sm">
-          <p>© 2025 RoadHouse. All rights reserved.</p>
+        {/* Quick Links */}
+        <div className="space-y-4">
+          <h4 className="font-semibold text-lg text-[#4A3728]">Quick Links</h4>
+          <ul className="space-y-2 text-[#6B5444]">
+            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+              Menu
+            </li>
+            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+              Reservations
+            </li>
+            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+              About Us
+            </li>
+            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+              Contact
+            </li>
+          </ul>
         </div>
+
+        {/* Hours */}
+        <div className="space-y-4">
+          <h4 className="font-semibold text-lg text-[#4A3728]">
+            Opening Hours
+          </h4>
+          <ul className="space-y-2 text-[#6B5444]">
+            <li>Monday - Friday: 11am - 11pm</li>
+            <li>Saturday: 10am - 12am</li>
+            <li>Sunday: 10am - 10pm</li>
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div className="space-y-4">
+          <h4 className="font-semibold text-lg text-[#4A3728]">Contact</h4>
+          <ul className="space-y-3 text-[#6B5444]">
+            <li className="flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span>123 Restaurant St, City</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>+1 (555) 123-4567</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              <span>hello@roadhouse.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <Separator className="my-12" />
+
+      <div className="text-center text-foreground text-sm">
+        <p>© 2025 RoadHouse. All rights reserved.</p>
       </div>
     </footer>
   );

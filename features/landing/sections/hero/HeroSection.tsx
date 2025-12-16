@@ -1,13 +1,11 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import {ArrowRight, Sparkles} from "lucide-react";
-
 export default function HeroSection() {
   return (
-    <Skeleton 
-      className="h-[500px] md:h-[600px] lg:h-[700px] w-full rounded-4xl"
+    <img
+      src="https://www.eatthis.com/wp-content/uploads/sites/4/2021/08/texas-roadhouse-exterior.jpg?quality=82&strip=1"
+      alt="Hero Image"
+      className="w-full h-auto rounded-4xl shadow-lg mt-20"
     />
   );
 }

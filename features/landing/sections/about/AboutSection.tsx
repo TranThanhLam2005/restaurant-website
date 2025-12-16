@@ -8,47 +8,57 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-
+import {Clock} from "lucide-react";
 export default function AboutSection() {
   return (
-    <section className="py-24 bg-white rounded-4xl">
-      <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center space-y-6 mb-16">
-          <h2 className="text-5xl font-bold tracking-tight text-[#4A3728]">
-            About Us
-          </h2>
-          <p className="text-xl text-[#6B5444]">
-            Welcome to RoadHouse! We are dedicated to providing the finest
-            dining experience with passion, quality, and exceptional service.
-          </p>
+    <section className="p-2 bg-white rounded-4xl mt-[-40px] relative z-10">
+      <div className="mx-auto text-center space-y-6 mb-16">
+        <h2 className="text-4xl font-bold tracking-tight text-primary mt-10">
+          About Us
+        </h2>
+        <p className="text-xl text-foreground">
+          Welcome to RoadHouse! We are dedicated to providing the finest dining
+          experience with passion, quality, and exceptional service.
+        </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <div className="w-1/2 h-80 overflow-hidden ">
+          <img
+            src="https://lh3.googleusercontent.com/n61PrfXKw0pUWPHeix8BLdk35_BNw6K4nRYvLn3k5H4GSjDzeChIGmesTdANPinMoEKQUEBoUHmefm4bkiMnzfTZBKHg0MvwdOOFrL8=s0"
+            alt="Community"
+            className="w-full h-full object-cover"
+          />
         </div>
-
-        <div className="flex justify-evenly">
-          <Card>
-            <CardHeader>
-              <CardTitle>Excellence</CardTitle>
-              <CardDescription>
-                Award-winning cuisine crafted by world-class chefs
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              We believe in delivering nothing short of perfection in every dish
-              we serve.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Community</CardTitle>
-              <CardDescription>
-                Building connections through exceptional experiences
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              We create memorable moments that bring people together around
-              great food.
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="w-1/2">
+          <CardHeader>
+            <CardTitle className="text-primary text-3xl">
+              OPENING HOURS
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-between mb-4 bg-background p-4 rounded-xl">
+              <div>Monday - Thursday</div>
+              <div className="font-bold">
+                <Clock className="inline-block w-5 h-5 mr-2 mb-1" />
+                11:00 AM - 10:00 PM
+              </div>
+            </div>
+            <div className="flex justify-between mb-4 bg-background p-4 rounded-xl">
+              <div>Monday - Thursday</div>
+              <div className="font-bold">
+                <Clock className="inline-block w-5 h-5 mr-2 mb-1" />
+                11:00 AM - 10:00 PM
+              </div>
+            </div>
+            <div className="flex justify-between mb-4 bg-background p-4 rounded-xl">
+              <div>Monday - Thursday</div>
+              <div className="font-bold">
+                <Clock className="inline-block w-5 h-5 mr-2 mb-1" />
+                11:00 AM - 10:00 PM
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );

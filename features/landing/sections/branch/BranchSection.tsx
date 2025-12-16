@@ -76,74 +76,55 @@ export default function BranchSection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold tracking-tight mb-4 text-[#4A3728]">
-            Our Locations
-          </h2>
-          <p className="text-[#6B5444] text-xl">
-            Visit us at any of our branches
-          </p>
-        </div>
+    <section className="py-24 px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl">
+      <h2 className="text-4xl font-bold tracking-tight mb-12 text-primary">
+        PEOPLE ALSO SEARCHED
+      </h2>
 
-        <div className="max-w-4xl mx-auto">
-          <Carousel setApi={setApi}>
-            <CarouselContent>
-              {branches.map((branch, index) => (
-                <CarouselItem key={index}>
-                  <Card>
-                    <div className="aspect-video w-full overflow-hidden">
-                      <img
-                        src={branch.image}
-                        alt={branch.name}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
+      <div>
+        <Carousel setApi={setApi}>
+          <CarouselContent className="py-2">
+            {branches.map((branch, index) => (
+              <CarouselItem key={index}>
+                <Card className="hover:bg-background hover:shadow-[6px_6px_0px_rgba(139,69,19,1)] transition-shadow">
+                  <div className="overflow-hidden mx-2 rounded-2xl">
+                    <img
+                      src={branch.image}
+                      alt={branch.name}
+                      className="w-full h-64 object-cover"
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle>{branch.name}</CardTitle>
+                    <CardDescription>{branch.description}</CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          fill="currentColor"
+                          className="w-5 h-5 text-[#B8860B]"
+                        />
+                      ))}
+                      <span className="ml-2 text-lg font-semibold text-foreground">
+                        5.0
+                      </span>
                     </div>
-                    <CardHeader>
-                      <CardTitle>{branch.name}</CardTitle>
-                      <CardDescription>{branch.description}</CardDescription>
+                  </CardFooter>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="-left-12 bg-background text-foreground hover:text-primary" />
+          <CarouselNext className="-right-12 bg-background text-foreground hover:text-primary" />
+        </Carousel>
 
-                      <div className="space-y-3 text-[#5D4A3A]">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-5 h-5 text-[#8B7355]" />
-                          <span>{branch.address}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-5 h-5 text-[#8B7355]" />
-                          <span>{branch.hours}</span>
-                        </div>
-                      </div>
-
-                      <CardFooter>
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              fill="currentColor"
-                              className="w-5 h-5 text-[#B8860B]"
-                            />
-                          ))}
-                          <span className="ml-2 text-lg font-semibold text-[#4A3728]">
-                            5.0
-                          </span>
-                        </div>
-                      </CardFooter>
-                    </CardHeader>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="-left-12 bg-[#F5F1EB] border-[#8B7355]/30 hover:bg-[#E8DED0] text-[#4A3728]" />
-            <CarouselNext className="-right-12 bg-[#F5F1EB] border-[#8B7355]/30 hover:bg-[#E8DED0] text-[#4A3728]" />
-          </Carousel>
-
-          <div className="mt-8 space-y-4">
-            <div className="text-center text-sm text-[#6B5444]">
-              Branch {current} of {count}
-            </div>
-            <Progress value={(current / count) * 100} />
+        <div className="mt-8 space-y-4">
+          <div className="text-center text-sm text-foreground">
+            Branch {current} of {count}
           </div>
+          <Progress value={(current / count) * 100} />
         </div>
       </div>
     </section>

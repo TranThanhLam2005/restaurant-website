@@ -8,6 +8,7 @@ import {
   TestimonialsSection,
   GalarySection,
   BranchSection,
+  RuleSection,
   FooterSection,
 } from "@/features/landing";
 
@@ -21,6 +22,7 @@ export default function MarketingPage() {
       <TestimonialsSection />
       <GalarySection />
       <BranchSection />
+      <RuleSection />
       <FooterSection />
     </main>
   );
