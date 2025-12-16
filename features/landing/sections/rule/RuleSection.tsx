@@ -6,6 +6,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import {motion} from "framer-motion";
+import {sectionStaggerVariants, itemVariants} from "../../animations/variants";
 
 // Define a simple array of rules or FAQ items
 const appRules = [
@@ -35,33 +36,11 @@ const appRules = [
   },
 ];
 
-const sectionVariants = {
-  hidden: {opacity: 0, y: 40},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut",
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-};
-
 export default function RuleSection() {
   return (
     <motion.section
       className="w-full py-24 px-20"
-      variants={sectionVariants}
+      variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{once: true, margin: "-100px"}}

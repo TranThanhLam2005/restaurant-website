@@ -11,6 +11,15 @@ import {
 } from "@/components/ui/card";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {Star, Quote} from "lucide-react";
+import {
+  sectionVariants,
+  headingVariants,
+  containerStaggerVariants,
+  cardVariants,
+  createStarVariants,
+} from "../../animations/variants";
+
+const starVariants = createStarVariants(0.3, 0.05);
 
 const reviews = [
   {
@@ -35,54 +44,6 @@ const reviews = [
   },
 ];
 
-const sectionVariants = {
-  hidden: {opacity: 0, y: 40},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {duration: 0.8, ease: "easeOut"},
-  },
-};
-
-const headingVariants = {
-  hidden: {opacity: 0, y: 20},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {duration: 0.6},
-  },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {opacity: 0, y: 30},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
-
-const starVariants = {
-  hidden: {opacity: 0, scale: 0.6},
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {delay: 0.3 + i * 0.05},
-  }),
-};
-
 export default function TestimonialsSection() {
   return (
     <motion.section
@@ -103,7 +64,7 @@ export default function TestimonialsSection() {
       {/* Cards */}
       <motion.div
         className="grid grid-cols-2 gap-6"
-        variants={containerVariants}
+        variants={containerStaggerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{once: true}}

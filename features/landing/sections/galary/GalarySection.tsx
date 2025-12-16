@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+import {useState} from "react";
+import {motion, AnimatePresence} from "framer-motion";
+import {Badge} from "@/components/ui/badge";
+import {
+  sectionStaggerVariants,
+  itemVariants,
+  modalVariants,
+} from "../../animations/variants";
 
 /* ------------------ Data ------------------ */
 const foods = [
@@ -41,35 +46,6 @@ const foods = [
   },
 ];
 
-/* ------------------ Motion Variants ------------------ */
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut",
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
-const modalVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
 /* ------------------ Component ------------------ */
 export default function GalarySection() {
   const [selected, setSelected] = useState<any>(null);
@@ -77,10 +53,10 @@ export default function GalarySection() {
   return (
     <motion.section
       className="py-24 px-20"
-      variants={sectionVariants}
+      variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{once: true, margin: "-100px"}}
     >
       {/* ---------- Header ---------- */}
       <motion.div className="mb-12" variants={itemVariants}>
@@ -105,8 +81,8 @@ export default function GalarySection() {
               index === 1 ? "row-span-2" : "row-span-1"
             }`}
             onClick={() => setSelected(food)}
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            whileHover={{scale: 1.03}}
+            transition={{type: "spring", stiffness: 300, damping: 20}}
             style={{willChange: "transform"}}
           >
             <img
@@ -127,14 +103,14 @@ export default function GalarySection() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            transition={{ duration: 0.2 }}
+            transition={{duration: 0.2}}
             onClick={() => setSelected(null)}
           >
             <motion.div
               layoutId={selected.id}
               className="bg-background rounded-3xl overflow-hidden max-w-3xl w-full shadow-2xl"
               onClick={(e) => e.stopPropagation()}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{type: "spring", stiffness: 300, damping: 30}}
             >
               <img
                 src={selected.src}
@@ -146,9 +122,7 @@ export default function GalarySection() {
                 <h3 className="text-2xl font-semibold mb-2">
                   {selected.title}
                 </h3>
-                <p className="text-muted-foreground">
-                  {selected.content}
-                </p>
+                <p className="text-muted-foreground">{selected.content}</p>
               </div>
             </motion.div>
           </motion.div>

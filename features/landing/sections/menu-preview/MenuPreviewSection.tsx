@@ -1,19 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {useState} from "react";
+import {motion, AnimatePresence} from "framer-motion";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import {Collapsible, CollapsibleTrigger} from "@/components/ui/collapsible";
+import {Button} from "@/components/ui/button";
+import {ChevronDown} from "lucide-react";
 import {
-  Collapsible,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+  sectionVariants,
+  headingVariants,
+  expandVariants,
+  createCardIndexedVariants,
+} from "../../animations/variants";
+
+const cardVariants = createCardIndexedVariants(0.1);
 
 const datashow = [
   {
@@ -46,47 +51,6 @@ const dataHide = [
   },
 ];
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
-};
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.4,
-      ease: "easeOut",
-    },
-  }),
-};
-
-const expandVariants = {
-  hidden: { height: 0, opacity: 0 },
-  visible: {
-    height: "auto",
-    opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-  exit: { height: 0, opacity: 0, transition: { duration: 0.3 } },
-};
-
 export default function MenuPreviewSection() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -96,7 +60,7 @@ export default function MenuPreviewSection() {
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{once: true, margin: "-100px"}}
     >
       <div className="mx-auto">
         <motion.h2
@@ -114,7 +78,7 @@ export default function MenuPreviewSection() {
                 key={item.title}
                 custom={index}
                 variants={cardVariants}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                whileHover={{y: -4, transition: {duration: 0.2}}}
               >
                 <Card className="bg-background hover:bg-card hover:shadow-[6px_6px_0px_rgba(139,69,19,1)] transition-all">
                   <CardHeader>
@@ -153,7 +117,7 @@ export default function MenuPreviewSection() {
                       variants={cardVariants}
                       initial="hidden"
                       animate="visible"
-                      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                      whileHover={{y: -4, transition: {duration: 0.2}}}
                     >
                       <Card className="bg-background hover:bg-card hover:shadow-[6px_6px_0px_rgba(139,69,19,1)] transition-all">
                         <CardHeader>
@@ -184,8 +148,8 @@ export default function MenuPreviewSection() {
                 <Button variant="outline">
                   {isOpen ? "Show Less" : "Show More"}
                   <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    animate={{rotate: isOpen ? 180 : 0}}
+                    transition={{duration: 0.3}}
                     className="ml-2 inline-flex"
                   >
                     <ChevronDown className="h-4 w-4" />

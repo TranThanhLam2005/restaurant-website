@@ -4,25 +4,13 @@ import {Instagram, Facebook, Twitter, Mail, Phone, MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {motion} from "framer-motion";
-
-/* ---------------- Motion ---------------- */
-const footerVariants = {
-  hidden: {opacity: 0, y: 40},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
+import {sectionVariants} from "../../animations/variants";
 
 export default function FooterSection() {
   return (
     <motion.footer
       className="px-6 py-16 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl"
-      variants={footerVariants}
+      variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{once: true, margin: "-100px"}}

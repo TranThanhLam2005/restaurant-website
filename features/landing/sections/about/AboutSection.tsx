@@ -1,58 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
+import {Card, CardHeader, CardTitle, CardContent} from "@/components/ui/card";
+import {Clock} from "lucide-react";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
-import { Clock } from "lucide-react";
+  sectionVariants,
+  headingVariants,
+  fadeInLeftVariants,
+  fadeInRightVariants,
+  createIndexedVariants,
+} from "../../animations/variants";
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
-};
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.1, duration: 0.6 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
-const cardContainerVariants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
-const hourItemVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.2 + i * 0.1 },
-  }),
-};
+const hourItemVariants = createIndexedVariants(0.2, 0.1);
 
 export default function AboutSection() {
   return (
@@ -61,7 +20,7 @@ export default function AboutSection() {
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{once: true, margin: "-50px"}}
     >
       {/* Heading */}
       <motion.div
@@ -81,22 +40,19 @@ export default function AboutSection() {
         {/* Image */}
         <motion.div
           className="w-1/2 h-80 overflow-hidden rounded-3xl"
-          variants={itemVariants}
+          variants={fadeInLeftVariants}
         >
           <motion.img
             src="https://lh3.googleusercontent.com/n61PrfXKw0pUWPHeix8BLdk35_BNw6K4nRYvLn3k5H4GSjDzeChIGmesTdANPinMoEKQUEBoUHmefm4bkiMnzfTZBKHg0MvwdOOFrL8=s0"
             alt="Community"
             className="w-full h-full object-cover"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            whileHover={{scale: 1.05}}
+            transition={{duration: 0.3, ease: "easeOut"}}
           />
         </motion.div>
 
         {/* Card */}
-        <motion.div
-          className="w-1/2"
-          variants={cardContainerVariants}
-        >
+        <motion.div className="w-1/2" variants={fadeInRightVariants}>
           <Card>
             <CardHeader>
               <CardTitle className="text-primary text-3xl">
@@ -105,26 +61,24 @@ export default function AboutSection() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-              {[
-                "Monday - Thursday",
-                "Friday",
-                "Saturday - Sunday",
-              ].map((day, index) => (
-                <motion.div
-                  key={day}
-                  className="flex justify-between bg-background p-4 rounded-xl"
-                  custom={index}
-                  variants={hourItemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div>{day}</div>
-                  <div className="font-bold">
-                    <Clock className="inline-block w-5 h-5 mr-2 mb-1" />
-                    11:00 AM - 10:00 PM
-                  </div>
-                </motion.div>
-              ))}
+              {["Monday - Thursday", "Friday", "Saturday - Sunday"].map(
+                (day, index) => (
+                  <motion.div
+                    key={day}
+                    className="flex justify-between bg-background p-4 rounded-xl"
+                    custom={index}
+                    variants={hourItemVariants}
+                    whileHover={{scale: 1.02}}
+                    transition={{duration: 0.2}}
+                  >
+                    <div>{day}</div>
+                    <div className="font-bold">
+                      <Clock className="inline-block w-5 h-5 mr-2 mb-1" />
+                      11:00 AM - 10:00 PM
+                    </div>
+                  </motion.div>
+                )
+              )}
             </CardContent>
           </Card>
         </motion.div>

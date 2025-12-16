@@ -19,46 +19,12 @@ import {
 import {Star} from "lucide-react";
 import {useState, useEffect} from "react";
 import {motion} from "framer-motion";
-
-/* ---------------- Motion Variants ---------------- */
-const sectionVariants = {
-  hidden: {opacity: 0, y: 40},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut",
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const headingVariants = {
-  hidden: {opacity: 0, y: 20},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {duration: 0.6},
-  },
-};
-
-const cardVariants = {
-  hidden: {opacity: 0, y: 20},
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {duration: 0.5, ease: "easeOut"},
-  },
-};
-
-const progressVariants = {
-  hidden: {opacity: 0},
-  visible: {
-    opacity: 1,
-    transition: {delay: 0.3},
-  },
-};
+import {
+  sectionStaggerVariants,
+  headingVariants,
+  cardVariants,
+  progressVariants,
+} from "../../animations/variants";
 
 export default function BranchSection() {
   const [api, setApi] = useState<CarouselApi>();
@@ -108,7 +74,7 @@ export default function BranchSection() {
   return (
     <motion.section
       className="py-24 px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
-      variants={sectionVariants}
+      variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{once: true, margin: "-100px"}}
@@ -167,10 +133,7 @@ export default function BranchSection() {
       </Carousel>
 
       {/* Progress */}
-      <motion.div
-        className="mt-8 space-y-4"
-        variants={progressVariants}
-      >
+      <motion.div className="mt-8 space-y-4" variants={progressVariants}>
         <div className="text-center text-sm text-foreground">
           Branch {current} of {count}
         </div>
