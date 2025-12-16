@@ -1,11 +1,32 @@
 "use client";
+
 import {Instagram, Facebook, Twitter, Mail, Phone, MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
+import {motion} from "framer-motion";
+
+/* ---------------- Motion ---------------- */
+const footerVariants = {
+  hidden: {opacity: 0, y: 40},
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function FooterSection() {
   return (
-    <footer className="px-6 py-16 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl">
+    <motion.footer
+      className="px-6 py-16 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl"
+      variants={footerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{once: true, margin: "-100px"}}
+    >
       <div className="grid md:grid-cols-4 gap-12">
         {/* Brand */}
         <div className="space-y-4">
@@ -30,18 +51,18 @@ export default function FooterSection() {
 
         {/* Quick Links */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-lg text-[#4A3728]">Quick Links</h4>
-          <ul className="space-y-2 text-[#6B5444]">
-            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+          <h4 className="font-semibold text-lg text-primary">Quick Links</h4>
+          <ul className="space-y-2 text-foreground">
+            <li className="hover:text-primary transition-colors cursor-pointer">
               Menu
             </li>
-            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+            <li className="hover:text-primary transition-colors cursor-pointer">
               Reservations
             </li>
-            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+            <li className="hover:text-primary transition-colors cursor-pointer">
               About Us
             </li>
-            <li className="hover:text-[#4A3728] transition-colors cursor-pointer">
+            <li className="hover:text-primary transition-colors cursor-pointer">
               Contact
             </li>
           </ul>
@@ -49,10 +70,10 @@ export default function FooterSection() {
 
         {/* Hours */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-lg text-[#4A3728]">
+          <h4 className="font-semibold text-lg text-foreground">
             Opening Hours
           </h4>
-          <ul className="space-y-2 text-[#6B5444]">
+          <ul className="space-y-2 text-foreground">
             <li>Monday - Friday: 11am - 11pm</li>
             <li>Saturday: 10am - 12am</li>
             <li>Sunday: 10am - 10pm</li>
@@ -61,8 +82,8 @@ export default function FooterSection() {
 
         {/* Contact */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-lg text-[#4A3728]">Contact</h4>
-          <ul className="space-y-3 text-[#6B5444]">
+          <h4 className="font-semibold text-lg text-foreground">Contact</h4>
+          <ul className="space-y-3 text-foreground">
             <li className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
               <span>123 Restaurant St, City</span>
@@ -78,11 +99,12 @@ export default function FooterSection() {
           </ul>
         </div>
       </div>
+
       <Separator className="my-12" />
 
       <div className="text-center text-foreground text-sm">
         <p>© 2025 RoadHouse. All rights reserved.</p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

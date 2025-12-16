@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import {motion} from "framer-motion";
 
 // Define a simple array of rules or FAQ items
 const appRules = [
@@ -34,13 +35,44 @@ const appRules = [
   },
 ];
 
+const sectionVariants = {
+  hidden: {opacity: 0, y: 40},
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
+
 export default function RuleSection() {
   return (
-    <div className="w-full py-24 px-20 ">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <motion.section
+      className="w-full py-24 px-20"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{once: true, margin: "-100px"}}
+    >
+      {/* Title */}
+      <motion.h1
+        className="text-3xl font-bold mb-6 text-center"
+        variants={itemVariants}
+      >
         App Rules & Guidelines
-      </h1>
-
+      </motion.h1>
       <Accordion type="single" collapsible className="w-full">
         {appRules.map((rule) => (
           <AccordionItem key={rule.id} value={rule.id}>
@@ -50,10 +82,14 @@ export default function RuleSection() {
         ))}
       </Accordion>
 
-      <p className="mt-8 text-center text-sm text-foreground">
+      {/* Footer text */}
+      <motion.p
+        className="mt-8 text-center text-sm text-foreground"
+        variants={itemVariants}
+      >
         By using this service, you agree to abide by these rules and the full
         Terms of Service.
-      </p>
-    </div>
+      </motion.p>
+    </motion.section>
   );
 }
