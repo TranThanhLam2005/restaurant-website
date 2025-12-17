@@ -56,7 +56,7 @@ export default function MenuPreviewSection() {
 
   return (
     <motion.section
-      className="py-24 px-20"
+      className="px-2 py-6 md:py-24 md:px-20"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -64,7 +64,7 @@ export default function MenuPreviewSection() {
     >
       <div className="mx-auto">
         <motion.h2
-          className="text-4xl font-bold tracking-tight text-primary text-center mb-20"
+          className="text-4xl font-bold tracking-tight text-primary text-center mb-8 md:mb-20"
           variants={headingVariants}
         >
           Featured Menu Items

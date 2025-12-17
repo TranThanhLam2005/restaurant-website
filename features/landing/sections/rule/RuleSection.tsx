@@ -39,7 +39,7 @@ const appRules = [
 export default function RuleSection() {
   return (
     <motion.section
-      className="w-full py-24 px-20"
+      className="w-full px-2 py-6 md:py-24 md:px-20"
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"

@@ -52,18 +52,18 @@ export default function GalarySection() {
 
   return (
     <motion.section
-      className="py-24 px-20"
+      className="px-2 py-6 md:py-24 md:px-20"
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{once: true, margin: "-100px"}}
     >
       {/* ---------- Header ---------- */}
-      <motion.div className="mb-12" variants={itemVariants}>
+      <motion.div className="mb-6 md:mb-12" variants={itemVariants}>
         <h2 className="text-4xl text-primary font-bold tracking-tight mb-4">
           PHOTOS
         </h2>
-        <motion.div className="flex gap-3" variants={itemVariants}>
+        <motion.div className="flex flex-wrap gap-2 md:gap-3" variants={itemVariants}>
           <Badge>Outdoor Seating</Badge>
           <Badge>Cozy Interior</Badge>
           <Badge>Delicious Dishes</Badge>

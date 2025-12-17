@@ -19,6 +19,7 @@ import {
 import {Star} from "lucide-react";
 import {useState, useEffect} from "react";
 import {motion} from "framer-motion";
+import {useIsMobile} from "@/hooks/use-mobile";
 import {
   sectionStaggerVariants,
   headingVariants,
@@ -30,6 +31,7 @@ export default function BranchSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (!api) return;
@@ -73,7 +75,7 @@ export default function BranchSection() {
 
   return (
     <motion.section
-      className="py-24 px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
+      className="px-2 py-6 md:py-24 md:px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
@@ -81,16 +83,19 @@ export default function BranchSection() {
     >
       {/* Heading */}
       <motion.h2
-        className="text-4xl font-bold tracking-tight mb-12 text-primary"
+        className="text-4xl font-bold tracking-tight mb-12 text-primary text-center md:text-left"
         variants={headingVariants}
       >
         PEOPLE ALSO SEARCHED
       </motion.h2>
 
       {/* Carousel */}
-      <Carousel setApi={setApi}>
+      <Carousel
+        setApi={setApi}
+        orientation={isMobile ? "vertical" : "horizontal"}
+      >
         <CarouselContent className="py-2">
-          {branches.map((branch, index) => (
+          {(isMobile ? branches.slice(0, 2) : branches).map((branch, index) => (
             <CarouselItem key={index}>
               <motion.div
                 variants={cardVariants}
@@ -128,8 +133,14 @@ export default function BranchSection() {
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="-left-12 bg-background text-foreground hover:text-primary" />
-        <CarouselNext className="-right-12 bg-background text-foreground hover:text-primary" />
+        {!isMobile ? (
+          <>
+            <CarouselPrevious className="-left-12 bg-background text-foreground hover:text-primary" />
+            <CarouselNext className="-right-12 bg-background text-foreground hover:text-primary" />
+          </>
+        ) : (
+          <></>
+        )}
       </Carousel>
 
       {/* Progress */}

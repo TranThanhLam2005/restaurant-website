@@ -36,10 +36,10 @@ export default function AboutSection() {
         </p>
       </motion.div>
 
-      <div className="flex gap-2 items-center">
+      <div className="flex flex-col md:flex-row gap-2 items-center">
         {/* Image */}
         <motion.div
-          className="w-1/2 h-80 overflow-hidden rounded-3xl"
+          className="w-full md:w-1/2 h-80 overflow-hidden rounded-3xl"
           variants={fadeInLeftVariants}
         >
           <motion.img
@@ -52,7 +52,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* Card */}
-        <motion.div className="w-1/2" variants={fadeInRightVariants}>
+        <motion.div className="w-full md:w-1/2" variants={fadeInRightVariants}>
           <Card>
             <CardHeader>
               <CardTitle className="text-primary text-3xl">
@@ -65,7 +65,7 @@ export default function AboutSection() {
                 (day, index) => (
                   <motion.div
                     key={day}
-                    className="flex justify-between bg-background p-4 rounded-xl"
+                    className="flex flex-col md:flex-row justify-between items-center bg-background p-4 rounded-xl"
                     custom={index}
                     variants={hourItemVariants}
                     whileHover={{scale: 1.02}}

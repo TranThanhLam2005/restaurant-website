@@ -47,7 +47,7 @@ const reviews = [
 export default function TestimonialsSection() {
   return (
     <motion.section
-      className="bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] py-24 px-20 rounded-4xl"
+      className="px-2 py-6 md:py-24 md:px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
 
       {/* Cards */}
       <motion.div
-        className="grid grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
         variants={containerStaggerVariants}
         initial="hidden"
         whileInView="visible"

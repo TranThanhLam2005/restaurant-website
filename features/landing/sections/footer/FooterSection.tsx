@@ -9,13 +9,13 @@ import {sectionVariants} from "../../animations/variants";
 export default function FooterSection() {
   return (
     <motion.footer
-      className="px-6 py-16 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl"
+      className="px-2 py-6 md:py-16 md:px-6 bg-gradient-to-b from-[#D4C4B0] to-[#C4B5A0] rounded-4xl"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{once: true, margin: "-100px"}}
     >
-      <div className="grid md:grid-cols-4 gap-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left text-xs md:text-base">
         {/* Brand */}
         <div className="space-y-4">
           <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
@@ -88,7 +88,7 @@ export default function FooterSection() {
         </div>
       </div>
 
-      <Separator className="my-12" />
+      <Separator className="my-6 md:my-12" />
 
       <div className="text-center text-foreground text-sm">
         <p>© 2025 RoadHouse. All rights reserved.</p>
