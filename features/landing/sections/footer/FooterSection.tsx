@@ -13,7 +13,7 @@ export default function FooterSection() {
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left text-xs md:text-base">
         {/* Brand */}

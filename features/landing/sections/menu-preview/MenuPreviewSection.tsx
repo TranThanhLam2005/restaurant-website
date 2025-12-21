@@ -56,11 +56,12 @@ export default function MenuPreviewSection() {
 
   return (
     <motion.section
+      id="menu"
       className="px-2 py-6 md:py-24 md:px-20"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       <div className="mx-auto">
         <motion.h2

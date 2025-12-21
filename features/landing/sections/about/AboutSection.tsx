@@ -20,7 +20,7 @@ export default function AboutSection() {
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-50px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       {/* Heading */}
       <motion.div

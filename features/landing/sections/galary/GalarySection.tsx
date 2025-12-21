@@ -9,7 +9,6 @@ import {
   modalVariants,
 } from "../../animations/variants";
 
-/* ------------------ Data ------------------ */
 const foods = [
   {
     id: "food1",
@@ -46,7 +45,6 @@ const foods = [
   },
 ];
 
-/* ------------------ Component ------------------ */
 export default function GalarySection() {
   const [selected, setSelected] = useState<any>(null);
 
@@ -56,21 +54,22 @@ export default function GalarySection() {
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
-      {/* ---------- Header ---------- */}
       <motion.div className="mb-6 md:mb-12" variants={itemVariants}>
         <h2 className="text-4xl text-primary font-bold tracking-tight mb-4">
           PHOTOS
         </h2>
-        <motion.div className="flex flex-wrap gap-2 md:gap-3" variants={itemVariants}>
+        <motion.div
+          className="flex flex-wrap gap-2 md:gap-3"
+          variants={itemVariants}
+        >
           <Badge>Outdoor Seating</Badge>
           <Badge>Cozy Interior</Badge>
           <Badge>Delicious Dishes</Badge>
         </motion.div>
       </motion.div>
 
-      {/* ---------- Grid ---------- */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[150px] md:auto-rows-[250px]">
         {foods.map((food, index) => (
           <motion.div
@@ -98,7 +97,7 @@ export default function GalarySection() {
       <AnimatePresence>
         {selected && (
           <motion.div
-            className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center px-6 mt-6 md:mt-0"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -115,7 +114,7 @@ export default function GalarySection() {
               <img
                 src={selected.src}
                 alt={selected.title}
-                className="w-full h-[400px] object-cover"
+                className="w-full h-[320px] md:h-[400px] object-cover"
               />
 
               <div className="p-6">

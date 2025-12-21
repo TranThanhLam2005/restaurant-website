@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardFooter,
   CardTitle,
+  CardContent,
   CardDescription,
 } from "@/components/ui/card";
 import {Star} from "lucide-react";
@@ -44,30 +45,35 @@ export default function BranchSection() {
     {
       name: "Downtown Branch",
       description: "Our flagship location in the heart of the city",
+      location: "123 Main St, Cityville",
       image:
         "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Waterfront Branch",
       description: "Stunning views with exceptional dining",
+      location: "456 Ocean Ave, Seaside",
       image:
         "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Garden District",
       description: "Intimate dining in a charming neighborhood",
+      location: "789 Garden St, Greenfield",
       image:
         "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Garden District",
       description: "Intimate dining in a charming neighborhood",
+      location: "899 Ocean Park, New York",
       image:
         "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
     {
       name: "Garden District",
       description: "Intimate dining in a charming neighborhood",
+      location: "321 Sunset Blvd, Los Angeles",
       image:
         "https://vcdn1-english.vnecdn.net/2025/11/07/5-1762499974.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=9Gk5E04oZzB58k3LCe33EA",
     },
@@ -75,11 +81,12 @@ export default function BranchSection() {
 
   return (
     <motion.section
+      id="branches"
       className="px-2 py-6 md:py-24 md:px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       {/* Heading */}
       <motion.h2
@@ -114,7 +121,7 @@ export default function BranchSection() {
                     <CardTitle>{branch.name}</CardTitle>
                     <CardDescription>{branch.description}</CardDescription>
                   </CardHeader>
-
+                  <CardContent>{branch.location}</CardContent>
                   <CardFooter>
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (

@@ -1,5 +1,4 @@
 // Landing page entry
-
 import {
   HeroSection,
   HeroCTA,

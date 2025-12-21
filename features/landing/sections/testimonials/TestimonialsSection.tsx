@@ -47,11 +47,12 @@ const reviews = [
 export default function TestimonialsSection() {
   return (
     <motion.section
+      id="testimonials"
       className="px-2 py-6 md:py-24 md:px-20 bg-gradient-to-b from-[#E8DED0] to-[#F5F1EB] rounded-4xl"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       {/* Title */}
       <motion.h2

@@ -1,7 +1,23 @@
 "use client";
-import {Tabs, TabsList, TabsTrigger, TabsContent} from "@/components/ui/tabs";
+import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
+import {Button} from "@/components/ui/button";
 import {Search} from "lucide-react";
+
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const headerHeight = 40; // Height of fixed header
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
 export default function HeroCTA() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
@@ -11,15 +27,30 @@ export default function HeroCTA() {
         </h1>
         <Tabs defaultValue="home" className="hidden md:block">
           <TabsList>
-            <TabsTrigger value="home">Home</TabsTrigger>
-            <TabsTrigger value="explore">Explore</TabsTrigger>
-            <TabsTrigger value="favorites">Favorites</TabsTrigger>
+            <TabsTrigger value="home" onClick={() => scrollToSection("hero")}>
+              Home
+            </TabsTrigger>
+            <TabsTrigger value="menu" onClick={() => scrollToSection("menu")}>
+              Menu
+            </TabsTrigger>
+            <TabsTrigger
+              value="testimonials"
+              onClick={() => scrollToSection("testimonials")}
+            >
+              Testimonials
+            </TabsTrigger>
+            <TabsTrigger
+              value="branches"
+              onClick={() => scrollToSection("branches")}
+            >
+              Branches
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="flex items-center gap-4">
-          <div className="bg-muted p-2 rounded-full">
-            <Search className="w-5 h-5 text-foreground" />
-          </div>
+          <Button className="items-center gap-2" variant="outline">
+            Book Now
+          </Button>
           <Avatar>
             <AvatarImage
               src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"

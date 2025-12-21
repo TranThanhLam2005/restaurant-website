@@ -43,7 +43,7 @@ export default function RuleSection() {
       variants={sectionStaggerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: true, margin: "-100px"}}
+      viewport={{once: true, margin: "-10% 0px"}}
     >
       {/* Title */}
       <motion.h1
