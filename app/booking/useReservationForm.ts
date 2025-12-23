@@ -4,7 +4,7 @@ export interface ReservationFormData {
   // Step 1: Location & Date
   location: string;
   city: string;
-  guests: number;
+  guests: string;
   branch: string;
   specialNote: string;
   date: Date | undefined;
@@ -49,7 +49,7 @@ const initialFormData: ReservationFormData = {
   location: "",
   city: "",
   branch: "",
-  guests: 1,
+  guests: "1",
   specialNote: "",
   date: undefined,
   checkInTime: "",

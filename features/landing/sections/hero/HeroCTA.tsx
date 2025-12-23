@@ -1,8 +1,9 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
-import {Search} from "lucide-react";
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -19,6 +20,7 @@ const scrollToSection = (sectionId: string) => {
 };
 
 export default function HeroCTA() {
+  const router = useRouter();
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -48,7 +50,7 @@ export default function HeroCTA() {
           </TabsList>
         </Tabs>
         <div className="flex items-center gap-4">
-          <Button className="items-center gap-2" variant="outline">
+          <Button className="items-center gap-2" variant="outline" onClick = {() => router.push('/booking')}>
             Book Now
           </Button>
           <Avatar>
