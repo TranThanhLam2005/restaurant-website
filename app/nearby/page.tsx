@@ -1,4 +1,9 @@
+"use client";
+
+import {useState} from "react";
 import {HeroSection} from "@/features/booking";
+import {US_STATES_CITIES} from "@/app/booking/locationData";
+import {GoogleMapsEmbed} from "@next/third-parties/google";
 
 import {
   Card,
@@ -6,30 +11,53 @@ import {
   CardTitle,
   CardFooter,
   CardAction,
-  CardDescription,
   CardContent,
 } from "@/components/ui/card";
 
+import {Label} from "@/components/ui/label";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupText,
-  InputGroupInput,
-  InputGroupTextarea,} from "@/components/ui/input-group";
+import {Input} from "@/components/ui/input";
 
 export default function NearbyPage() {
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const currentStateData = US_STATES_CITIES.find(
+    (state) => state.value === selectedState
+  );
+  const cities = currentStateData?.cities || [];
+
+  const mapQuery =
+    selectedState || selectedCity
+      ? `${selectedCity.replace("-", " ")},${selectedState.replace(
+          "-",
+          " "
+        )} texas roadhouse`
+      : "texas roadhouse near me";
   return (
     <div>
       <HeroSection />
-      <div className="mx-40 my-24 flex flex-col gap-10">
+      <div className="flex flex-col mx-40 my-24 gap-10">
         <Card className="flex flex-row gap-10 p-10">
           <img
             src="https://www.eatthis.com/wp-content/uploads/sites/4/2021/08/texas-roadhouse-exterior.jpg?quality=82&strip=1"
             alt="Nearby Location"
             className="w-1/3 h-auto rounded-4xl shadow-lg"
-          ></img>
-          <div className="flex flex-1 flex-col gap-6">
+          />
+          <div className="flex flex-col flex-1 gap-6">
             <div className="flex items-center justify-around">
               <div className="flex flex-col items-center gap-2">
                 <img
@@ -77,9 +105,9 @@ export default function NearbyPage() {
                   id="dine-in"
                   className="border-black"
                 />
-                <label htmlFor="dine-in" className="cursor-pointer">
+                <Label htmlFor="dine-in" className="cursor-pointer">
                   Dine In
-                </label>
+                </Label>
               </div>
               <div className="flex items-center gap-2">
                 <RadioGroupItem
@@ -87,9 +115,9 @@ export default function NearbyPage() {
                   id="takeaway"
                   className="border-black"
                 />
-                <label htmlFor="takeaway" className="cursor-pointer">
+                <Label htmlFor="takeaway" className="cursor-pointer">
                   Take Away
-                </label>
+                </Label>
               </div>
               <div className="flex items-center gap-2">
                 <RadioGroupItem
@@ -97,26 +125,73 @@ export default function NearbyPage() {
                   id="delivery"
                   className="border-black"
                 />
-                <label htmlFor="delivery" className="cursor-pointer">
+                <Label htmlFor="delivery" className="cursor-pointer">
                   Delivery
-                </label>
+                </Label>
               </div>
             </RadioGroup>
-            {/* <InputGroup className="mt-8 max-w-lg mx-auto">
-              <InputGroupAddon align="inline-start">
-                <InputGroupText>📍</InputGroupText>
-              </InputGroupAddon>
-              <InputGroupInput
+            <div className="flex items-center justify-center gap-4">
+              <Input
                 type="text"
-                placeholder="Enter your location"
-                className="flex-1"
+                placeholder="Enter your location to find nearby restaurants"
+                className="border-black w-1/3"
               />
-              <InputGroupButton size="sm">Search</InputGroupButton>
-            </InputGroup> */}
-
+              <Select
+                value={selectedState}
+                onValueChange={(value) => {
+                  setSelectedState(value);
+                  setSelectedCity("");
+                }}
+              >
+                <SelectTrigger className="w-[180px] border-black">
+                  <SelectValue placeholder="Select state" />
+                </SelectTrigger>
+                <SelectContent className="border-black">
+                  <SelectScrollUpButton />
+                  <SelectGroup>
+                    <SelectLabel>State</SelectLabel>
+                    {US_STATES_CITIES.map((state, id) => (
+                      <SelectItem key={id} value={state.value}>
+                        {state.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                  <SelectScrollDownButton />
+                </SelectContent>
+              </Select>
+              <Select
+                value={selectedCity}
+                onValueChange={setSelectedCity}
+                disabled={!selectedState}
+              >
+                <SelectTrigger className="w-[180px] border-black">
+                  <SelectValue placeholder="Select city" />
+                </SelectTrigger>
+                <SelectContent className="border-black">
+                  <SelectScrollUpButton />
+                  <SelectGroup>
+                    <SelectLabel>Choose your city</SelectLabel>
+                    {cities.map((city, id) => (
+                      <SelectItem key={id} value={city.value}>
+                        {city.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                  <SelectScrollDownButton />
+                </SelectContent>
+              </Select>
+            </div>
           </CardHeader>
           <CardContent>
-            {/* Content for finding nearby locations can be added here */}
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <GoogleMapsEmbed
+                apiKey={process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY || ""}
+                height={500}
+                width="100%"
+                mode="place"
+                q={mapQuery}
+              />
+            </div>
           </CardContent>
           <CardFooter>
             <CardAction>
