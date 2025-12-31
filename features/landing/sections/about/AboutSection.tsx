@@ -1,6 +1,7 @@
 "use client";
 
 import {motion} from "framer-motion";
+import {GoogleMapsEmbed} from "@next/third-parties/google";
 import {Card, CardHeader, CardTitle, CardContent} from "@/components/ui/card";
 import {Clock} from "lucide-react";
 import {
@@ -42,12 +43,12 @@ export default function AboutSection() {
           className="w-full md:w-1/2 h-80 overflow-hidden rounded-3xl"
           variants={fadeInLeftVariants}
         >
-          <motion.img
-            src="https://lh3.googleusercontent.com/n61PrfXKw0pUWPHeix8BLdk35_BNw6K4nRYvLn3k5H4GSjDzeChIGmesTdANPinMoEKQUEBoUHmefm4bkiMnzfTZBKHg0MvwdOOFrL8=s0"
-            alt="Community"
-            className="w-full h-full object-cover"
-            whileHover={{scale: 1.05}}
-            transition={{duration: 0.3, ease: "easeOut"}}
+          <GoogleMapsEmbed
+            apiKey={process.env.NEXT_PUBLIC_GOOGLEMAP_API_KEY || ""}
+            height={500}
+            width="100%"
+            mode="place"
+            q={"RoadHouse Restaurant, New York, NY"}
           />
         </motion.div>
 

@@ -19,7 +19,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
-export default function HeroSection() {
+export default function AppHeader() {
   const router = useRouter();
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">

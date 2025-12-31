@@ -1,5 +1,4 @@
-import {HeroSection} from "@/features/booking";
-
+"use client";
 import {
   Select,
   SelectContent,
@@ -41,7 +40,6 @@ import {Separator} from "@/components/ui/separator";
 export default function ReservationPage() {
   return (
     <div>
-      <HeroSection />
       <div className="max-w-3xl mx-auto mt-24 text-center">
         <Tabs defaultValue="all" className="hidden md:block">
           <TabsList>
