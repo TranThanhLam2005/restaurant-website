@@ -1,13 +1,12 @@
 "use client";
-import {useState, useEffect} from "react";
-import {
-  useStates,
-  useCities,
-  useBranches,
-} from "@/features/booking/hooks";
 
+// import hooks and store
+import {useCities, useBranches} from "@/features/booking/hooks";
 import {useBookingStore} from "@/features/booking/store/useBookingStore";
+import {BookingSectionProps} from "@/features/booking/types";
 
+
+// import UI components
 import {
   Select,
   SelectContent,
@@ -18,25 +17,23 @@ import {
 import {Badge} from "@/components/ui/badge";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {Map} from "lucide-react";
 import {Card, CardHeader, CardTitle} from "@/components/ui/card";
 
-export default function BookingSelectedSection() {
+
+// import icons
+import {Map} from "lucide-react";
+
+export default function BookingSelectedSection({
+  states,
+}: BookingSectionProps) {
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
 
-  const {data: states, isLoading, error} = useStates();
-  const {
-    data: cities,
-    isLoading: citiesLoading,
-    refetch: refetchCities,
-  } = useCities(formData.stateId);
-  const {
-    data: branches,
-    isLoading: branchesLoading,
-    refetch: refetchBranches,
-  } = useBranches(formData.cityId);
+  const {data: cities, isLoading: citiesLoading} = useCities(formData.stateId);
+  const {data: branches, isLoading: branchesLoading} = useBranches(
+    formData.cityId
+  );
   return (
     <div>
       <img
@@ -113,21 +110,29 @@ export default function BookingSelectedSection() {
             <p className="text-sm italic text-muted-foreground">
               Please select a state and city to see available restaurants.
             </p>
-          ) : (
-            branches?.map((branch, id) => (
+          ) : branchesLoading ? (
+            <p className="text-sm italic text-muted-foreground">
+              Loading restaurants...
+            </p>
+          ) : branches?.length ? (
+            branches.map((branch, id) => (
               <Card key={id} className="gap-1 px-2">
                 <CardHeader>
                   <CardTitle>{branch.address}</CardTitle>
                 </CardHeader>
                 <div className="flex items-center">
                   <Badge variant="secondary">{branch.phoneNumber}</Badge>
-                  <Button variant="link" onClick={() => setIsDialogOpen(true)}>
+                  <Button variant="link">
                     <Map size={24} />
                     Google Maps
                   </Button>
                 </div>
               </Card>
             ))
+          ) : (
+            <p className="text-sm italic text-muted-foreground">
+              No restaurants available in this city.
+            </p>
           )}
         </div>
       </div>

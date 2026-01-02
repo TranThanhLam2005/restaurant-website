@@ -1,7 +1,22 @@
 // features/booking/services.ts
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
-import {BookingFormData} from "./types";
+import {BookingFormData, State} from "./types";
 
+// Server-side function for fetching states (SSR/SSG)
+export async function getStatesServer(): Promise<State[]> {
+  try {
+    const res = await fetch(`${API}/states`, {
+      next: {revalidate: 3600}, // Cache for 1 hour
+    });
+    if (!res.ok) throw new Error("Failed to fetch states");
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching states:", error);
+    return [];
+  }
+}
+
+// Client-side API functions
 export const bookingApi = {
   getStates: async () => fetch(`${API}/states`).then((res) => res.json()),
 

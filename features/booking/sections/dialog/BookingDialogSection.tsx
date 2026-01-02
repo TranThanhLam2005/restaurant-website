@@ -1,20 +1,17 @@
 "use client";
-import {useStates, useCities, useBranches} from "@/features/booking/hooks";
+
+// import hooks and store
+import {useCities, useBranches} from "@/features/booking/hooks";
 import {useBookingStore} from "@/features/booking/store/useBookingStore";
+import {BookingSectionProps} from "@/features/booking/types";
+
+// import UI components
 import {Popover, PopoverTrigger, PopoverContent} from "@/components/ui/popover";
 import {Checkbox} from "@/components/ui/checkbox";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {Input} from "@/components/ui/input";
-import {
-  CalendarIcon,
-  ChevronLeft,
-  CheckCircle2,
-  ChevronRight,
-} from "lucide-react";
-import {format} from "date-fns";
-import {Calendar} from "@/components/ui/calendar";
-
 import {Progress} from "@/components/ui/progress";
+import {Calendar} from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -34,7 +31,18 @@ import {
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 
-export default function BookingDialogSection() {
+// import icons and utilities
+import {
+  CalendarIcon,
+  ChevronLeft,
+  CheckCircle2,
+  ChevronRight,
+} from "lucide-react";
+import {format} from "date-fns";
+
+export default function BookingDialogSection({
+  states,
+}: BookingSectionProps) {
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
   const currentStep = useBookingStore((state) => state.currentStep);
@@ -44,7 +52,6 @@ export default function BookingDialogSection() {
   const canProceed = useBookingStore((state) => state.canProceed());
   const isDialogOpen = useBookingStore((state) => state.isDialogOpen);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
-  const {data: states, isLoading, error} = useStates();
   const {
     data: cities,
     isLoading: citiesLoading,
@@ -55,7 +62,6 @@ export default function BookingDialogSection() {
     isLoading: branchesLoading,
     refetch: refetchBranches,
   } = useBranches(formData.cityId);
-  console.log("Dialog open state:", isDialogOpen);
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="sm:max-w-[450px]">
@@ -132,11 +138,21 @@ export default function BookingDialogSection() {
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      {cities?.map((city) => (
-                        <SelectItem key={city.id} value={city.name}>
-                          {city.name}
-                        </SelectItem>
-                      ))}
+                      {citiesLoading ? (
+                        <div className="p-2 text-sm text-muted-foreground">
+                          Loading cities...
+                        </div>
+                      ) : cities?.length ? (
+                        cities.map((city) => (
+                          <SelectItem key={city.id} value={city.name}>
+                            {city.name}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <div className="p-2 text-sm text-muted-foreground">
+                          No cities available
+                        </div>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
@@ -155,11 +171,21 @@ export default function BookingDialogSection() {
                     <SelectValue placeholder="Select a address" />
                   </SelectTrigger>
                   <SelectContent>
-                    {branches?.map((branch, id) => (
-                      <SelectItem key={id} value={branch.address}>
-                        {branch.address}
-                      </SelectItem>
-                    ))}
+                    {branchesLoading ? (
+                      <div className="p-2 text-sm text-muted-foreground">
+                        Loading branches...
+                      </div>
+                    ) : branches?.length ? (
+                      branches.map((branch, id) => (
+                        <SelectItem key={id} value={branch.address}>
+                          {branch.address}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <div className="p-2 text-sm text-muted-foreground">
+                        No branches available
+                      </div>
+                    )}
                   </SelectContent>
                 </Select>
               </div>

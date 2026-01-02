@@ -1,10 +1,12 @@
 import {BookingSelectedSection, BookingDialogSection} from "@/features/booking";
+import {getStatesServer} from "@/features/booking/services";
 
-export default function BookingPage() {
+export default async function BookingPage() {
+  const states = await getStatesServer();  
   return (
     <>
-      <BookingDialogSection />
-      <BookingSelectedSection />
+      <BookingDialogSection states={states} />
+      <BookingSelectedSection states={states} />
     </>
   );
 }

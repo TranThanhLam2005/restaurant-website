@@ -61,3 +61,7 @@ export interface UseBookingFormReturn {
   isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
 }
+
+export interface BookingSectionProps {
+  states: State[];
+}
