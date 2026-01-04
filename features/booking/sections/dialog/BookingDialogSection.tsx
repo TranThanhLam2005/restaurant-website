@@ -1,5 +1,8 @@
 "use client";
 
+import {useState} from "react";
+import {cn} from "@/lib/utils";
+
 // import hooks and store
 import {useCities, useBranches} from "@/features/booking/hooks";
 import {useBookingStore} from "@/features/booking/store/useBookingStore";
@@ -30,6 +33,14 @@ import {
 } from "@/components/ui/select";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 // import icons and utilities
 import {
@@ -37,12 +48,12 @@ import {
   ChevronLeft,
   CheckCircle2,
   ChevronRight,
+  Check,
+  ChevronsUpDown,
 } from "lucide-react";
 import {format} from "date-fns";
 
-export default function BookingDialogSection({
-  states,
-}: BookingSectionProps) {
+export default function BookingDialogSection({states}: BookingSectionProps) {
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
   const currentStep = useBookingStore((state) => state.currentStep);
@@ -52,16 +63,12 @@ export default function BookingDialogSection({
   const canProceed = useBookingStore((state) => state.canProceed());
   const isDialogOpen = useBookingStore((state) => state.isDialogOpen);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
-  const {
-    data: cities,
-    isLoading: citiesLoading,
-    refetch: refetchCities,
-  } = useCities(formData.stateId);
-  const {
-    data: branches,
-    isLoading: branchesLoading,
-    refetch: refetchBranches,
-  } = useBranches(formData.cityId);
+
+  const [open, setOpen] = useState(false);
+  const {data: cities, isLoading: citiesLoading} = useCities(formData.stateId);
+  const {data: branches, isLoading: branchesLoading} = useBranches(
+    formData.cityId
+  );
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="sm:max-w-[450px]">
@@ -88,7 +95,7 @@ export default function BookingDialogSection({
                   <Label htmlFor="location" required>
                     Location
                   </Label>
-                  <Select
+                  {/* <Select
                     onValueChange={(value) => {
                       updateField("state", value);
                       updateField(
@@ -110,7 +117,60 @@ export default function BookingDialogSection({
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={open}
+                        className="w-48 justify-between"
+                      >
+                        {formData.state ? formData.state : "Select State..."}
+                        <ChevronsUpDown />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-48 p-0">
+                      <Command>
+                        <CommandInput
+                          placeholder="Search State..."
+                          className="h-9"
+                        />
+                        <CommandList>
+                          <CommandEmpty>No state found.</CommandEmpty>
+                          <CommandGroup>
+                            {states.map((state) => (
+                              <CommandItem
+                                key={state.id}
+                                value={state.name}
+                                onSelect={(currentValue) => {
+                                  updateField("state", currentValue);
+                                  updateField(
+                                    "stateId",
+                                    states?.find((s) => s.name === currentValue)
+                                      ?.id || ""
+                                  );
+                                  updateField("city", ""); // Reset city when state changes
+                                  updateField("branch", ""); // Reset branch when state changes
+                                  setOpen(false);
+                                }}
+                              >
+                                {state.name}
+                                <Check
+                                  className={cn(
+                                    "ml-auto",
+                                    formData.state === state.name
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="city" required>
@@ -326,7 +386,7 @@ export default function BookingDialogSection({
                   </span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Branch:</span>
+                  <span className="text-sm font-medium">Address:</span>
                   <span className="text-sm capitalize">
                     {formData.branch || "Not selected"}
                   </span>

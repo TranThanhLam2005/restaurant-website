@@ -34,34 +34,52 @@ export interface BookingFormData {
   receiveOffers: boolean;
 }
 
-export interface UseBookingFormReturn {
-  // Form data
-  formData: BookingFormData;
+// export interface UseBookingFormReturn {
+//   // Form data
+//   formData: BookingFormData;
 
-  // Form actions
+//   // Form actions
+//   updateField: <K extends keyof BookingFormData>(
+//     field: K,
+//     value: BookingFormData[K]
+//   ) => void;
+
+//   // Step management
+//   currentStep: number;
+//   totalSteps: number;
+//   nextStep: () => void;
+//   prevStep: () => void;
+//   goToStep: (step: number) => void;
+//   progressValue: number;
+
+//   // Validation
+//   isStepValid: (step: number) => boolean;
+//   canProceed: boolean;
+
+//   // UI State
+//   isDialogOpen: boolean;
+//   setIsDialogOpen: (open: boolean) => void;
+// }
+
+export interface BookingSectionProps {
+  states: State[];
+}
+
+export interface BookingStore {
+  formData: BookingFormData;
+  currentStep: number;
+  isDialogOpen: boolean;
+  totalSteps: number;
   updateField: <K extends keyof BookingFormData>(
     field: K,
     value: BookingFormData[K]
   ) => void;
-  resetForm: () => void;
-
-  // Step management
-  currentStep: number;
-  totalSteps: number;
+  setCurrentStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
-  goToStep: (step: number) => void;
-  progressValue: number;
-
-  // Validation
-  isStepValid: (step: number) => boolean;
-  canProceed: boolean;
-
-  // UI State
-  isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
-}
-
-export interface BookingSectionProps {
-  states: State[];
+  isStepValid: (step: number) => boolean;
+  canProceed: () => boolean;
+  progressValue: () => number;
+  syncStepWithValidation: () => void;
 }

@@ -57,7 +57,7 @@
   --card-foreground: oklch(47.778% 0.08757 46.093);
   /* Light warm popover */
   --popover: oklch(0.98 0.006 75);
-  --popover-foreground: oklch(0.25 0.025 50);
+  --popover-foreground: oklch(0.5 0.02 55);
   /* Rich dark brown primary */
   --primary: oklch(40.153% 0.09515 43.479);
   --primary-foreground: oklch(0.97 0.008 85);

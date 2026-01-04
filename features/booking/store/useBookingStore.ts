@@ -1,7 +1,7 @@
 "use client";
 
 import {create} from "zustand";
-import {BookingFormData} from "../types";
+import {BookingFormData, BookingStore} from "../types";
 
 const initialFormData: BookingFormData = {
   state: "",
@@ -19,26 +19,6 @@ const initialFormData: BookingFormData = {
   receiveOffers: false,
 };
 
-interface BookingStore {
-  formData: BookingFormData;
-  currentStep: number;
-  isDialogOpen: boolean;
-  totalSteps: number;
-  updateField: <K extends keyof BookingFormData>(
-    field: K,
-    value: BookingFormData[K]
-  ) => void;
-  resetForm: () => void;
-  setCurrentStep: (step: number) => void;
-  nextStep: () => void;
-  prevStep: () => void;
-  goToStep: (step: number) => void;
-  setIsDialogOpen: (open: boolean) => void;
-  isStepValid: (step: number) => boolean;
-  canProceed: () => boolean;
-  progressValue: () => number;
-}
-
 export const useBookingStore = create<BookingStore>((set, get) => ({
   formData: initialFormData,
   currentStep: 1,
@@ -49,12 +29,6 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     set((state) => ({
       formData: {...state.formData, [field]: value},
     })),
-
-  resetForm: () =>
-    set({
-      formData: initialFormData,
-      currentStep: 1,
-    }),
 
   setCurrentStep: (step) => set({currentStep: step}),
 
@@ -72,12 +46,6 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
     }
   },
 
-  goToStep: (step) => {
-    const {totalSteps} = get();
-    if (step >= 1 && step <= totalSteps) {
-      set({currentStep: step});
-    }
-  },
 
   setIsDialogOpen: (open) => set({isDialogOpen: open}),
 
@@ -100,7 +68,7 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
           (!formData.email || /\S+@\S+\.\S+/.test(formData.email))
         );
       case 3:
-        return true;
+        return get().isStepValid(1) && get().isStepValid(2);
       default:
         return false;
     }
@@ -114,5 +82,16 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   progressValue: () => {
     const {currentStep, totalSteps} = get();
     return (currentStep / totalSteps) * 100;
+  },
+
+  syncStepWithValidation: () => {
+    const {currentStep, isStepValid, setCurrentStep} = get();
+    if (currentStep > 1 && !isStepValid(1)) {
+      setCurrentStep(1);
+      return;
+    } else if (currentStep > 2 && !isStepValid(2)) {
+      setCurrentStep(2);
+      return;
+    }
   },
 }));
