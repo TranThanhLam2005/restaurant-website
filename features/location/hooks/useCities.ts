@@ -1,9 +1,9 @@
-// features/booking/hooks/useCities.ts
+// features/location/hooks/useCities.ts
 "use client";
 
 import {useQuery} from "@tanstack/react-query";
-import {bookingApi} from "../../booking/services";
-import {City} from "../../booking/types";
+import {bookingApi} from "../services";
+import {City} from "../types";
 
 export function useCities(stateId?: string) {
   return useQuery<City[]>({

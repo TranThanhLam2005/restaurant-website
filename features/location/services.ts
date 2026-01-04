@@ -1,4 +1,4 @@
-// features/booking/services.ts
+// features/location/services.ts
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 import {BookingFormData, State} from "./types";
 

@@ -34,35 +34,32 @@ export interface BookingFormData {
   receiveOffers: boolean;
 }
 
-// export interface UseBookingFormReturn {
-//   // Form data
-//   formData: BookingFormData;
-
-//   // Form actions
-//   updateField: <K extends keyof BookingFormData>(
-//     field: K,
-//     value: BookingFormData[K]
-//   ) => void;
-
-//   // Step management
-//   currentStep: number;
-//   totalSteps: number;
-//   nextStep: () => void;
-//   prevStep: () => void;
-//   goToStep: (step: number) => void;
-//   progressValue: number;
-
-//   // Validation
-//   isStepValid: (step: number) => boolean;
-//   canProceed: boolean;
-
-//   // UI State
-//   isDialogOpen: boolean;
-//   setIsDialogOpen: (open: boolean) => void;
-// }
-
 export interface BookingSectionProps {
   states: State[];
+}
+
+export interface StateCitySelectedProps {
+  // Data
+  states: State[];
+  selectedState: string;
+  selectedStateId: string;
+  selectedCity: string;
+  selectedCityId: string;
+
+  // Handlers
+  onStateChange: (stateName: string, stateId: string) => void;
+  onCityChange: (cityName: string, cityId: string) => void;
+
+  // Optional customization
+  className?: string;
+  stateLabel?: string;
+  cityLabel?: string;
+  statePlaceholder?: string;
+  cityPlaceholder?: string;
+  cityPlaceholderNoState?: string;
+  disabled?: boolean;
+  required?: boolean;
+  headless?: boolean;
 }
 
 export interface BookingStore {

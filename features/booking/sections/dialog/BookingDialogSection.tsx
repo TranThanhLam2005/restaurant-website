@@ -1,12 +1,9 @@
 "use client";
 
-import {useState} from "react";
-import {cn} from "@/lib/utils";
-
 // import hooks and store
-import {useCities, useBranches} from "@/features/booking/hooks";
+import {useBranches} from "@/features/location/hooks";
 import {useBookingStore} from "@/features/booking/store/useBookingStore";
-import {BookingSectionProps} from "@/features/booking/types";
+import {BookingSectionProps} from "@/features/location/types";
 
 // import UI components
 import {Popover, PopoverTrigger, PopoverContent} from "@/components/ui/popover";
@@ -33,14 +30,7 @@ import {
 } from "@/components/ui/select";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import StateCitySelected from "@/features/location/components/state-city-selected/StateCitySelected";
 
 // import icons and utilities
 import {
@@ -48,8 +38,6 @@ import {
   ChevronLeft,
   CheckCircle2,
   ChevronRight,
-  Check,
-  ChevronsUpDown,
 } from "lucide-react";
 import {format} from "date-fns";
 
@@ -64,8 +52,6 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
   const isDialogOpen = useBookingStore((state) => state.isDialogOpen);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
 
-  const [open, setOpen] = useState(false);
-  const {data: cities, isLoading: citiesLoading} = useCities(formData.stateId);
   const {data: branches, isLoading: branchesLoading} = useBranches(
     formData.cityId
   );
@@ -90,133 +76,26 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
           {/* STEP 1: BRANCH & DATE */}
           {currentStep === 1 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
-              <div className="flex justify-evenly">
-                <div className="grid gap-2">
-                  <Label htmlFor="location" required>
-                    Location
-                  </Label>
-                  {/* <Select
-                    onValueChange={(value) => {
-                      updateField("state", value);
-                      updateField(
-                        "stateId",
-                        states?.find((s) => s.name === value)?.id || ""
-                      );
-                      updateField("city", ""); // Reset city when state changes
-                      updateField("branch", ""); // Reset branch when state changes
-                    }}
-                    value={formData.state}
-                  >
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Select a state" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {states?.map((state) => (
-                        <SelectItem key={state.id} value={state.name}>
-                          {state.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select> */}
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={open}
-                        className="w-48 justify-between"
-                      >
-                        {formData.state ? formData.state : "Select State..."}
-                        <ChevronsUpDown />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-48 p-0">
-                      <Command>
-                        <CommandInput
-                          placeholder="Search State..."
-                          className="h-9"
-                        />
-                        <CommandList>
-                          <CommandEmpty>No state found.</CommandEmpty>
-                          <CommandGroup>
-                            {states.map((state) => (
-                              <CommandItem
-                                key={state.id}
-                                value={state.name}
-                                onSelect={(currentValue) => {
-                                  updateField("state", currentValue);
-                                  updateField(
-                                    "stateId",
-                                    states?.find((s) => s.name === currentValue)
-                                      ?.id || ""
-                                  );
-                                  updateField("city", ""); // Reset city when state changes
-                                  updateField("branch", ""); // Reset branch when state changes
-                                  setOpen(false);
-                                }}
-                              >
-                                {state.name}
-                                <Check
-                                  className={cn(
-                                    "ml-auto",
-                                    formData.state === state.name
-                                      ? "opacity-100"
-                                      : "opacity-0"
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="city" required>
-                    City
-                  </Label>
-                  <Select
-                    onValueChange={(value) => {
-                      updateField("city", value);
-                      updateField(
-                        "cityId",
-                        cities?.find((c) => c.name === value)?.id || ""
-                      );
-                      updateField("branch", ""); // Reset branch when city changes
-                    }}
-                    value={formData.city}
-                    disabled={!formData.state}
-                  >
-                    <SelectTrigger className="w-48">
-                      <SelectValue
-                        placeholder={
-                          formData.state
-                            ? "Select a city"
-                            : "Select location first"
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {citiesLoading ? (
-                        <div className="p-2 text-sm text-muted-foreground">
-                          Loading cities...
-                        </div>
-                      ) : cities?.length ? (
-                        cities.map((city) => (
-                          <SelectItem key={city.id} value={city.name}>
-                            {city.name}
-                          </SelectItem>
-                        ))
-                      ) : (
-                        <div className="p-2 text-sm text-muted-foreground">
-                          No cities available
-                        </div>
-                      )}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+              <StateCitySelected
+                states={states}
+                selectedState={formData.state}
+                selectedStateId={formData.stateId}
+                selectedCity={formData.city}
+                selectedCityId={formData.cityId}
+                onStateChange={(stateName, stateId) => {
+                  updateField("state", stateName);
+                  updateField("stateId", stateId);
+                  updateField("city", "");
+                  updateField("cityId", "");
+                  updateField("branch", "");
+                }}
+                onCityChange={(cityName, cityId) => {
+                  updateField("city", cityName);
+                  updateField("cityId", cityId);
+                  updateField("branch", "");
+                }}
+                required
+              />
               <Separator />
 
               <div className="grid gap-2">

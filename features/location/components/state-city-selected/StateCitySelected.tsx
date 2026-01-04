@@ -1,11 +1,12 @@
 "use client";
 
+// import react and utils
 import {useState} from "react";
 import {cn} from "@/lib/utils";
-// import hooks and store
-import {useCities, useBranches} from "@/features/location/hooks";
-import {useBookingStore} from "@/features/booking/store/useBookingStore";
-import {BookingSectionProps} from "@/features/booking/types";
+
+// import hooks and types
+import {useCities} from "@/features/location/hooks";
+import {StateCitySelectedProps} from "@/features/location/types";
 
 // import UI components
 import {
@@ -15,10 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {Badge} from "@/components/ui/badge";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {Card, CardHeader, CardTitle} from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -30,16 +29,37 @@ import {
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 
 // import icons
-import {Map, Check, ChevronsUpDown} from "lucide-react";
+import {Check, ChevronsUpDown} from "lucide-react";
 
-export default function StateCitySelected() {
+export default function StateCitySelected({
+  states,
+  selectedState,
+  selectedStateId,
+  selectedCity,
+  className,
+  selectedCityId,
+  onStateChange,
+  onCityChange,
+  stateLabel = "State",
+  cityLabel = "City",
+  statePlaceholder = "Select State...",
+  cityPlaceholder = "Select City",
+  cityPlaceholderNoState = "Select State First",
+  disabled = false,
+  required = false,
+  headless = false,
+}: StateCitySelectedProps) {
   const [open, setOpen] = useState(false);
+  const {data: cities, isLoading: citiesLoading} = useCities(selectedStateId);
+
   return (
-    <div>
+    <div className="flex items-end justify-evenly gap-2">
       <div>
-        <Label htmlFor="State" className="mb-2">
-          State
-        </Label>
+        {headless ? null : (
+          <Label htmlFor="state" className="mb-2" required={required}>
+            {stateLabel}
+          </Label>
+        )}
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -47,8 +67,9 @@ export default function StateCitySelected() {
               role="combobox"
               aria-expanded={open}
               className="w-48 justify-between"
+              disabled={disabled}
             >
-              {formData.state ? formData.state : "Select State..."}
+              {selectedState || statePlaceholder}
               <ChevronsUpDown />
             </Button>
           </PopoverTrigger>
@@ -63,14 +84,12 @@ export default function StateCitySelected() {
                       key={state.id}
                       value={state.name}
                       onSelect={(currentValue) => {
-                        updateField("state", currentValue);
-                        updateField(
-                          "stateId",
-                          states?.find((s) => s.name === currentValue)?.id || ""
+                        const foundState = states?.find(
+                          (s) => s.name === currentValue
                         );
-                        updateField("city", ""); // Reset city when state changes
-                        updateField("branch", ""); // Reset branch when state changes
-                        syncStepWithValidation();
+                        if (foundState) {
+                          onStateChange(foundState.name, foundState.id);
+                        }
                         setOpen(false);
                       }}
                     >
@@ -78,7 +97,7 @@ export default function StateCitySelected() {
                       <Check
                         className={cn(
                           "ml-auto",
-                          formData.state === state.name
+                          selectedState === state.name
                             ? "opacity-100"
                             : "opacity-0"
                         )}
@@ -92,35 +111,40 @@ export default function StateCitySelected() {
         </Popover>
       </div>
       <div>
-        <Label htmlFor="city" className="mb-2">
-          City
-        </Label>
+        {headless ? null : (
+          <Label htmlFor="city" className="mb-2" required={required}>
+            {cityLabel}
+          </Label>
+        )}
         <Select
-          value={formData.city}
+          value={selectedCity}
           onValueChange={(value) => {
-            updateField("city", value);
-            updateField(
-              "cityId",
-              cities?.find((c) => c.name === value)?.id || ""
-            );
-            updateField("branch", ""); // Reset branch when city changes
-            syncStepWithValidation();
+            const foundCity = cities?.find((c) => c.name === value);
+            if (foundCity) {
+              onCityChange(foundCity.name, foundCity.id);
+            }
           }}
-          disabled={!formData.state}
+          disabled={!selectedState || disabled}
         >
           <SelectTrigger className="w-48">
             <SelectValue
               placeholder={
-                formData.state ? "Select City" : "Select State First"
+                selectedState ? cityPlaceholder : cityPlaceholderNoState
               }
             />
           </SelectTrigger>
           <SelectContent>
-            {cities?.map((city) => (
-              <SelectItem key={city.id} value={city.name}>
-                {city.name}
-              </SelectItem>
-            ))}
+            {citiesLoading ? (
+              <div className="p-2 text-sm">Loading cities...</div>
+            ) : cities?.length ? (
+              cities.map((city) => (
+                <SelectItem key={city.id} value={city.name}>
+                  {city.name}
+                </SelectItem>
+              ))
+            ) : (
+              <div className="p-2 text-sm">No cities available</div>
+            )}
           </SelectContent>
         </Select>
       </div>

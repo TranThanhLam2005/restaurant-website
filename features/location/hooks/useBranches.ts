@@ -1,9 +1,9 @@
-// features/booking/hooks/useBranches.ts
+// features/location/hooks/useBranches.ts
 "use client";
 
 import {useQuery} from "@tanstack/react-query";
-import {bookingApi} from "../../booking/services";
-import {Branch} from "../../booking/types";
+import {bookingApi} from "../services";
+import {Branch} from "../types";
 
 export function useBranches(cityId?: string) {
   return useQuery<Branch[]>({

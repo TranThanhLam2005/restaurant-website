@@ -1,7 +1,7 @@
 "use client";
 
 import {create} from "zustand";
-import {BookingFormData, BookingStore} from "../types";
+import {BookingFormData, BookingStore} from "@/features/location/types";
 
 const initialFormData: BookingFormData = {
   state: "",
@@ -45,7 +45,6 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
       set({currentStep: currentStep - 1});
     }
   },
-
 
   setIsDialogOpen: (open) => set({isDialogOpen: open}),
 
