@@ -1,9 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+// import libraries
+import {useRouter} from "next/navigation";
+
+// import UI components
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
+
+import {LoginDialog} from "@/features/auth/sections";
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -50,16 +54,14 @@ export default function MarketingHeader() {
           </TabsList>
         </Tabs>
         <div className="flex items-center gap-4">
-          <Button className="items-center gap-2" variant="outline" onClick = {() => router.push('/booking')}>
+          <Button
+            className="items-center gap-2"
+            variant="outline"
+            onClick={() => router.push("/booking")}
+          >
             Book Now
           </Button>
-          <Avatar>
-            <AvatarImage
-              src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"
-              alt="Avatar"
-            />
-            <AvatarFallback>AB</AvatarFallback>
-          </Avatar>
+          <LoginDialog />
         </div>
       </div>
     </header>
