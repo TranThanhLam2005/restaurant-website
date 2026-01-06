@@ -1,38 +1,22 @@
 "use client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {Badge} from "@/components/ui/badge";
-import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {Popover, PopoverTrigger, PopoverContent} from "@/components/ui/popover";
 import {Checkbox} from "@/components/ui/checkbox";
-import {Input} from "@/components/ui/input";
 import {Tabs, TabsList, TabsTrigger, TabsContent} from "@/components/ui/tabs";
 import {
-  CalendarIcon,
   ChevronLeft,
-  ChevronRight,
-  CheckCircle2,
   Map,
   Trash,
   Download,
-  UserCheck,
   Clock,
   MessageSquareX,
-  Car,
 } from "lucide-react";
-
 import {
   Card,
   CardHeader,
   CardFooter,
   CardTitle,
-  CardAction,
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
@@ -51,7 +35,7 @@ export default function ReservationPage() {
           </TabsList>
           <div className="flex items-center mb-4">
             <ChevronLeft className="inline-block mr-2 cursor-pointer" />
-            <h1>My Reservation</h1>
+            <h4>My Reservation</h4>
           </div>
           <Separator className="my-4" />
           <div className="flex justify-between items-center mb-4">

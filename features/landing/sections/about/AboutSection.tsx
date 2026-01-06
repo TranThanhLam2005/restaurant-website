@@ -28,7 +28,7 @@ export default function AboutSection() {
         className="mx-auto text-center space-y-6 mb-16"
         variants={headingVariants}
       >
-        <h2 className="text-4xl font-bold tracking-tight text-primary mt-10">
+        <h2 className="font-bold tracking-tight text-primary mt-10">
           About Us
         </h2>
         <p className="text-xl text-foreground">

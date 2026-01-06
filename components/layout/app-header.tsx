@@ -20,12 +20,9 @@ import {
 import {
   Sheet,
   SheetTrigger,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetFooter,
-  SheetTitle,
-  SheetDescription,
 } from "@/components/ui/sheet";
 import {
   Collapsible,
@@ -33,19 +30,17 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-import {Button} from "@/components/ui/button";
 import Logo from "@/public/restaurant-icon.png";
-import {BookOpenCheck, Beef, Phone, Menu, Plus, Minus} from "lucide-react";
-import {set} from "date-fns";
+import {Phone, Menu, Plus, Minus, ShoppingBag} from "lucide-react";
 
 export default function AppHeader() {
   const router = useRouter();
@@ -60,22 +55,6 @@ export default function AppHeader() {
           RoadHouse
         </h1>
         <div className="flex items-center gap-4">
-          {/* <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => router.push("/nearby")}
-          >
-            <p>Near me</p>
-            <Beef className="w-5 h-5" />
-            <div>|</div>
-          </div> */}
-          {/* <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => router.push("/reservation")}
-          >
-            <p>Booking Cart</p>
-            <BookOpenCheck className="w-5 h-5" />
-            <div>|</div>
-          </div> */}
           <div className="flex items-center gap-2 cursor-pointer">
             <p>01234566778</p>
             <Phone className="w-5 h-5" />
@@ -145,28 +124,41 @@ export default function AppHeader() {
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => router.push("/reservation")}
                 >
-                  <p>Booking Cart</p>
-                  <BookOpenCheck className="w-5 h-5" />
+                  <h5>Booking Cart</h5>
+                  <ShoppingBag className="w-6 h-6" />
                 </div>
               </SheetHeader>
               <div className="space-y-4 px-6">
-                <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
+                <div
+                  className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => router.push("/menu")}
+                >
                   Menu
                 </div>
                 <div
                   className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={() => router.push("/nearby")}
+                  onClick={() => router.push("/booking")}
                 >
-                  Nearby
+                  Booking
                 </div>
+
                 <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
                   Catering
                 </div>
                 <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
                   Promotion
                 </div>
-                <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
+                <div
+                  className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => router.push("/voucher")}
+                >
                   Gifts & Vouchers
+                </div>
+                <div
+                  className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => router.push("/nearby")}
+                >
+                  Nearby
                 </div>
                 <Collapsible open={open} onOpenChange={setOpen}>
                   <CollapsibleTrigger className="text-xl font-medium flex items-center gap-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
@@ -192,10 +184,19 @@ export default function AppHeader() {
               </div>
 
               <SheetFooter>
-                <Button type="submit">Save changes</Button>
-                <SheetClose asChild>
-                  <Button variant="outline">Close</Button>
-                </SheetClose>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Languages</SelectLabel>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="zh">China</SelectItem>
+                      <SelectItem value="es">Spanish</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </SheetFooter>
             </SheetContent>
           </Sheet>
