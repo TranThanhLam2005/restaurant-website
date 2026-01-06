@@ -1,5 +1,5 @@
 import MarketingHeader from "@/components/layout/marketing-header";
-
+import FooterSection from "@/components/layout/footer-section";
 export default function MarketingLayout({
   children,
 }: {
@@ -9,6 +9,7 @@ export default function MarketingLayout({
     <>
       <MarketingHeader />
       <main>{children}</main>
+      <FooterSection />
     </>
   );
 }

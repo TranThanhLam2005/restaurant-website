@@ -1,1 +1,1 @@
-export {default as FooterSection} from './FooterSection';
+export {default as FooterSection} from "../../../../components/layout/FooterSection";

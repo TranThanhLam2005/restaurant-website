@@ -1,8 +1,8 @@
-import {
-  Card,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import Image from "next/image";
+
+import {Card, CardTitle, CardContent} from "@/components/ui/card";
+import Logo from "@/public/restaurant-icon.png";
+import Logo1 from "@/public/logo-icon.png";
 
 export default function Hero() {
   return (
@@ -16,19 +16,11 @@ export default function Hero() {
         <div className="flex flex-col flex-1 gap-6">
           <div className="flex items-center justify-around">
             <div className="flex flex-col items-center gap-2">
-              <img
-                src="https://i.pinimg.com/736x/12/78/1c/12781c5de0a36e91dd57734a91ec88a2.jpg"
-                alt="Nearby Location"
-                className="w-16 h-16"
-              ></img>
+              <Image src={Logo} alt="Nearby Location" width={64} height={64} />
               <CardTitle>872 restaurants</CardTitle>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <img
-                src="https://s3-symbol-logo.tradingview.com/texas-roadhouse--600.png"
-                alt="Nearby Location"
-                className="w-16 h-16"
-              ></img>
+              <Image src={Logo1} alt="Nearby Location" width={64} height={64} />
               <CardTitle>{">"} 120 millions customer</CardTitle>
             </div>
           </div>

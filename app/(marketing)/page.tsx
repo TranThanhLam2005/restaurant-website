@@ -7,7 +7,6 @@ import {
   GalarySection,
   BranchSection,
   RuleSection,
-  FooterSection,
 } from "@/features/landing";
 
 export default function MarketingPage() {
@@ -20,7 +19,6 @@ export default function MarketingPage() {
       <GalarySection />
       <BranchSection />
       <RuleSection />
-      <FooterSection />
     </main>
   );
 }
