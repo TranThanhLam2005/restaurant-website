@@ -48,12 +48,12 @@ export default function AppHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1
-          className="text-xl font-medium tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent cursor-pointer"
+        <h4
+          className="font-bold tracking-wider bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent cursor-pointer"
           onClick={() => router.push("/")}
         >
           RoadHouse
-        </h1>
+        </h4>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 cursor-pointer">
             <p>01234566778</p>
@@ -124,7 +124,7 @@ export default function AppHeader() {
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={() => router.push("/reservation")}
                 >
-                  <h5>Booking Cart</h5>
+                  <h4>Booking Cart</h4>
                   <ShoppingBag className="w-6 h-6" />
                 </div>
               </SheetHeader>
@@ -169,7 +169,7 @@ export default function AppHeader() {
                       <Plus className="w-4 h-4" />
                     )}
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="pl-4 mt-2 space-y-2 text-sm font-medium">
+                  <CollapsibleContent className="pl-4 mt-2 space-y-2 text-sm">
                     <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
                       Abous Us
                     </div>

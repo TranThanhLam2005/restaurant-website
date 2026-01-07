@@ -28,9 +28,12 @@ export default function MarketingHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
+        <h4
+          className="font-bold tracking-wider bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           RoadHouse
-        </h1>
+        </h4>
         <Tabs defaultValue="home" className="hidden md:block">
           <TabsList>
             <TabsTrigger value="home" onClick={() => scrollToSection("hero")}>

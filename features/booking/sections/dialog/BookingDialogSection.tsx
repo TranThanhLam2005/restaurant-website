@@ -59,12 +59,12 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-2xl">
             {currentStep === 1 && "Select Branch"}
             {currentStep === 2 && "Personal Information"}
             {currentStep === 3 && "Confirm Details"}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="font-light">
             Step {currentStep} of 3:{" "}
             {currentStep === 3 ? "Review your booking" : "Fill in the details"}
           </DialogDescription>
@@ -185,7 +185,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                         className="flex flex-col items-center space-y-1"
                       >
                         <RadioGroupItem value={num} />
-                        <span className="text-sm">{num}</span>
+                        <span>{num}</span>
                       </div>
                     ))}
                   </RadioGroup>
@@ -251,57 +251,49 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
           {/* STEP 3: RE-CHECK */}
           {currentStep === 3 && (
             <div className="space-y-4 animate-in fade-in zoom-in-95">
-              <div className="rounded-lg bg-muted p-4 space-y-3">
+              <div className="rounded-lg bg-muted p-4 space-y-3 text-sm">
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">State:</span>
-                  <span className="text-sm capitalize">
-                    {formData.state || "Not selected"}
-                  </span>
+                  <span>State:</span>
+                  <span>{formData.state || "Not selected"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">City:</span>
-                  <span className="text-sm capitalize">
-                    {formData.city || "Not selected"}
-                  </span>
+                  <span>City:</span>
+                  <span>{formData.city || "Not selected"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Address:</span>
-                  <span className="text-sm capitalize">
-                    {formData.branch || "Not selected"}
-                  </span>
+                  <span>Address:</span>
+                  <span>{formData.branch || "Not selected"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Date:</span>
-                  <span className="text-sm">
+                  <span>Date:</span>
+                  <span>
                     {formData.date
                       ? format(formData.date, "PPP")
                       : "Not selected"}
                   </span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Time:</span>
-                  <span className="text-sm">
-                    {formData.checkInTime || "N/A"}
-                  </span>
+                  <span>Time:</span>
+                  <span>{formData.checkInTime || "N/A"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Guests:</span>
-                  <span className="text-sm">{formData.guests || "N/A"}</span>
+                  <span>Guests:</span>
+                  <span>{formData.guests || "N/A"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Name:</span>
-                  <span className="text-sm">{formData.name || "N/A"}</span>
+                  <span>Name:</span>
+                  <span>{formData.name || "N/A"}</span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
-                  <span className="text-sm font-medium">Email:</span>
-                  <span className="text-sm">{formData.email || "N/A"}</span>
+                  <span>Email:</span>
+                  <span>{formData.email || "N/A"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm font-medium">Phone:</span>
-                  <span className="text-sm">{formData.phone || "N/A"}</span>
+                  <span>Phone:</span>
+                  <span>{formData.phone || "N/A"}</span>
                 </div>
               </div>
-              <p className="text-[10px] text-center text-muted-foreground">
+              <p className="text-xs text-center text-muted-foreground font-light">
                 By clicking submit, you confirm that the information above is
                 correct.
               </p>

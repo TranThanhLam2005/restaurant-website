@@ -90,7 +90,7 @@ export default function BranchSection() {
     >
       {/* Heading */}
       <motion.h2
-        className="text-4xl font-bold tracking-tight mb-12 text-primary text-center md:text-left"
+        className="text-primary text-center md:text-left mb-12"
         variants={headingVariants}
       >
         PEOPLE ALSO SEARCHED
@@ -118,7 +118,9 @@ export default function BranchSection() {
                   </div>
 
                   <CardHeader>
-                    <CardTitle>{branch.name}</CardTitle>
+                    <CardTitle className="font-serif text-2xl">
+                      {branch.name}
+                    </CardTitle>
                     <CardDescription>{branch.description}</CardDescription>
                   </CardHeader>
                   <CardContent>{branch.location}</CardContent>
@@ -142,8 +144,8 @@ export default function BranchSection() {
 
         {!isMobile ? (
           <>
-            <CarouselPrevious className="-left-12 bg-background text-foreground hover:text-primary" />
-            <CarouselNext className="-right-12 bg-background text-foreground hover:text-primary" />
+            <CarouselPrevious className="-left-12" />
+            <CarouselNext className="-right-12" />
           </>
         ) : (
           <></>

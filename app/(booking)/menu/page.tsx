@@ -39,9 +39,9 @@ export default function MenuLayout() {
         {/* ===== LEFT SIDEBAR ===== */}
         <ResizablePanel defaultSize={25} minSize={20}>
           <ScrollArea className="h-full w-full pr-4">
-            <div className="text-3xl font-bold text-muted-foreground text-center mb-4 ">
+            <h2 className="font-bold text-muted-foreground text-center mb-4">
               {selectedTab}
-            </div>
+            </h2>
             {/* <StateCitySelected
               states={states}
               selectedState={formData.state}

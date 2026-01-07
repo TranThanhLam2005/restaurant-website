@@ -18,10 +18,10 @@ export default function FooterSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left text-xs md:text-base">
         {/* Brand */}
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold tracking-wider bg-gradient-to-r from-[#4A3728] to-[#8B7355] bg-clip-text text-transparent">
             RoadHouse
           </h1>
-          <p className="text-foreground">
+          <p className="text-foreground font-light">
             Creating unforgettable dining experiences since 2020
           </p>
           <div className="flex gap-3">
@@ -39,8 +39,10 @@ export default function FooterSection() {
 
         {/* Quick Links */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-lg text-primary">Quick Links</h4>
-          <ul className="space-y-2 text-foreground">
+          <h4 className="font-semibold text-lg text-primary font-serif">
+            Quick Links
+          </h4>
+          <ul className="space-y-2 text-foreground font-sans font-light">
             <li className="hover:text-primary transition-colors cursor-pointer">
               Menu
             </li>
@@ -61,7 +63,7 @@ export default function FooterSection() {
           <h4 className="font-semibold text-lg text-foreground">
             Opening Hours
           </h4>
-          <ul className="space-y-2 text-foreground">
+          <ul className="space-y-2 text-foreground font-light">
             <li>Monday - Friday: 11am - 11pm</li>
             <li>Saturday: 10am - 12am</li>
             <li>Sunday: 10am - 10pm</li>
@@ -70,8 +72,10 @@ export default function FooterSection() {
 
         {/* Contact */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-lg text-foreground">Contact</h4>
-          <ul className="space-y-3 text-foreground">
+          <h4 className="font-semibold text-lg text-foreground font-serif">
+            Contact
+          </h4>
+          <ul className="space-y-3 text-foreground font-sans font-light">
             <li className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
               <span>123 Restaurant St, City</span>
@@ -90,7 +94,7 @@ export default function FooterSection() {
 
       <Separator className="my-6 md:my-12" />
 
-      <div className="text-center text-foreground text-sm">
+      <div className="text-center text-foreground text-sm font-light">
         <p>© 2025 RoadHouse. All rights reserved.</p>
       </div>
     </motion.footer>

@@ -59,13 +59,11 @@ export default function BookingSelectedSection({states}: BookingSectionProps) {
         </div>
         <div className="flex justify-evenly bg-white/80 rounded-lg mt-6 p-4 gap-4">
           {!formData.state || !formData.city ? (
-            <p className="text-sm italic text-muted-foreground">
+            <p className="text-sm italic font-light">
               Please select a state and city to see available restaurants.
             </p>
           ) : branchesLoading ? (
-            <p className="text-sm italic text-muted-foreground">
-              Loading restaurants...
-            </p>
+            <p className="text-sm italic font-light">Loading restaurants...</p>
           ) : branches?.length ? (
             branches.map((branch, id) => (
               <Card key={id} className="gap-1 px-2">
@@ -82,7 +80,7 @@ export default function BookingSelectedSection({states}: BookingSectionProps) {
               </Card>
             ))
           ) : (
-            <p className="text-sm italic text-muted-foreground">
+            <p className="text-sm italic font-light">
               No restaurants available in this city.
             </p>
           )}

@@ -17,13 +17,13 @@ export default function VoucherPage() {
   return (
     <div className="flex flex-col mx-40 my-24">
       <div className="flex flex-col gap-4 mb-24">
-        <div className="text-3xl font-bold text-muted-foreground text-center">
+        <h2 className="font-bold text-muted-foreground text-center">
           Voucher Categories
-        </div>
-        <div className="text-xl text-muted-foreground">
+        </h2>
+        <h4 className="text-muted-foreground font-light">
           Send friends, associates or loved ones the gift of dining with a few
           taps!
-        </div>
+        </h4>
         <div className="grid grid-cols-3 gap-4">
           <Skeleton className="h-40 w-full rounded-md" />
           <Skeleton className="h-40 w-full rounded-md" />
@@ -37,9 +37,9 @@ export default function VoucherPage() {
         <ResizablePanelGroup orientation="horizontal">
           <ResizablePanel defaultSize={25} minSize={20}>
             <ScrollArea className="h-full w-full pr-4">
-              <div className="text-3xl font-bold text-muted-foreground text-center mb-4 ">
+              <h2 className="font-bold text-muted-foreground text-center mb-4">
                 Merchandise
-              </div>
+              </h2>
               <Accordion type="multiple" className="w-full">
                 <AccordionItem value="apparel-clothing">
                   <AccordionTrigger>Apparel & Clothing</AccordionTrigger>

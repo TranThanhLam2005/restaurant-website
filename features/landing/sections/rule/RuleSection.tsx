@@ -46,12 +46,12 @@ export default function RuleSection() {
       viewport={{once: true, margin: "-10% 0px"}}
     >
       {/* Title */}
-      <motion.h1
-        className="text-3xl font-bold mb-6 text-center"
+      <motion.h2
+        className="font-bold text-primary text-center mb-6"
         variants={itemVariants}
       >
         App Rules & Guidelines
-      </motion.h1>
+      </motion.h2>
       <Accordion type="single" collapsible className="w-full">
         {appRules.map((rule) => (
           <AccordionItem key={rule.id} value={rule.id}>
@@ -62,10 +62,7 @@ export default function RuleSection() {
       </Accordion>
 
       {/* Footer text */}
-      <motion.p
-        className="mt-8 text-center text-sm text-foreground"
-        variants={itemVariants}
-      >
+      <motion.p className="mt-8 text-center font-light" variants={itemVariants}>
         By using this service, you agree to abide by these rules and the full
         Terms of Service.
       </motion.p>

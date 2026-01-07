@@ -135,7 +135,7 @@ export default function StateCitySelected({
           </SelectTrigger>
           <SelectContent>
             {citiesLoading ? (
-              <div className="p-2 text-sm">Loading cities...</div>
+              <div className="p-2 text-sm font-light">Loading cities...</div>
             ) : cities?.length ? (
               cities.map((city) => (
                 <SelectItem key={city.id} value={city.name}>
@@ -143,7 +143,7 @@ export default function StateCitySelected({
                 </SelectItem>
               ))
             ) : (
-              <div className="p-2 text-sm">No cities available</div>
+              <div className="p-2 text-sm font-light">No cities available</div>
             )}
           </SelectContent>
         </Select>

@@ -56,7 +56,7 @@ export default function TestimonialsSection() {
     >
       {/* Title */}
       <motion.h2
-        className="text-4xl text-primary font-bold tracking-tight mb-16"
+        className="text-primary font-bold mb-16"
         variants={headingVariants}
       >
         What Our Guests Say
@@ -91,7 +91,9 @@ export default function TestimonialsSection() {
 
                   <div className="flex-1">
                     <CardTitle>{review.name}</CardTitle>
-                    <CardDescription>{review.role}</CardDescription>
+                    <CardDescription className="font-light">
+                      {review.role}
+                    </CardDescription>
                   </div>
 
                   {/* Stars */}
@@ -117,7 +119,7 @@ export default function TestimonialsSection() {
                 <Quote className="w-8 h-8 text-primary" />
               </CardHeader>
 
-              <CardContent className="text-foreground">
+              <CardContent className="font-light italic">
                 “{review.quote}”
               </CardContent>
 

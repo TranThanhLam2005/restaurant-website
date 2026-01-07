@@ -1,7 +1,7 @@
 "use client";
 
 // import libraries
-import {signIn, signOut} from "next-auth/react";
+import {signIn} from "next-auth/react";
 import Image from "next/image";
 
 // import UI components
@@ -123,7 +123,7 @@ export default function LoginDialog() {
             <DialogTitle className="text-center text-3xl mb-4">
               Login
             </DialogTitle>
-            <DialogDescription className="text-center mb-4">
+            <DialogDescription className="text-center font-light mb-4">
               Please enter your email to reservation, management table or online
               booking.
             </DialogDescription>
@@ -154,12 +154,16 @@ export default function LoginDialog() {
               Continue with Facebook
             </button>
           </div>
-          <div className="text-center text-sm text-muted-foreground">
+          <p className="text-center font-light text-muted-foreground text-sm mt-4">
             By continuing, you agree to our{" "}
-            <p className="underline inline cursor-pointer">Terms of Service</p>{" "}
+            <span className="underline inline cursor-pointer">
+              Terms of Service
+            </span>{" "}
             and{" "}
-            <p className="underline inline cursor-pointer">Privacy Policy</p>
-          </div>
+            <span className="underline inline cursor-pointer">
+              Privacy Policy
+            </span>
+          </p>
         </DialogContent>
       </DialogPortal>
     </Dialog>

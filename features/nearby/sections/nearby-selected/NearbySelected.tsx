@@ -35,7 +35,8 @@ export default function NearbySelected({states}: {states: Array<any>}) {
   const [debouncedQuery] = useDebounce(searchQuery, 500);
 
   // Combine search query with state and city
-  const fullQuery = `${debouncedQuery} ${formData.state} ${formData.city} + texas roadhouse`.trim();
+  const fullQuery =
+    `${debouncedQuery} ${formData.state} ${formData.city} + texas roadhouse`.trim();
 
   useEffect(() => {
     setDebouncedSearchQuery(fullQuery);

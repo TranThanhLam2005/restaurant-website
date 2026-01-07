@@ -35,7 +35,7 @@ export default function ReservationPage() {
           </TabsList>
           <div className="flex items-center mb-4">
             <ChevronLeft className="inline-block mr-2 cursor-pointer" />
-            <h4>My Reservation</h4>
+            <h5>My Reservation</h5>
           </div>
           <Separator className="my-4" />
           <div className="flex justify-between items-center mb-4">
@@ -49,10 +49,8 @@ export default function ReservationPage() {
             <Card className="mb-4">
               <CardHeader className="flex items-center gap-4 justify-between">
                 <Checkbox className="border-black" />
-                <div>
-                  <CardTitle className="text-lg font-semibold">
-                    Reservation at The Gourmet Kitchen
-                  </CardTitle>
+                <div className="space-y-2">
+                  <CardTitle>Reservation at The Gourmet Kitchen</CardTitle>
                   <CardDescription>
                     Date: July 20, 2024 | Time: 7:00 PM | Guests: 4
                   </CardDescription>
@@ -60,7 +58,9 @@ export default function ReservationPage() {
                 <Trash className="cursor-pointer" />
               </CardHeader>
               <CardContent>
-                <div>2345 International Drive, Orlando, FL 32819</div>
+                <div className="font-light">
+                  2345 International Drive, Orlando, FL 32819
+                </div>
                 <div className="flex items-center justify-center">
                   <Badge variant="secondary">0232342342</Badge>
                   <Button variant="link">
@@ -76,17 +76,17 @@ export default function ReservationPage() {
               <CardHeader className="flex items-center gap-4 justify-between">
                 <Checkbox className="border-black" />
                 <div>
-                  <CardTitle className="text-lg font-semibold">
-                    Reservation at The Gourmet Kitchen
-                  </CardTitle>
-                  <CardDescription>
+                  <CardTitle>Reservation at The Gourmet Kitchen</CardTitle>
+                  <CardDescription className="font-light">
                     Date: July 20, 2024 | Time: 7:00 PM | Guests: 4
                   </CardDescription>
                 </div>
                 <Trash className="cursor-pointer" />
               </CardHeader>
               <CardContent>
-                <div>2345 International Drive, Orlando, FL 32819</div>
+                <div className="font-light">
+                  2345 International Drive, Orlando, FL 32819
+                </div>
                 <div className="flex items-center justify-center">
                   <Badge variant="secondary">0232342342</Badge>
                   <Button variant="link">
@@ -105,17 +105,17 @@ export default function ReservationPage() {
               <CardHeader className="flex items-center gap-4 justify-between">
                 <Checkbox className="border-black" />
                 <div>
-                  <CardTitle className="text-lg font-semibold">
-                    Reservation at The Gourmet Kitchen
-                  </CardTitle>
-                  <CardDescription>
+                  <CardTitle>Reservation at The Gourmet Kitchen</CardTitle>
+                  <CardDescription className="font-light">
                     Date: July 20, 2024 | Time: 7:00 PM | Guests: 4
                   </CardDescription>
                 </div>
                 <Trash className="cursor-pointer" />
               </CardHeader>
               <CardContent>
-                <div>2345 International Drive, Orlando, FL 32819</div>
+                <div className="font-light">
+                  2345 International Drive, Orlando, FL 32819
+                </div>
                 <div className="flex items-center justify-center">
                   <Badge variant="secondary">0232342342</Badge>
                   <Button variant="link">
@@ -135,10 +135,8 @@ export default function ReservationPage() {
               <CardHeader className="flex items-center gap-4 justify-between">
                 <Checkbox className="border-black" />
                 <div>
-                  <CardTitle className="text-lg font-semibold">
-                    Reservation at The Gourmet Kitchen
-                  </CardTitle>
-                  <CardDescription>
+                  <CardTitle>Reservation at The Gourmet Kitchen</CardTitle>
+                  <CardDescription className="font-light">
                     Date: July 20, 2024 | Time: 7:00 PM | Guests: 4
                   </CardDescription>
                 </div>
@@ -147,7 +145,9 @@ export default function ReservationPage() {
                 </a>
               </CardHeader>
               <CardContent>
-                <div>2345 International Drive, Orlando, FL 32819</div>
+                <div className="font-light">
+                  2345 International Drive, Orlando, FL 32819
+                </div>
                 <div className="flex items-center justify-center">
                   <Badge variant="secondary">0232342342</Badge>
                   <Button variant="link">
@@ -167,17 +167,17 @@ export default function ReservationPage() {
               <CardHeader className="flex items-center gap-4 justify-between">
                 <Checkbox className="border-black" />
                 <div>
-                  <CardTitle className="text-lg font-semibold">
-                    Reservation at The Gourmet Kitchen
-                  </CardTitle>
-                  <CardDescription>
+                  <CardTitle>Reservation at The Gourmet Kitchen</CardTitle>
+                  <CardDescription className="font-light">
                     Date: July 20, 2024 | Time: 7:00 PM | Guests: 4
                   </CardDescription>
                 </div>
                 <Trash className="cursor-pointer" />
               </CardHeader>
               <CardContent>
-                <div>2345 International Drive, Orlando, FL 32819</div>
+                <div className="font-light">
+                  2345 International Drive, Orlando, FL 32819
+                </div>
                 <div className="flex items-center justify-center">
                   <Badge variant="secondary">0232342342</Badge>
                   <Button variant="link">
@@ -186,7 +186,7 @@ export default function ReservationPage() {
                   </Button>
                 </div>
               </CardContent>
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2 font-sans font-light">
                 <MessageSquareX />
                 <p>Cancellation Notes: No show</p>
               </div>

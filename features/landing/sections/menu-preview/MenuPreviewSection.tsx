@@ -65,7 +65,7 @@ export default function MenuPreviewSection() {
     >
       <div className="mx-auto">
         <motion.h2
-          className="text-4xl font-bold tracking-tight text-primary text-center mb-8 md:mb-20"
+          className="font-bold text-primary text-center mb-8 md:mb-20"
           variants={headingVariants}
         >
           Featured Menu Items
@@ -85,16 +85,14 @@ export default function MenuPreviewSection() {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <CardTitle className="text-primary text-2xl mb-2 font-semibold">
+                        <CardTitle className="text-2xl mb-2 font-serif ">
                           {item.title}
                         </CardTitle>
-                        <CardDescription className="text-foreground">
+                        <CardDescription className="font-light">
                           {item.description}
                         </CardDescription>
                       </div>
-                      <span className="text-2xl font-bold text-primary">
-                        {item.price}
-                      </span>
+                      <span>{item.price}</span>
                     </div>
                   </CardHeader>
                 </Card>
@@ -124,16 +122,14 @@ export default function MenuPreviewSection() {
                         <CardHeader>
                           <div className="flex justify-between items-start">
                             <div className="flex-1">
-                              <CardTitle className="text-primary text-2xl mb-2 font-semibold">
+                              <CardTitle className="text-2xl mb-2 font-serif ">
                                 {item.title}
                               </CardTitle>
-                              <CardDescription className="text-foreground">
+                              <CardDescription className="font-light">
                                 {item.description}
                               </CardDescription>
                             </div>
-                            <span className="text-2xl font-bold text-primary">
-                              {item.price}
-                            </span>
+                            <span>{item.price}</span>
                           </div>
                         </CardHeader>
                       </Card>

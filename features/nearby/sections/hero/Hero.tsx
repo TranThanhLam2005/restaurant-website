@@ -24,7 +24,7 @@ export default function Hero() {
               <CardTitle>{">"} 120 millions customer</CardTitle>
             </div>
           </div>
-          <CardContent>
+          <CardContent className="font-light leading-relaxed text-muted-foreground">
             Texas Roadhouse is a popular American steakhouse known for its bold,
             hearty flavors. The restaurant specializes in hand-cut steaks,
             fall-off-the-bone ribs, and classic American sides. It is famous for

@@ -57,9 +57,7 @@ export default function GalarySection() {
       viewport={{once: true, margin: "-10% 0px"}}
     >
       <motion.div className="mb-6 md:mb-12" variants={itemVariants}>
-        <h2 className="text-4xl text-primary font-bold tracking-tight mb-4">
-          PHOTOS
-        </h2>
+        <h2 className="text-primary font-bold tracking-wider mb-4">PHOTOS</h2>
         <motion.div
           className="flex flex-wrap gap-2 md:gap-3"
           variants={itemVariants}
@@ -118,10 +116,10 @@ export default function GalarySection() {
               />
 
               <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2">
-                  {selected.title}
-                </h3>
-                <p className="text-muted-foreground">{selected.content}</p>
+                <h3 className="mb-2">{selected.title}</h3>
+                <p className="text-muted-foreground font-light">
+                  {selected.content}
+                </p>
               </div>
             </motion.div>
           </motion.div>
