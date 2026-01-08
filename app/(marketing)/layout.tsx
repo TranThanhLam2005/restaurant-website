@@ -1,15 +1,9 @@
-import MarketingHeader from "@/components/layout/marketing-header";
-import FooterSection from "@/components/layout/footer-section";
-export default function MarketingLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import AppHeader from "@/components/layout/app-header";
+export default function BookingLayout({children}: {children: React.ReactNode}) {
   return (
     <>
-      <MarketingHeader />
-      <main>{children}</main>
-      <FooterSection />
+      <AppHeader />
+      <main className="flex flex-col mx-40 my-24">{children}</main>
     </>
   );
 }

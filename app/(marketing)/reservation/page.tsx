@@ -24,7 +24,7 @@ import {Separator} from "@/components/ui/separator";
 export default function ReservationPage() {
   return (
     <div>
-      <div className="max-w-3xl mx-auto mt-24 text-center">
+      <div className="max-w-3xl mx-auto text-center">
         <Tabs defaultValue="all" className="hidden md:block">
           <TabsList>
             <TabsTrigger value="all">All</TabsTrigger>

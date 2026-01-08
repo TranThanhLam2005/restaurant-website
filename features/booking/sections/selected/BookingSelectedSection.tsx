@@ -30,7 +30,7 @@ export default function BookingSelectedSection({states}: BookingSectionProps) {
       <img
         src="https://png.pngtree.com/thumb_back/fh260/background/20240425/pngtree-top-desk-with-blur-restaurant-background-wooden-table-image_15665383.jpg"
         alt="Hero Image"
-        className="w-full h-screen rounded-4xl shadow-lg relative object-cover"
+        className="w-full h-screen rounded-4xl shadow-lg relative object-cover "
       />
       <div className="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex items-end justify-evenly rounded-lg shadow-lg bg-white/80 p-4 gap-2">

@@ -1,12 +1,10 @@
 "use client";
-
 import {useState} from "react";
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
-import {Skeleton} from "@/components/ui/skeleton";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
 import {
@@ -20,10 +18,10 @@ import {ScrollArea} from "@/components/ui/scroll-area";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 
-export default function MenuLayout() {
+export default function MenuNav({children}: {children: React.ReactNode}) {
   const [selectedTab, setSelectedTab] = useState("Meat");
   return (
-    <div className="flex flex-col mx-40 mt-24 h-[calc(100vh-12rem)]">
+    <div className="h-[calc(100vh-12rem)]">
       <Tabs defaultValue="Meat" onValueChange={setSelectedTab}>
         <TabsList>
           <TabsTrigger value="Meat">Meat</TabsTrigger>
@@ -136,28 +134,7 @@ export default function MenuLayout() {
         </ResizablePanel>
 
         <ResizableHandle />
-
-        {/* ===== MAIN CONTENT ===== */}
-        <ResizablePanel defaultSize={75}>
-          <ScrollArea className="h-full w-full px-6">
-            <h3 className="mb-4">Menu Items</h3>
-
-            {/* Placeholder grid — YOU replace this */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-              <Skeleton className="h-40" />
-            </div>
-          </ScrollArea>
-        </ResizablePanel>
+        {children}
       </ResizablePanelGroup>
     </div>
   );
