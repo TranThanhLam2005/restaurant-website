@@ -23,6 +23,8 @@ import {
   SheetContent,
   SheetHeader,
   SheetFooter,
+  SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import {
   Collapsible,
@@ -121,11 +123,13 @@ export default function AppHeader() {
                   height={100}
                 />
                 <div
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-3 cursor-pointer"
                   onClick={() => router.push("/reservation")}
                 >
-                  <h4>Booking Cart</h4>
-                  <ShoppingBag className="w-6 h-6" />
+                  <SheetTitle>Booking Cart</SheetTitle>
+                  <SheetDescription>
+                    <ShoppingBag />
+                  </SheetDescription>
                 </div>
               </SheetHeader>
               <div className="space-y-4 px-6">

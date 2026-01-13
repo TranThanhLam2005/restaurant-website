@@ -1,10 +1,10 @@
-"use client";
-
 import {MenuNav, MenuContent} from "@/features/menu";
+import {getMenuSectionsServer} from "@/features/menu/services";
 
-export default function MenuLayout() {
+export default async function MenuLayout() {
+  const menuSections = await getMenuSectionsServer();
   return (
-    <MenuNav>
+    <MenuNav menuSections={menuSections}>
       <MenuContent />
     </MenuNav>
   );
