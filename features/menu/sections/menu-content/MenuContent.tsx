@@ -12,6 +12,7 @@ import {
 import {Badge} from "@/components/ui/badge";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {useMenuCategory} from "@/features/menu/hooks/useMenuCategory";
+import {AspectRatio} from "@/components/ui/aspect-ratio";
 import {Clock, Flame} from "lucide-react";
 
 export default function MenuContent({
@@ -50,31 +51,28 @@ export default function MenuContent({
             {categoryData.foods && categoryData.foods.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categoryData.foods.map((food) => (
-                  <Card
-                    key={food.id}
-                    className={!food.isAvailable ? "opacity-60" : ""}
-                  >
-                    {food.imageUrl && (
-                      <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                        <img
-                          src={food.imageUrl}
-                          alt={food.name}
-                          className="object-cover w-full h-full"
-                        />
-                        {!food.isAvailable && (
-                          <Badge
-                            className="absolute top-2 right-2"
-                            variant="destructive"
-                          >
-                            Unavailable
-                          </Badge>
-                        )}
-                      </div>
-                    )}
+                  <Card key={food.id}>
                     <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg">{food.name}</CardTitle>
-                        <span className="text-lg font-bold text-primary">
+                      {food.imageUrl && (
+                        <AspectRatio ratio={16 / 9}>
+                          <img
+                            src={food.imageUrl}
+                            alt={food.name}
+                            className="object-cover w-full h-full rounded-lg"
+                          />
+                          {!food.isAvailable && (
+                            <Badge
+                              className="absolute top-2 right-2"
+                              variant="destructive"
+                            >
+                              Unavailable
+                            </Badge>
+                          )}
+                        </AspectRatio>
+                      )}
+                      <div className="flex justify-between items-center">
+                        <CardTitle>{food.name}</CardTitle>
+                        <span className="font-light">
                           ${food.price.toFixed(2)}
                         </span>
                       </div>
@@ -88,7 +86,7 @@ export default function MenuContent({
                             {food.ingredients}
                           </p>
                         )}
-                        <div className="flex gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center text-sm text-muted-foreground font-light gap-4">
                           {food.preparationTime && (
                             <div className="flex items-center gap-1">
                               <Clock className="w-4 h-4" />
