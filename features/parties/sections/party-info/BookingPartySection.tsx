@@ -1,9 +1,10 @@
 "use client";
-
+// import libraries
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 
+// import components
 import {Button} from "@/components/ui/button";
 import {
   Form,
@@ -71,10 +72,10 @@ export default function BookingPartySection() {
           Event and private party planning services
         </h1>
         <div className="flex flex-col gap-4">
-          <h2>
+          <h3>
             Please contact us directly by phone or email if you wish to check
             availability or have any special requests.
-          </h2>
+          </h3>
           <div className="flex gap-8">
             <div className="flex flex-col gap-2">
               <p>Vietnam: reservation@example.com</p>
@@ -101,7 +102,7 @@ export default function BookingPartySection() {
         </h5>
       </div>
       <img
-        src="https://www.texasroadhouse.com/sites/default/files/2021-10/og-image.jpg"
+        src="https://architizer-prod.imgix.net/media/mediadata/uploads/1694347883883The_primary_dining_area_of_a_modern_and_minimalistic_Italian_Fine_Dining_restaurant_adorned_in_raspberry_tones..jpg?w=1680&q=60&auto=format,compress&cs=strip"
         alt="Booking Party"
         className="w-full h-screen rounded-4xl object-cover"
       />

@@ -1,12 +1,18 @@
 "use client";
+// import libraries
+import {motion} from "framer-motion";
+
+// import components
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import {motion} from "framer-motion";
-import {sectionStaggerVariants, itemVariants} from "../../animations/variants";
+import {
+  sectionStaggerVariants,
+  itemVariants,
+} from "@/components/common/animations";
 
 // Define a simple array of rules or FAQ items
 const appRules = [

@@ -1,7 +1,10 @@
 "use client";
-
+// import libraries
 import {useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
+import {ChevronDown} from "lucide-react";
+
+// import components
 import {
   Card,
   CardHeader,
@@ -10,13 +13,12 @@ import {
 } from "@/components/ui/card";
 import {Collapsible, CollapsibleTrigger} from "@/components/ui/collapsible";
 import {Button} from "@/components/ui/button";
-import {ChevronDown} from "lucide-react";
 import {
   sectionVariants,
   headingVariants,
   expandVariants,
   createCardIndexedVariants,
-} from "../../animations/variants";
+} from "@/components/common/animations";
 
 const cardVariants = createCardIndexedVariants(0.1);
 

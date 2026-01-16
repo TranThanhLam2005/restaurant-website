@@ -1,13 +1,15 @@
 "use client";
-
+// import libraries
 import {useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
+
+// import components
 import {Badge} from "@/components/ui/badge";
 import {
   sectionStaggerVariants,
   itemVariants,
   modalVariants,
-} from "../../animations/variants";
+} from "@/components/common/animations";
 
 const foods = [
   {

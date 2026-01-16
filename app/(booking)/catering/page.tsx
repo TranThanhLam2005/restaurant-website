@@ -1,9 +1,5 @@
-import { BookingPartySection } from "@/features/parties";
+import {BookingPartySection} from "@/features/parties";
 
 export default function CateringPage() {
-  return (
-    <div>
-        <BookingPartySection />
-    </div>
-  );
+  return <BookingPartySection />;
 }

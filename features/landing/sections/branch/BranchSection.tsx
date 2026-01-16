@@ -1,5 +1,12 @@
 "use client";
 
+// import libraries
+import {Star} from "lucide-react";
+import {useState, useEffect} from "react";
+import {motion} from "framer-motion";
+import {useIsMobile} from "@/hooks/use-mobile";
+
+// import components
 import {
   type CarouselApi,
   Carousel,
@@ -17,16 +24,12 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import {Star} from "lucide-react";
-import {useState, useEffect} from "react";
-import {motion} from "framer-motion";
-import {useIsMobile} from "@/hooks/use-mobile";
 import {
   sectionStaggerVariants,
   headingVariants,
   cardVariants,
   progressVariants,
-} from "../../animations/variants";
+} from "@/components/common/animations";
 
 export default function BranchSection() {
   const [api, setApi] = useState<CarouselApi>();
@@ -103,7 +106,7 @@ export default function BranchSection() {
       >
         <CarouselContent className="py-2">
           {(isMobile ? branches.slice(0, 2) : branches).map((branch, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} className="md:basis-[33%]">
               <motion.div
                 variants={cardVariants}
                 whileHover={{y: -6, transition: {duration: 0.2}}}

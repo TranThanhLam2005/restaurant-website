@@ -1,6 +1,9 @@
 "use client";
-
+// import libraries
 import {motion} from "framer-motion";
+import {Star, Quote} from "lucide-react";
+
+// import components
 import {
   Card,
   CardHeader,
@@ -10,14 +13,13 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
-import {Star, Quote} from "lucide-react";
 import {
   sectionVariants,
   headingVariants,
   containerStaggerVariants,
   cardVariants,
   createStarVariants,
-} from "../../animations/variants";
+} from "@/components/common/animations";
 
 const starVariants = createStarVariants(0.3, 0.05);
 

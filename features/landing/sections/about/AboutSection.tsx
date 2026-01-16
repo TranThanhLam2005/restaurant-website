@@ -1,16 +1,19 @@
 "use client";
 
+// import libraries
+import {Clock} from "lucide-react";
 import {motion} from "framer-motion";
 import {GoogleMapsEmbed} from "@next/third-parties/google";
+
+// import components
 import {Card, CardHeader, CardTitle, CardContent} from "@/components/ui/card";
-import {Clock} from "lucide-react";
 import {
   sectionVariants,
   headingVariants,
   fadeInLeftVariants,
   fadeInRightVariants,
   createIndexedVariants,
-} from "../../animations/variants";
+} from "@/components/common/animations";
 
 const hourItemVariants = createIndexedVariants(0.2, 0.1);
 

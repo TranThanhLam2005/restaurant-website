@@ -4,7 +4,7 @@ import {Instagram, Facebook, Twitter, Mail, Phone, MapPin} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {motion} from "framer-motion";
-import {sectionVariants} from "../../features/landing/animations/variants";
+import {sectionVariants} from "../common/animations/variants";
 
 export default function FooterSection() {
   return (

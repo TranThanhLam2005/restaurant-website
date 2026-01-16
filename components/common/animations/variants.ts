@@ -113,7 +113,7 @@ export const fadeVariants: Variants = {
   hidden: {opacity: 0},
   visible: {
     opacity: 1,
-    transition: {duration: 0.4},
+    transition: {duration: 1, ease: "easeOut"},
   },
 };
 

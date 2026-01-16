@@ -1,7 +1,8 @@
 "use client";
 
+// import libraries
 import {motion} from "framer-motion";
-import {sectionVariants} from "../../animations/variants";
+import {sectionVariants} from "@/components/common/animations";
 
 export default function HeroSection() {
   return (

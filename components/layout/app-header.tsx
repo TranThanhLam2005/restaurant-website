@@ -152,7 +152,10 @@ export default function AppHeader() {
                 >
                   Private Events
                 </div>
-                <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
+                <div
+                  className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => router.push("/news")}
+                >
                   News
                 </div>
                 <div
