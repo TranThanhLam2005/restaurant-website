@@ -146,11 +146,14 @@ export default function AppHeader() {
                   Booking
                 </div>
 
-                <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
-                  Catering
+                <div
+                  className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => router.push("/catering")}
+                >
+                  Private Events
                 </div>
                 <div className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
-                  Promotion
+                  News
                 </div>
                 <div
                   className="text-xl font-medium cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
