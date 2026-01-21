@@ -25,6 +25,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
 
 // const formSchema = z.object({
 //   email: z.string().email({
@@ -128,29 +130,30 @@ export default function LoginDialog() {
               booking.
             </DialogDescription>
           </DialogHeader>
-          <InputGroup>
-            <InputGroupInput type="email" placeholder="eg: @email.com" />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton>Receive OTP</InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
+          <Input type="email" placeholder="eg: email@example.com" />
+          <Input type="password" placeholder="Enter Password" />
+          <Button>Send Verification Email</Button>
           <Separator />
           <div className="flex items-center justify-center gap-4">
             {/* Google Button */}
             <button
               onClick={() => signIn("google")}
-              className="flex items-center gap-2 border p-2 rounded-md hover:bg-gray-50"
+              className="flex items-center border p-2 rounded-md hover:bg-gray-50"
             >
-              <Image src={GoogleIcon} alt="Google" className="w-5 h-5" />
+              <Image src={GoogleIcon} alt="Google" className="w-4 h-4 mr-1" />
               Continue with Google
             </button>
 
             {/* Facebook Button */}
             <button
               onClick={() => signIn("facebook")}
-              className="flex items-center gap-2 border p-2 rounded-md hover:bg-gray-50"
+              className="flex items-center border p-2 rounded-md hover:bg-gray-50"
             >
-              <Image src={FacebookIcon} alt="Facebook" className="w-5 h-5" />
+              <Image
+                src={FacebookIcon}
+                alt="Facebook"
+                className="w-4 h-4 mr-1"
+              />
               Continue with Facebook
             </button>
           </div>
