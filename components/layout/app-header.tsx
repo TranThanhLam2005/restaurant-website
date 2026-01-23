@@ -4,19 +4,9 @@
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import {signOut} from "@/auth";
+import {useSession} from "next-auth/react";
 // import UI components and icons
-import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-} from "@/components/ui/dropdown-menu";
+import {AccountNavSection} from "@/features/account-nav";
 import {
   Sheet,
   SheetTrigger,
@@ -40,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {AuthDialog} from "@/features/auth";
 
 import Logo from "@/public/restaurant-icon.png";
 import {Phone, Menu, Plus, Minus, ShoppingBag} from "lucide-react";
@@ -47,6 +38,10 @@ import {Phone, Menu, Plus, Minus, ShoppingBag} from "lucide-react";
 export default function AppHeader() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const {data: session, status} = useSession();
+  const isLoggedIn = !!session?.user;
+  const isLoading = status === "loading";
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -61,60 +56,13 @@ export default function AppHeader() {
             <p>01234566778</p>
             <Phone className="w-5 h-5" />
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar>
-                <AvatarImage
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"
-                  alt="Avatar"
-                />
-                <AvatarFallback>AB</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="start">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  Profile
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Reservations
-                  <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Orders
-                  <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Voucher Wallet
-                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Payment Info
-                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Notifications
-                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Invoices
-                  <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                // onClick={async () => {
-                //   "use server";
-                //   await signOut({redirectTo: "/"});
-                // }}
-              >
-                Log out
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {isLoading ? (
+            <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
+          ) : isLoggedIn ? (
+            <AccountNavSection />
+          ) : (
+            <AuthDialog />
+          )}
           <Sheet>
             <SheetTrigger asChild>
               <Menu className="w-5 h-5 cursor-pointer" />

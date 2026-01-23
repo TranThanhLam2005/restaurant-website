@@ -2,11 +2,12 @@
 
 // import libraries
 import {useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
 
 // import UI components
+import {AccountNavSection} from "@/features/account-nav";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Button} from "@/components/ui/button";
-
 import {AuthDialog} from "@/features/auth";
 
 const scrollToSection = (sectionId: string) => {
@@ -25,6 +26,10 @@ const scrollToSection = (sectionId: string) => {
 
 export default function MarketingHeader() {
   const router = useRouter();
+  const {data: session, status} = useSession();
+  const isLoggedIn = !!session?.user;
+  const isLoading = status === "loading";
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -64,7 +69,13 @@ export default function MarketingHeader() {
           >
             Book Now
           </Button>
-          <AuthDialog />
+          {isLoading ? (
+            <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
+          ) : isLoggedIn ? (
+            <AccountNavSection />
+          ) : (
+            <AuthDialog />
+          )}
         </div>
       </div>
     </header>

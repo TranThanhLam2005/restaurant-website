@@ -10,14 +10,10 @@ import FacebookIcon from "@/public/fb-icon.svg.webp";
 import GoogleIcon from "@/public/gg-icon.svg.png";
 import {Separator} from "@/components/ui/separator";
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogOverlay,
-  DialogPortal,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";

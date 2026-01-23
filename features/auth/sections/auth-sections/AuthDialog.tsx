@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {LoginDialog, RegisterDialog} from "@/features/auth";
+import {User} from "lucide-react";
 
 type DialogMode = "login" | "register";
 
@@ -24,14 +25,12 @@ export default function AuthDialog() {
   };
 
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage
-            src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"
-            alt="Avatar"
-          />
-          <AvatarFallback>AB</AvatarFallback>
+          <AvatarFallback>
+            <User />
+          </AvatarFallback>
         </Avatar>
       </DialogTrigger>
       <DialogPortal>

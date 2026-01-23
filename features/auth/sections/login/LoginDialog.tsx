@@ -5,7 +5,7 @@ import {signIn} from "next-auth/react";
 import Image from "next/image";
 import {useActionState, useState} from "react";
 import {authenticate} from "@/app/lib/actions";
-import {useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 // import UI components
 import FacebookIcon from "@/public/fb-icon.svg.webp";
@@ -25,32 +25,47 @@ interface LoginDialogProps {
 }
 
 export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const router = useRouter();
   const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
+    async (prevState: string | undefined, formData: FormData) => {
+      const result = await authenticate(prevState, formData);
+      if (!result) {
+        // Success - refresh the page to update session state
+        router.refresh();
+      }
+      return result;
+    },
     undefined,
   );
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    formAction(formData);
+  };
 
   return (
     <DialogContent className="max-w-md">
       <DialogHeader>
         <DialogTitle className="text-center text-3xl">Login</DialogTitle>
         <DialogDescription className="text-center font-light">
-          Please enter your email to reservation, management table or online
+          Please enter your username to reservation, management table or online
           booking.
         </DialogDescription>
       </DialogHeader>
       <Input
-        type="email"
-        placeholder="eg: email@example.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        name="username"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <Input
         type="password"
+        name="password"
         placeholder="Enter Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +78,7 @@ export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
       >
         Create new account
       </Button>
-      <Button onClick={() => authenticate(undefined, new FormData())}>
+      <Button onClick={handleSubmit} disabled={isPending}>
         {isPending ? "Logging in..." : "Login to your account"}
       </Button>
       {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
@@ -72,7 +87,7 @@ export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
       <div className="flex items-center justify-center gap-4">
         {/* Google Button */}
         <button
-          onClick={() => signIn("google")}
+          onClick={() => console.log("Google sign-in")}
           className="flex items-center border p-2 rounded-md hover:bg-gray-50"
         >
           <Image src={GoogleIcon} alt="Google" className="w-4 h-4 mr-1" />
@@ -81,7 +96,7 @@ export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
 
         {/* Facebook Button */}
         <button
-          onClick={() => signIn("facebook")}
+          onClick={() => console.log("Facebook sign-in")}
           className="flex items-center border p-2 rounded-md hover:bg-gray-50"
         >
           <Image src={FacebookIcon} alt="Facebook" className="w-4 h-4 mr-1" />
