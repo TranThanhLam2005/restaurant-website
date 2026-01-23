@@ -7,7 +7,7 @@ import {useRouter} from "next/navigation";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Button} from "@/components/ui/button";
 
-import {LoginDialog} from "@/features/auth/sections";
+import {AuthDialog} from "@/features/auth";
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -64,7 +64,7 @@ export default function MarketingHeader() {
           >
             Book Now
           </Button>
-          <LoginDialog />
+          <AuthDialog />
         </div>
       </div>
     </header>

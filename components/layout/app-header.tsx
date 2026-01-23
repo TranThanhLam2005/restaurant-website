@@ -4,7 +4,7 @@
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-
+import {signOut} from "@/auth";
 // import UI components and icons
 import {Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
 import {
@@ -104,7 +104,12 @@ export default function AppHeader() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                // onClick={async () => {
+                //   "use server";
+                //   await signOut({redirectTo: "/"});
+                // }}
+              >
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>
@@ -202,6 +207,7 @@ export default function AppHeader() {
                     <SelectGroup>
                       <SelectLabel>Languages</SelectLabel>
                       <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="vi">Vietnamese</SelectItem>
                       <SelectItem value="zh">China</SelectItem>
                       <SelectItem value="es">Spanish</SelectItem>
                     </SelectGroup>

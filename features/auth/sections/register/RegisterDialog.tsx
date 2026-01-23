@@ -3,44 +3,52 @@
 // import libraries
 import {signIn} from "next-auth/react";
 import Image from "next/image";
-import {useActionState, useState} from "react";
-import {authenticate} from "@/app/lib/actions";
-import {useSearchParams} from "next/navigation";
+import {useState} from "react";
 
 // import UI components
 import FacebookIcon from "@/public/fb-icon.svg.webp";
 import GoogleIcon from "@/public/gg-icon.svg.png";
 import {Separator} from "@/components/ui/separator";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogOverlay,
+  DialogPortal,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 
-interface LoginDialogProps {
-  onSwitchToRegister?: () => void;
+interface RegisterDialogProps {
+  onSwitchToLogin?: () => void;
 }
 
-export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined,
-  );
+export default function RegisterDialog({onSwitchToLogin}: RegisterDialogProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isPending, setIsPending] = useState(false);
+
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    setIsPending(true);
+    // Add your registration logic here
+    console.log("Registering user:", {email, password});
+    setIsPending(false);
+  };
 
   return (
     <DialogContent className="max-w-md">
       <DialogHeader>
-        <DialogTitle className="text-center text-3xl">Login</DialogTitle>
+        <DialogTitle className="text-center text-3xl">Register</DialogTitle>
         <DialogDescription className="text-center font-light">
-          Please enter your email to reservation, management table or online
-          booking.
+          Create your account to start making reservations and online bookings.
         </DialogDescription>
       </DialogHeader>
       <Input
@@ -55,18 +63,23 @@ export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <Input
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
       <Button
         variant="link"
         className="flex ml-auto"
-        onClick={onSwitchToRegister}
+        onClick={onSwitchToLogin}
         type="button"
       >
-        Create new account
+        Already have an account?
       </Button>
-      <Button onClick={() => authenticate(undefined, new FormData())}>
-        {isPending ? "Logging in..." : "Login to your account"}
+      <Button onClick={handleRegister} disabled={isPending}>
+        {isPending ? "Creating account..." : "Send Verification Email"}
       </Button>
-      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
 
       <Separator />
       <div className="flex items-center justify-center gap-4">
