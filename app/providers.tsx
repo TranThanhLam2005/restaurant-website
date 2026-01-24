@@ -3,9 +3,16 @@
 
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {SessionProvider} from "next-auth/react";
+import {Session} from "next-auth";
 import {ReactNode, useState} from "react";
 
-export default function Providers({children}: {children: ReactNode}) {
+export default function Providers({
+  children,
+  session,
+}: {
+  children: ReactNode;
+  session: Session | null;
+}) {
   // Create a new QueryClient instance for each server request
   // (prevents cache sharing between requests)
   const [queryClient] = useState(
@@ -23,7 +30,7 @@ export default function Providers({children}: {children: ReactNode}) {
   );
 
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </SessionProvider>
   );
