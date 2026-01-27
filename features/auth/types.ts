@@ -14,3 +14,8 @@ export interface User {
   email?: string;
   name?: string;
 }
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+}

@@ -9,6 +9,8 @@ import {useState} from "react";
 import FacebookIcon from "@/public/fb-icon.svg.webp";
 import GoogleIcon from "@/public/gg-icon.svg.png";
 import {Separator} from "@/components/ui/separator";
+import {Toaster} from "@/components/ui/sonner";
+import {toast} from "sonner";
 import {
   DialogContent,
   DialogDescription,
@@ -17,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import {authApi} from "../..";
 
 interface RegisterDialogProps {
   onSwitchToLogin?: () => void;
@@ -30,13 +33,18 @@ export default function RegisterDialog({onSwitchToLogin}: RegisterDialogProps) {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match");
       return;
     }
     setIsPending(true);
-    // Add your registration logic here
-    console.log("Registering user:", {email, password});
-    setIsPending(false);
+    try {
+      await authApi.register({email, password});
+      toast.success("Registration successful! Please check your email.");
+    } catch (error) {
+      toast.error("Registration failed. Please try again.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
@@ -76,7 +84,7 @@ export default function RegisterDialog({onSwitchToLogin}: RegisterDialogProps) {
       <Button onClick={handleRegister} disabled={isPending}>
         {isPending ? "Creating account..." : "Send Verification Email"}
       </Button>
-
+      <Toaster />
       <Separator />
       <div className="flex items-center justify-center gap-4">
         {/* Google Button */}

@@ -1,11 +1,9 @@
 "use client";
 
 // import libraries
-import {signIn} from "next-auth/react";
 import Image from "next/image";
-import {useActionState, useState} from "react";
+import {useActionState} from "react";
 import {authenticate} from "@/app/lib/actions";
-import {useRouter} from "next/navigation";
 
 // import UI components
 import FacebookIcon from "@/public/fb-icon.svg.webp";
@@ -25,28 +23,16 @@ interface LoginDialogProps {
 }
 
 export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
-  const router = useRouter();
   const [errorMessage, formAction, isPending] = useActionState(
     async (prevState: string | undefined, formData: FormData) => {
       const result = await authenticate(prevState, formData);
       if (!result) {
-        // Success - refresh the page to update session state
-        router.refresh();
+        window.location.reload();
       }
       return result;
     },
     undefined,
   );
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = () => {
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-    formAction(formData);
-  };
-
   return (
     <DialogContent className="max-w-md">
       <DialogHeader>
@@ -56,32 +42,27 @@ export default function LoginDialog({onSwitchToRegister}: LoginDialogProps) {
           booking.
         </DialogDescription>
       </DialogHeader>
-      <Input
-        type="text"
-        name="username"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button
-        variant="link"
-        className="flex ml-auto"
-        onClick={onSwitchToRegister}
-        type="button"
-      >
-        Create new account
-      </Button>
-      <Button onClick={handleSubmit} disabled={isPending}>
-        {isPending ? "Logging in..." : "Login to your account"}
-      </Button>
-      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
+      <form action={formAction} className="space-y-4">
+        <Input type="text" name="username" placeholder="Username" required />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Enter Password"
+          required
+        />
+        <Button
+          variant="link"
+          className="flex ml-auto"
+          onClick={onSwitchToRegister}
+          type="button"
+        >
+          Create new account
+        </Button>
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? "Logging in..." : "Login to your account"}
+        </Button>
+        {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
+      </form>
 
       <Separator />
       <div className="flex items-center justify-center gap-4">

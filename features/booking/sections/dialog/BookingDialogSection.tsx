@@ -59,11 +59,10 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
 
   const [showAuthDialog, setShowAuthDialog] = useState(false);
 
-  // When booking dialog tries to open but user not logged in, show auth dialog
   useEffect(() => {
     if (isDialogOpen && !isLoggedIn && !isLoading) {
       setShowAuthDialog(true);
-      setIsDialogOpen(false); // Close booking dialog
+      setIsDialogOpen(false);
     }
   }, [isDialogOpen, isLoggedIn, isLoading, setIsDialogOpen]);
 
@@ -350,17 +349,11 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
-            <DialogTitle>Login Required</DialogTitle>
+            <DialogTitle className="text-3xl">Login Required</DialogTitle>
             <DialogDescription>
               Please login or register to continue with your booking.
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4">
-            <p className="text-sm text-muted-foreground mb-4">
-              You need to be logged in to make a booking reservation.
-            </p>
-            {/* Add login/register form here or redirect to auth page */}
-          </div>
         </DialogContent>
       </Dialog>
     </>
