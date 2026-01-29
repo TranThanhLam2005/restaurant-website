@@ -11,16 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
+import {useRouter} from "next/navigation";
 export default function AccountNavSection() {
+  const router = useRouter();
   const {data: session} = useSession();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage
-            src="https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg"
-            alt="Avatar"
-          />
+          <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
           <AvatarFallback>
             {session?.user?.name?.charAt(0).toUpperCase() || "U"}
           </AvatarFallback>
@@ -29,11 +28,11 @@ export default function AccountNavSection() {
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/profile")}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/reservation")}>
             Reservations
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>

@@ -75,10 +75,7 @@ export default function AppHeader() {
                   width={100}
                   height={100}
                 />
-                <div
-                  className="flex items-center gap-3 cursor-pointer"
-                  onClick={() => router.push("/reservation")}
-                >
+                <div className="flex items-center gap-3 cursor-pointer">
                   <SheetTitle>Booking Cart</SheetTitle>
                   <SheetDescription>
                     <ShoppingBag />
