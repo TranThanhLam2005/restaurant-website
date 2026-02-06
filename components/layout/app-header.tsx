@@ -130,8 +130,11 @@ export default function AppHeader() {
                     )}
                   </CollapsibleTrigger>
                   <CollapsibleContent className="pl-4 mt-2 space-y-2 text-sm">
-                    <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
-                      Abous Us
+                    <div
+                      className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                      onClick={() => router.push("/feedback")}
+                    >
+                      Feedback
                     </div>
                     <div
                       className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
@@ -139,8 +142,11 @@ export default function AppHeader() {
                     >
                       Careers
                     </div>
-                    <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
-                      Contact Us
+                    <div
+                      className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                      onClick={() => router.push("/faq-legal")}
+                    >
+                      Legal & FAQ
                     </div>
                   </CollapsibleContent>
                 </Collapsible>
