@@ -133,7 +133,10 @@ export default function AppHeader() {
                     <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
                       Abous Us
                     </div>
-                    <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
+                    <div
+                      className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                      onClick={() => router.push("/career")}
+                    >
                       Careers
                     </div>
                     <div className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
