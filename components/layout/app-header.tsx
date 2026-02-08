@@ -30,10 +30,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
+import {Separator} from "@/components/ui/separator";
+import {Button} from "@/components/ui/button";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import {AuthDialog} from "@/features/auth";
-
 import Logo from "@/public/restaurant-icon.png";
-import {Phone, Menu, Plus, Minus, ShoppingBag} from "lucide-react";
+import {Label} from "@/components/ui/label";
+import {
+  Phone,
+  Menu,
+  Plus,
+  Minus,
+  ShoppingBag,
+  Trash2,
+  Ticket,
+} from "lucide-react";
 
 export default function AppHeader() {
   const router = useRouter();
@@ -63,6 +90,107 @@ export default function AppHeader() {
           ) : (
             <AuthDialog />
           )}
+          <Drawer direction="bottom">
+            <DrawerTrigger asChild>
+              <ShoppingBag className="w-5 h-5 cursor-pointer" />
+            </DrawerTrigger>
+            <DrawerPortal>
+              <DrawerOverlay />
+              <DrawerContent className="px-100">
+                <DrawerHeader>
+                  <DrawerTitle>YOUR ORDER</DrawerTitle>
+                </DrawerHeader>
+                <div className="max-h-100 overflow-y-auto px-2">
+                  <div className="flex justify-between items-center">
+                    <h4>FILET DUO (BLACK ANGUS)</h4>
+                    <p>1 x $45.00</p>
+                  </div>
+                  <h5 className="text-muted-foreground">DONESS: RARE</h5>
+                  <Button variant="link" className="p-0">
+                    Modify Order
+                  </Button>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center border rounded-lg overflow-hidden gap-2">
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <p>1</p>
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Button variant="outline" size="icon" className="h-10 w-10">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h4>FILET DUO (BLACK ANGUS)</h4>
+                    <p>1 x $45.00</p>
+                  </div>
+                  <h5 className="text-muted-foreground">DONESS: RARE</h5>
+                  <Button variant="link" className="p-0">
+                    Modify Order
+                  </Button>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center border rounded-lg overflow-hidden gap-2">
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <p>1</p>
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Button variant="outline" size="icon" className="h-10 w-10">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h4>FILET DUO (BLACK ANGUS)</h4>
+                    <p>1 x $45.00</p>
+                  </div>
+                  <h5 className="text-muted-foreground">DONESS: RARE</h5>
+                  <Button variant="link" className="p-0">
+                    Modify Order
+                  </Button>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center border rounded-lg overflow-hidden gap-2">
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <p>1</p>
+                      <Button variant="ghost" size="icon" className="h-9 w-9">
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <Button variant="outline" size="icon" className="h-10 w-10">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <DrawerFooter>
+                  <h4>Total: $90.00</h4>
+                  <InputGroup>
+                    <InputGroupInput placeholder="Enter voucher code" />
+                    <InputGroupAddon>
+                      <Ticket className="w-4 h-4" />
+                    </InputGroupAddon>
+                    <InputGroupAddon align="inline-end">
+                      <p className="hover:text-foreground cursor-pointer">
+                        Apply
+                      </p>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  <Button>Checkout</Button>
+                  <DrawerClose asChild>
+                    <Button variant="ghost">Continue Shopping</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </DrawerPortal>
+          </Drawer>
           <Sheet>
             <SheetTrigger asChild>
               <Menu className="w-5 h-5 cursor-pointer" />

@@ -1,3 +1,4 @@
+"use client";
 import {Flag, Layers, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {FeedbackUI} from "@/features/feedback";
