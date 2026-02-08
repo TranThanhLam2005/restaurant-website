@@ -24,3 +24,7 @@ export interface Food {
 export interface MenuCategoryWithFoods extends MenuCategory {
   foods: Food[];
 }
+
+export interface OrderFood extends Food {
+  quantity: number;
+}

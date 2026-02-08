@@ -84,7 +84,6 @@ export default function RegisterDialog({onSwitchToLogin}: RegisterDialogProps) {
       <Button onClick={handleRegister} disabled={isPending}>
         {isPending ? "Creating account..." : "Send Verification Email"}
       </Button>
-      <Toaster />
       <Separator />
       <div className="flex items-center justify-center gap-4">
         {/* Google Button */}
@@ -113,6 +112,7 @@ export default function RegisterDialog({onSwitchToLogin}: RegisterDialogProps) {
         and{" "}
         <span className="underline inline cursor-pointer">Privacy Policy</span>
       </p>
+      <Toaster />
     </DialogContent>
   );
 }

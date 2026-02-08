@@ -5,7 +5,7 @@ export default async function MenuLayout() {
   const menuSections = await getMenuSectionsServer();
   return (
     <MenuNav menuSections={menuSections}>
-      <MenuContent />
+      <MenuContent activeCategory={null} />
     </MenuNav>
   );
 }

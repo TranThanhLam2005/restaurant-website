@@ -21,7 +21,6 @@ import {AspectRatio} from "@/components/ui/aspect-ratio";
 import {Separator} from "@/components/ui/separator";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -38,16 +37,17 @@ import {
   SelectGroup,
   SelectItem,
   SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {Toaster} from "@/components/ui/sonner";
+import {toast} from "sonner";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
+import {OrderFood} from "../../types";
+import {useOrderFood} from "../../hooks/useOrderFood";
 
 export default function MenuContent({
   activeCategory,
@@ -60,6 +60,15 @@ export default function MenuContent({
     error,
   } = useMenuCategory(activeCategory);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedDish, setSelectedDish] = useState<OrderFood | null>(null);
+  const {addFood} = useOrderFood();
+  const handleAddToCart = () => {
+    if (selectedDish) {
+      addFood(selectedDish);
+      toast.success("Dish added to cart! " + selectedDish.name);
+      setIsDialogOpen(false);
+    }
+  };
 
   return (
     <>
@@ -139,7 +148,10 @@ export default function MenuContent({
                             )}
                             <ShoppingCart
                               className="w-5 h-5 hover:cursor-pointer hover:text-primary"
-                              onClick={() => setIsDialogOpen(true)}
+                              onClick={() => {
+                                setSelectedDish({...food, quantity: 1});
+                                setIsDialogOpen(true);
+                              }}
                             />
                           </div>
                         </div>
@@ -174,17 +186,17 @@ export default function MenuContent({
               <Separator className="my-4" />
               <div className="flex items-center justify-around">
                 <img
-                  src="https://github.com/shadcn.png"
+                  src={selectedDish?.imageUrl || ""}
                   alt="Food Item"
                   className="object-cover w-20 h-20 rounded-lg"
                 />
                 <div className="flex flex-col items-center">
                   <h4>Product Choose</h4>
-                  <h5>THĂN NỘI 2 LOẠI</h5>
+                  <h5>{selectedDish?.name}</h5>
                 </div>
               </div>
               <DialogDescription className="text-center font-light">
-                125G THĂN NỘI BÒ USDA PRIME100G THĂN NỘI BÒ BLACK ANGUS
+                {selectedDish?.description}
               </DialogDescription>
             </DialogHeader>
 
@@ -308,11 +320,14 @@ export default function MenuContent({
               />
             </div>
             <DialogFooter>
-              <Button className="w-full">Add to Cart - $25.00</Button>
+              <Button className="w-full" onClick={handleAddToCart}>
+                Add to Cart - ${selectedDish?.price}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </DialogPortal>
       </Dialog>
+      <Toaster />
     </>
   );
 }
