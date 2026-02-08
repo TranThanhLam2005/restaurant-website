@@ -48,6 +48,10 @@ export default function AccountNavSection() {
             Payment Info
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/address")}>
+            Address
+            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             Notifications
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
