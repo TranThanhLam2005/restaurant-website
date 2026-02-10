@@ -1,19 +1,23 @@
 "use client";
 
 // import hooks and store
-import {useState, useEffect} from "react";
-import {useBranches} from "@/features/location/hooks";
-import {useBookingStore} from "@/features/booking/store/useBookingStore";
-import {BookingSectionProps} from "@/features/location/types";
-import {useSession} from "next-auth/react";
+import { useState, useEffect } from "react";
+import { useBranches } from "@/features/location/hooks";
+import { useBookingStore } from "@/features/booking/store/useBookingStore";
+import { BookingSectionProps } from "@/features/location/types";
+import { useSession } from "next-auth/react";
 
 // import UI components
-import {Popover, PopoverTrigger, PopoverContent} from "@/components/ui/popover";
-import {Checkbox} from "@/components/ui/checkbox";
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {Input} from "@/components/ui/input";
-import {Progress} from "@/components/ui/progress";
-import {Calendar} from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +26,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {Separator} from "@/components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
@@ -30,8 +34,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {Label} from "@/components/ui/label";
-import {Button} from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import StateCitySelected from "@/features/location/components/state-city-selected/StateCitySelected";
 
 // import icons and utilities
@@ -41,9 +45,9 @@ import {
   CheckCircle2,
   ChevronRight,
 } from "lucide-react";
-import {format} from "date-fns";
+import { format } from "date-fns";
 
-export default function BookingDialogSection({states}: BookingSectionProps) {
+export default function BookingDialogSection({ states }: BookingSectionProps) {
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
   const currentStep = useBookingStore((state) => state.currentStep);
@@ -53,7 +57,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
   const canProceed = useBookingStore((state) => state.canProceed());
   const isDialogOpen = useBookingStore((state) => state.isDialogOpen);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
-  const {data: session, status} = useSession();
+  const { data: session, status } = useSession();
   const isLoggedIn = !!session?.user;
   const isLoading = status === "loading";
 
@@ -66,7 +70,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
     }
   }, [isDialogOpen, isLoggedIn, isLoading, setIsDialogOpen]);
 
-  const {data: branches, isLoading: branchesLoading} = useBranches(
+  const { data: branches, isLoading: branchesLoading } = useBranches(
     formData.cityId,
   );
 
@@ -174,7 +178,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                           selected={formData.date}
                           onSelect={(date) => updateField("date", date)}
                           initialFocus
-                          disabled={{before: new Date()}}
+                          disabled={{ before: new Date() }}
                         />
                       </PopoverContent>
                     </Popover>

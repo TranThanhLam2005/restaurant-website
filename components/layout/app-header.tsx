@@ -1,14 +1,14 @@
 "use client";
 
 // import libraries
-import {useState} from "react";
-import {useRouter} from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import {useSession} from "next-auth/react";
-import {useOrderFood} from "@/features/menu";
+import { useSession } from "next-auth/react";
+import { useOrderFood } from "@/features/menu";
 
 // import UI components and icons
-import {AccountNavSection} from "@/features/account-nav";
+import { AccountNavSection } from "@/features/account-nav";
 import {
   Sheet,
   SheetTrigger,
@@ -18,11 +18,33 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -43,14 +65,14 @@ import {
   DrawerFooter,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import {Separator} from "@/components/ui/separator";
-import {Button} from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import {AuthDialog} from "@/features/auth";
+import { AuthDialog } from "@/features/auth";
 import Logo from "@/public/restaurant-icon.png";
 import {
   Phone,
@@ -61,16 +83,23 @@ import {
   Trash2,
   Ticket,
 } from "lucide-react";
-
+import { Textarea } from "../ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
 export default function AppHeader() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const {data: session, status} = useSession();
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const { data: session, status } = useSession();
   const isLoggedIn = !!session?.user;
   const isLoading = status === "loading";
-  const {orders, deleteOrder, totalPrice, increaseQuantity, decreaseQuantity} =
-    useOrderFood();
+  const {
+    orders,
+    deleteOrder,
+    totalPrice,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useOrderFood();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
@@ -171,7 +200,14 @@ export default function AppHeader() {
                       </p>
                     </InputGroupAddon>
                   </InputGroup>
-                  <Button>Checkout</Button>
+                  <Button
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      setPaymentOpen(true);
+                    }}
+                  >
+                    Checkout
+                  </Button>
                   <DrawerClose asChild>
                     <Button variant="ghost">Continue Shopping</Button>
                   </DrawerClose>
@@ -291,6 +327,185 @@ export default function AppHeader() {
           </Sheet>
         </div>
       </div>
+
+      <Dialog open={paymentOpen} onOpenChange={setPaymentOpen}>
+        <DialogPortal>
+          <DialogOverlay />
+          <DialogContent className="sm:max-w-8xl">
+            <div className="flex items-start justify-around">
+              <Tabs defaultValue="delivery">
+                <TabsList>
+                  <TabsTrigger value="delivery">Giao hàng</TabsTrigger>
+                  <TabsTrigger value="pickup">Nhận tại cửa hàng</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="delivery">
+                  <h4>Delivery</h4>
+                  <form className="space-y-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input id="name" placeholder="johndoe" />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" placeholder="eg: +1234567890" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="address">Address</Label>
+                      <Input id="address" placeholder="eg: 123 Main St" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="specialFoodNote">Special food note</Label>
+                      <Textarea
+                        id="specialFoodNote"
+                        placeholder="eg: I am allergic to peanuts"
+                      />
+                    </div>
+                    <Label>Time to delivery</Label>
+                    <RadioGroup defaultValue="now" className="flex">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="now" id="now" />
+                        <Label htmlFor="now">Delivery now</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="schedule" id="schedule" />
+                        <Label htmlFor="schedule">Schedule for later</Label>
+                      </div>
+                    </RadioGroup>
+                    <Label>Payment Method</Label>
+                    <RadioGroup defaultValue="paypal" className="flex">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="paypal" id="paypal" />
+                        <Label htmlFor="paypal">Paypal</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value="onlineBanking"
+                          id="onlineBanking"
+                        />
+                        <Label htmlFor="onlineBanking">Online Banking</Label>
+                      </div>
+                    </RadioGroup>
+
+                    <Button type="submit" className="w-full">
+                      Payment now - $300
+                    </Button>
+                  </form>
+                </TabsContent>
+
+                <TabsContent value="pickup">
+                  <h4>Receiver Detail</h4>
+                  <form className="space-y-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input id="name" placeholder="johndoe" />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input id="phone" placeholder="eg: +1234567890" />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="address">Restaurant address</Label>
+                      <Textarea id="address" placeholder="eg: 123 Main St" />
+                    </div>
+                    <div className="flex items-start justify-between ">
+                      <div className="grid gap-2">
+                        <Label required>Receive Date</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className="justify-start font-normal"
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <Calendar
+                              mode="single"
+                              initialFocus
+                              disabled={{ before: new Date() }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="time" required>
+                          Check-in Time
+                        </Label>
+                        <Input
+                          id="time"
+                          type="time"
+                          className="h-11 shadow-none border-b rounded-none border-x-0 border-t-0 px-0"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="specialFoodNote">Special food note</Label>
+                      <Textarea
+                        id="specialFoodNote"
+                        placeholder="eg: I am allergic to peanuts"
+                      />
+                    </div>
+                    <Label>Payment Method</Label>
+                    <RadioGroup defaultValue="paypal" className="flex">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="paypal" id="paypal" />
+                        <Label htmlFor="paypal">Paypal</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value="onlineBanking"
+                          id="onlineBanking"
+                        />
+                        <Label htmlFor="onlineBanking">Online Banking</Label>
+                      </div>
+                    </RadioGroup>
+
+                    <Button type="submit" className="w-full">
+                      Payment now - $300
+                    </Button>
+                  </form>
+                </TabsContent>
+              </Tabs>
+              <div className="p-4 rounded-xl border shadow-3xl">
+                <h4>YOUR ORDER</h4>
+                <div>
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
     </header>
   );
 }
