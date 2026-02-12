@@ -1,14 +1,14 @@
 "use client";
 
 // import libraries
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { useOrderFood } from "@/features/menu";
+import {useSession} from "next-auth/react";
+import {useOrderFood} from "@/features/menu";
 
 // import UI components and icons
-import { AccountNavSection } from "@/features/account-nav";
+import {AccountNavSection} from "@/features/account-nav";
 import {
   Sheet,
   SheetTrigger,
@@ -18,7 +18,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {Tabs, TabsList, TabsTrigger, TabsContent} from "@/components/ui/tabs";
 import {
   Dialog,
   DialogClose,
@@ -31,20 +31,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Badge, CalendarIcon} from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -65,15 +61,17 @@ import {
   DrawerFooter,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import {Separator} from "@/components/ui/separator";
+import {Button} from "@/components/ui/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { AuthDialog } from "@/features/auth";
+import {AuthDialog} from "@/features/auth";
 import Logo from "@/public/restaurant-icon.png";
+import {Textarea} from "@/components/ui/textarea";
+import {Calendar} from "@/components/ui/calendar";
 import {
   Phone,
   Menu,
@@ -82,24 +80,19 @@ import {
   ShoppingBag,
   Trash2,
   Ticket,
+  Check,
 } from "lucide-react";
-import { Textarea } from "../ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
 export default function AppHeader() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [paymentOpen, setPaymentOpen] = useState(false);
-  const { data: session, status } = useSession();
+  const [paymentDetails, setPaymentDetails] = useState(false);
+  const {data: session, status} = useSession();
   const isLoggedIn = !!session?.user;
   const isLoading = status === "loading";
-  const {
-    orders,
-    deleteOrder,
-    totalPrice,
-    increaseQuantity,
-    decreaseQuantity,
-  } = useOrderFood();
+  const {orders, deleteOrder, totalPrice, increaseQuantity, decreaseQuantity} =
+    useOrderFood();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
@@ -331,8 +324,44 @@ export default function AppHeader() {
       <Dialog open={paymentOpen} onOpenChange={setPaymentOpen}>
         <DialogPortal>
           <DialogOverlay />
-          <DialogContent className="sm:max-w-8xl">
-            <div className="flex items-start justify-around">
+          <DialogContent className="sm:max-w-7xl max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <Image src={Logo} alt="Nearby Location" width={120} />
+              <div className="w-full max-w-3xl ">
+                <div className="relative flex items-center justify-between">
+                  <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
+                      <Check className="w-5 h-5" />
+                    </div>
+                    <p className="text-black">Information</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
+                      <Check className="w-5 h-5" />
+                    </div>
+                    <p className="text-black">Delivery Detail</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-semibold">
+                      3
+                    </div>
+                    <p className="text-red-500">Payment</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 border border-gray-300">
+                      4
+                    </div>
+                    <p className="text-gray-400">Confirmed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Separator className="my-4" />
+            <div className="flex items-start justify-between">
               <Tabs defaultValue="delivery">
                 <TabsList>
                   <TabsTrigger value="delivery">Giao hàng</TabsTrigger>
@@ -388,7 +417,14 @@ export default function AppHeader() {
                       </div>
                     </RadioGroup>
 
-                    <Button type="submit" className="w-full">
+                    <Button
+                      type="button"
+                      className="w-full"
+                      onClick={() => {
+                        setPaymentOpen(false);
+                        setPaymentDetails(true);
+                      }}
+                    >
                       Payment now - $300
                     </Button>
                   </form>
@@ -426,7 +462,7 @@ export default function AppHeader() {
                             <Calendar
                               mode="single"
                               initialFocus
-                              disabled={{ before: new Date() }}
+                              disabled={{before: new Date()}}
                             />
                           </PopoverContent>
                         </Popover>
@@ -464,7 +500,14 @@ export default function AppHeader() {
                       </div>
                     </RadioGroup>
 
-                    <Button type="submit" className="w-full">
+                    <Button
+                      type="button"
+                      className="w-full"
+                      onClick={() => {
+                        setPaymentOpen(false);
+                        setPaymentDetails(true);
+                      }}
+                    >
                       Payment now - $300
                     </Button>
                   </form>
@@ -472,6 +515,7 @@ export default function AppHeader() {
               </Tabs>
               <div className="p-4 rounded-xl border shadow-3xl">
                 <h4>YOUR ORDER</h4>
+                <Separator className="my-4" />
                 <div>
                   <div className="flex justify-between items-center">
                     <h5>Waggu Meat</h5>
@@ -500,6 +544,141 @@ export default function AppHeader() {
                     meat lovers.
                   </p>
                   <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>PROVISIONAL PRICE</h5>
+                    <p>$900</p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h5>TAX</h5>
+                    <p>$10</p>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>TOTAL</h5>
+                    <p className="text-red-500 font-bold">$910</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+      <Dialog open={paymentDetails} onOpenChange={setPaymentDetails}>
+        <DialogPortal>
+          <DialogOverlay />
+          <DialogContent className="sm:max-w-7xl max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <Image src={Logo} alt="Nearby Location" width={120} />
+              <div className="w-full max-w-3xl ">
+                <div className="relative flex items-center justify-between">
+                  <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
+                      <Check className="w-5 h-5" />
+                    </div>
+                    <p className="text-black">Information</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
+                      <Check className="w-5 h-5" />
+                    </div>
+                    <p className="text-black">Delivery Detail</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-semibold">
+                      3
+                    </div>
+                    <p className="text-red-500">Payment</p>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-2 z-10">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 border border-gray-300">
+                      4
+                    </div>
+                    <p className="text-gray-400">Confirmed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Separator className="my-4" />
+            <div className="flex items-start justify-between">
+              <div className="w-1/2 space-y-4">
+                <h3>Paypal Payment</h3>
+                <div className="space-y-2 border-2 p-2 rounded-xl shadow-3xl">
+                  <h4>Delivery Details</h4>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Name:</p>
+                    <p>John Doe</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Phone:</p>
+                    <p>0984437830</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Type:</p>
+                    <p>Delivery</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Delivery:</p>
+                    <p>Now</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Button variant="outline" className="w-full">
+                    Paypal
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    Debit or Credit Card
+                  </Button>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl border shadow-3xl">
+                <h4>YOUR ORDER</h4>
+                <Separator className="my-4" />
+                <div>
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>Waggu Meat</h5>
+                    <p>$300</p>
+                  </div>
+                  <p className="text-muted-foreground text-xs">
+                    Delicious wagyu beef cooked to perfection. A must-try for
+                    meat lovers.
+                  </p>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>PROVISIONAL PRICE</h5>
+                    <p>$900</p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h5>TAX</h5>
+                    <p>$10</p>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>TOTAL</h5>
+                    <p className="text-red-500 font-bold">$910</p>
+                  </div>
                 </div>
               </div>
             </div>
