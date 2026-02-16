@@ -12,18 +12,18 @@ import {Card, CardHeader, CardTitle} from "@/components/ui/card";
 
 // import icons
 import {Map} from "lucide-react";
-import StateCitySelected from "@/features/location/components/state-city-selected/StateCitySelected";
+import {StateCitySelected} from "@/features/location";
 
 export default function BookingSelectedSection({states}: BookingSectionProps) {
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
   const syncStepWithValidation = useBookingStore(
-    (state) => state.syncStepWithValidation
+    (state) => state.syncStepWithValidation,
   );
 
   const {data: branches, isLoading: branchesLoading} = useBranches(
-    formData.cityId
+    formData.cityId,
   );
   return (
     <div>

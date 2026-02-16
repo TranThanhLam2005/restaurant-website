@@ -60,6 +60,7 @@ export interface StateCitySelectedProps {
   disabled?: boolean;
   required?: boolean;
   headless?: boolean;
+  vertical?: boolean;
 }
 
 export interface BookingStore {

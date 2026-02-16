@@ -2,7 +2,7 @@
 
 import {useEffect} from "react";
 import {useDebounce} from "use-debounce";
-import StateCitySelected from "@/features/location/components/state-city-selected/StateCitySelected";
+import {StateCitySelected} from "@/features/location";
 import {useNearbyStore} from "@/features/nearby/hooks/useNearbyStore";
 import {useBookingStore} from "@/features/booking/store/useBookingStore";
 

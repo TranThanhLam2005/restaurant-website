@@ -48,12 +48,20 @@ export default function StateCitySelected({
   disabled = false,
   required = false,
   headless = false,
+  vertical = false,
 }: StateCitySelectedProps) {
   const [open, setOpen] = useState(false);
   const {data: cities, isLoading: citiesLoading} = useCities(selectedStateId);
 
   return (
-    <div className="flex items-end justify-evenly gap-2">
+    <div
+      className={cn(
+        "flex",
+        vertical
+          ? "flex-col items-start gap-2"
+          : "items-end justify-evenly gap-2",
+      )}
+    >
       <div>
         {headless ? null : (
           <Label htmlFor="state" className="mb-2" required={required}>
@@ -85,7 +93,7 @@ export default function StateCitySelected({
                       value={state.name}
                       onSelect={(currentValue) => {
                         const foundState = states?.find(
-                          (s) => s.name === currentValue
+                          (s) => s.name === currentValue,
                         );
                         if (foundState) {
                           onStateChange(foundState.name, foundState.id);
@@ -99,7 +107,7 @@ export default function StateCitySelected({
                           "ml-auto",
                           selectedState === state.name
                             ? "opacity-100"
-                            : "opacity-0"
+                            : "opacity-0",
                         )}
                       />
                     </CommandItem>
