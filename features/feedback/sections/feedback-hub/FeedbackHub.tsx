@@ -1,4 +1,5 @@
 "use client";
+import {useState} from "react";
 import {Flag, Layers, X} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {FeedbackUI} from "@/features/feedback";
@@ -61,7 +62,7 @@ export default function FeedbackHub() {
             <Layers className="h-5 w-5" />
             <h5>Filter Feedback</h5>
           </div>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" >
             <X className="h-5 w-5" />
           </Button>
         </div>

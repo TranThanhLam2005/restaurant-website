@@ -21,15 +21,9 @@ import {
 import {Tabs, TabsList, TabsTrigger, TabsContent} from "@/components/ui/tabs";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
   DialogOverlay,
   DialogPortal,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
@@ -62,6 +56,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import {Separator} from "@/components/ui/separator";
+import {ScrollArea} from "@/components/ui/scroll-area";
 import {Button} from "@/components/ui/button";
 import {
   InputGroup,
@@ -86,8 +81,8 @@ export default function AppHeader() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [paymentOpen, setPaymentOpen] = useState(false);
-  const [paymentDetails, setPaymentDetails] = useState(false);
+  const [deliveryDetailOpen, setDeliveryDetailOpen] = useState(false);
+  const [paymentDetailOpen, setPaymentDetailOpen] = useState(false);
   const {data: session, status} = useSession();
   const isLoggedIn = !!session?.user;
   const isLoading = status === "loading";
@@ -129,7 +124,7 @@ export default function AppHeader() {
                 <DrawerHeader>
                   <DrawerTitle>YOUR ORDER</DrawerTitle>
                 </DrawerHeader>
-                <div className="max-h-100 overflow-y-auto px-2">
+                <ScrollArea className="h-68 pr-4">
                   {orders.length === 0 ? (
                     <p>Your cart is empty</p>
                   ) : (
@@ -178,7 +173,7 @@ export default function AppHeader() {
                       </div>
                     ))
                   )}
-                </div>
+                </ScrollArea>
 
                 <DrawerFooter>
                   <h4>Total: ${totalPrice.toFixed(2)}</h4>
@@ -196,7 +191,7 @@ export default function AppHeader() {
                   <Button
                     onClick={() => {
                       setIsDrawerOpen(false);
-                      setPaymentOpen(true);
+                      setDeliveryDetailOpen(true);
                     }}
                   >
                     Checkout
@@ -321,367 +316,375 @@ export default function AppHeader() {
         </div>
       </div>
 
-      <Dialog open={paymentOpen} onOpenChange={setPaymentOpen}>
+      <Dialog open={deliveryDetailOpen} onOpenChange={setDeliveryDetailOpen}>
         <DialogPortal>
           <DialogOverlay />
-          <DialogContent className="sm:max-w-7xl max-h-[85vh] overflow-y-auto">
-            <div className="flex items-center justify-between">
-              <Image src={Logo} alt="Nearby Location" width={120} />
-              <div className="w-full max-w-3xl ">
-                <div className="relative flex items-center justify-between">
-                  <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
-                      <Check className="w-5 h-5" />
+          <DialogContent className="sm:max-w-7xl">
+            <ScrollArea className="max-h-[calc(85vh-2rem)] pr-4">
+              <div className="flex items-center justify-between">
+                <Image src={Logo} alt="Nearby Location" width={120} />
+                <div className="w-full max-w-3xl">
+                  <div className="relative flex items-center justify-between">
+                    <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 bg-white">
+                        <Check className="w-5 h-5" />
+                      </div>
+                      <p className="text-black">Information</p>
                     </div>
-                    <p className="text-black">Information</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
-                      <Check className="w-5 h-5" />
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-foreground text-white font-semibold">
+                        2
+                      </div>
+                      <p>Delivery Detail</p>
                     </div>
-                    <p className="text-black">Delivery Detail</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-semibold">
-                      3
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 border border-gray-300">
+                        3
+                      </div>
+                      <p>Payment</p>
                     </div>
-                    <p className="text-red-500">Payment</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 border border-gray-300">
-                      4
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 border border-gray-300">
+                        4
+                      </div>
+                      <p>Confirmed</p>
                     </div>
-                    <p className="text-gray-400">Confirmed</p>
                   </div>
                 </div>
               </div>
-            </div>
-            <Separator className="my-4" />
-            <div className="flex items-start justify-between">
-              <Tabs defaultValue="delivery">
-                <TabsList>
-                  <TabsTrigger value="delivery">Giao hàng</TabsTrigger>
-                  <TabsTrigger value="pickup">Nhận tại cửa hàng</TabsTrigger>
-                </TabsList>
+              <Separator className="my-4" />
+              <div className="flex items-start justify-between">
+                <Tabs defaultValue="delivery">
+                  <TabsList>
+                    <TabsTrigger value="delivery">Giao hàng</TabsTrigger>
+                    <TabsTrigger value="pickup">Nhận tại cửa hàng</TabsTrigger>
+                  </TabsList>
 
-                <TabsContent value="delivery">
-                  <h4>Delivery</h4>
-                  <form className="space-y-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="johndoe" />
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" placeholder="eg: +1234567890" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="address">Address</Label>
-                      <Input id="address" placeholder="eg: 123 Main St" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="specialFoodNote">Special food note</Label>
-                      <Textarea
-                        id="specialFoodNote"
-                        placeholder="eg: I am allergic to peanuts"
-                      />
-                    </div>
-                    <Label>Time to delivery</Label>
-                    <RadioGroup defaultValue="now" className="flex">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="now" id="now" />
-                        <Label htmlFor="now">Delivery now</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="schedule" id="schedule" />
-                        <Label htmlFor="schedule">Schedule for later</Label>
-                      </div>
-                    </RadioGroup>
-                    <Label>Payment Method</Label>
-                    <RadioGroup defaultValue="paypal" className="flex">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="paypal" id="paypal" />
-                        <Label htmlFor="paypal">Paypal</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="onlineBanking"
-                          id="onlineBanking"
-                        />
-                        <Label htmlFor="onlineBanking">Online Banking</Label>
-                      </div>
-                    </RadioGroup>
-
-                    <Button
-                      type="button"
-                      className="w-full"
-                      onClick={() => {
-                        setPaymentOpen(false);
-                        setPaymentDetails(true);
-                      }}
-                    >
-                      Payment now - $300
-                    </Button>
-                  </form>
-                </TabsContent>
-
-                <TabsContent value="pickup">
-                  <h4>Receiver Detail</h4>
-                  <form className="space-y-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="johndoe" />
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" placeholder="eg: +1234567890" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="address">Restaurant address</Label>
-                      <Textarea id="address" placeholder="eg: 123 Main St" />
-                    </div>
-                    <div className="flex items-start justify-between ">
+                  <TabsContent value="delivery">
+                    <h4>Delivery</h4>
+                    <form className="space-y-4">
                       <div className="grid gap-2">
-                        <Label required>Receive Date</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="justify-start font-normal"
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              initialFocus
-                              disabled={{before: new Date()}}
-                            />
-                          </PopoverContent>
-                        </Popover>
+                        <Label htmlFor="name">Name</Label>
+                        <Input id="name" placeholder="johndoe" />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input id="phone" placeholder="eg: +1234567890" />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="time" required>
-                          Check-in Time
+                        <Label htmlFor="address">Address</Label>
+                        <Input id="address" placeholder="eg: 123 Main St" />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="specialFoodNote">
+                          Special food note
                         </Label>
-                        <Input
-                          id="time"
-                          type="time"
-                          className="h-11 shadow-none border-b rounded-none border-x-0 border-t-0 px-0"
+                        <Textarea
+                          id="specialFoodNote"
+                          placeholder="eg: I am allergic to peanuts"
                         />
                       </div>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="specialFoodNote">Special food note</Label>
-                      <Textarea
-                        id="specialFoodNote"
-                        placeholder="eg: I am allergic to peanuts"
-                      />
-                    </div>
-                    <Label>Payment Method</Label>
-                    <RadioGroup defaultValue="paypal" className="flex">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="paypal" id="paypal" />
-                        <Label htmlFor="paypal">Paypal</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="onlineBanking"
-                          id="onlineBanking"
-                        />
-                        <Label htmlFor="onlineBanking">Online Banking</Label>
-                      </div>
-                    </RadioGroup>
+                      <Label>Time to delivery</Label>
+                      <RadioGroup defaultValue="now" className="flex">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="now" id="now" />
+                          <Label htmlFor="now">Delivery now</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="schedule" id="schedule" />
+                          <Label htmlFor="schedule">Schedule for later</Label>
+                        </div>
+                      </RadioGroup>
+                      <Label>Payment Method</Label>
+                      <RadioGroup defaultValue="paypal" className="flex">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="paypal" id="paypal" />
+                          <Label htmlFor="paypal">Paypal</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="onlineBanking"
+                            id="onlineBanking"
+                          />
+                          <Label htmlFor="onlineBanking">Online Banking</Label>
+                        </div>
+                      </RadioGroup>
 
-                    <Button
-                      type="button"
-                      className="w-full"
-                      onClick={() => {
-                        setPaymentOpen(false);
-                        setPaymentDetails(true);
-                      }}
-                    >
-                      Payment now - $300
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
-              <div className="p-4 rounded-xl border shadow-3xl">
-                <h4>YOUR ORDER</h4>
-                <Separator className="my-4" />
-                <div>
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
+                      <Button
+                        type="button"
+                        className="w-full"
+                        onClick={() => {
+                          setDeliveryDetailOpen(false);
+                          setPaymentDetailOpen(true);
+                        }}
+                      >
+                        Payment now - $300
+                      </Button>
+                    </form>
+                  </TabsContent>
+
+                  <TabsContent value="pickup">
+                    <h4>Receiver Detail</h4>
+                    <form className="space-y-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input id="name" placeholder="johndoe" />
+                      </div>
+
+                      <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input id="phone" placeholder="eg: +1234567890" />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="address">Restaurant address</Label>
+                        <Textarea id="address" placeholder="eg: 123 Main St" />
+                      </div>
+                      <div className="flex items-start justify-between ">
+                        <div className="grid gap-2">
+                          <Label required>Receive Date</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="justify-start font-normal"
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                initialFocus
+                                disabled={{before: new Date()}}
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div className="grid gap-2">
+                          <Label htmlFor="time" required>
+                            Check-in Time
+                          </Label>
+                          <Input
+                            id="time"
+                            type="time"
+                            className="h-11 shadow-none border-b rounded-none border-x-0 border-t-0 px-0"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="specialFoodNote">
+                          Special food note
+                        </Label>
+                        <Textarea
+                          id="specialFoodNote"
+                          placeholder="eg: I am allergic to peanuts"
+                        />
+                      </div>
+                      <Label>Payment Method</Label>
+                      <RadioGroup defaultValue="paypal" className="flex">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="paypal" id="paypal" />
+                          <Label htmlFor="paypal">Paypal</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="onlineBanking"
+                            id="onlineBanking"
+                          />
+                          <Label htmlFor="onlineBanking">Online Banking</Label>
+                        </div>
+                      </RadioGroup>
+
+                      <Button
+                        type="button"
+                        className="w-full"
+                        onClick={() => {
+                          setDeliveryDetailOpen(false);
+                          setPaymentDetailOpen(true);
+                        }}
+                      >
+                        Payment now - $300
+                      </Button>
+                    </form>
+                  </TabsContent>
+                </Tabs>
+                <div className="p-4 rounded-xl border shadow-3xl">
+                  <h4>YOUR ORDER</h4>
                   <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>PROVISIONAL PRICE</h5>
-                    <p>$900</p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <h5>TAX</h5>
-                    <p>$10</p>
-                  </div>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>TOTAL</h5>
-                    <p className="text-red-500 font-bold">$910</p>
+                  <div>
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>PROVISIONAL PRICE</h5>
+                      <p>$900</p>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <h5>TAX</h5>
+                      <p>$10</p>
+                    </div>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>TOTAL</h5>
+                      <p className="font-bold">$910</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollArea>
           </DialogContent>
         </DialogPortal>
       </Dialog>
-      <Dialog open={paymentDetails} onOpenChange={setPaymentDetails}>
+      <Dialog open={paymentDetailOpen} onOpenChange={setPaymentDetailOpen}>
         <DialogPortal>
           <DialogOverlay />
-          <DialogContent className="sm:max-w-7xl max-h-[85vh] overflow-y-auto">
-            <div className="flex items-center justify-between">
-              <Image src={Logo} alt="Nearby Location" width={120} />
-              <div className="w-full max-w-3xl ">
-                <div className="relative flex items-center justify-between">
-                  <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
-                      <Check className="w-5 h-5" />
+          <DialogContent className="sm:max-w-7xl">
+            <ScrollArea className="max-h-[calc(85vh-2rem)] pr-4">
+              <div className="flex items-center justify-between">
+                <Image src={Logo} alt="Nearby Location" width={120} />
+                <div className="w-full max-w-3xl">
+                  <div className="relative flex items-center justify-between">
+                    <div className="absolute top-5 left-16 right-14 h-[2px] bg-gray-200" />
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 bg-white">
+                        <Check className="w-5 h-5" />
+                      </div>
+                      <p className="text-black">Information</p>
                     </div>
-                    <p className="text-black">Information</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500">
-                      <Check className="w-5 h-5" />
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full border-2 bg-white">
+                        <Check className="w-5 h-5" />
+                      </div>
+                      <p className="text-black">Delivery Detail</p>
                     </div>
-                    <p className="text-black">Delivery Detail</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-semibold">
-                      3
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-foreground text-white font-semibold">
+                        3
+                      </div>
+                      <p>Payment</p>
                     </div>
-                    <p className="text-red-500">Payment</p>
-                  </div>
 
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 border border-gray-300">
-                      4
+                    <div className="flex flex-col items-center gap-2 z-10">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 border border-gray-300">
+                        4
+                      </div>
+                      <p>Confirmed</p>
                     </div>
-                    <p className="text-gray-400">Confirmed</p>
                   </div>
                 </div>
               </div>
-            </div>
-            <Separator className="my-4" />
-            <div className="flex items-start justify-between">
-              <div className="w-1/2 space-y-4">
-                <h3>Paypal Payment</h3>
-                <div className="space-y-2 border-2 p-2 rounded-xl shadow-3xl">
-                  <h4>Delivery Details</h4>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold">Name:</p>
-                    <p>John Doe</p>
+              <Separator className="my-4" />
+              <div className="flex items-start justify-between">
+                <div className="w-1/2 space-y-4">
+                  <h3>Paypal Payment</h3>
+                  <div className="space-y-2 border-2 p-2 rounded-xl shadow-3xl">
+                    <h4>Delivery Details</h4>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold">Name:</p>
+                      <p>John Doe</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold">Phone:</p>
+                      <p>0984437830</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold">Type:</p>
+                      <p>Delivery</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold">Delivery:</p>
+                      <p>Now</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold">Phone:</p>
-                    <p>0984437830</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold">Type:</p>
-                    <p>Delivery</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold">Delivery:</p>
-                    <p>Now</p>
+                  <div className="space-y-2">
+                    <Button variant="outline" className="w-full">
+                      Paypal
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      Debit or Credit Card
+                    </Button>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full">
-                    Paypal
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Debit or Credit Card
-                  </Button>
-                </div>
-              </div>
 
-              <div className="p-4 rounded-xl border shadow-3xl">
-                <h4>YOUR ORDER</h4>
-                <Separator className="my-4" />
-                <div>
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
+                <div className="p-4 rounded-xl border shadow-3xl">
+                  <h4>YOUR ORDER</h4>
                   <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>Waggu Meat</h5>
-                    <p>$300</p>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    Delicious wagyu beef cooked to perfection. A must-try for
-                    meat lovers.
-                  </p>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>PROVISIONAL PRICE</h5>
-                    <p>$900</p>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <h5>TAX</h5>
-                    <p>$10</p>
-                  </div>
-                  <Separator className="my-4" />
-                  <div className="flex justify-between items-center">
-                    <h5>TOTAL</h5>
-                    <p className="text-red-500 font-bold">$910</p>
+                  <div>
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>Waggu Meat</h5>
+                      <p>$300</p>
+                    </div>
+                    <p className="text-muted-foreground text-xs">
+                      Delicious wagyu beef cooked to perfection. A must-try for
+                      meat lovers.
+                    </p>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>PROVISIONAL PRICE</h5>
+                      <p>$900</p>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <h5>TAX</h5>
+                      <p>$10</p>
+                    </div>
+                    <Separator className="my-4" />
+                    <div className="flex justify-between items-center">
+                      <h5>TOTAL</h5>
+                      <p className="font-bold">$910</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollArea>
           </DialogContent>
         </DialogPortal>
       </Dialog>

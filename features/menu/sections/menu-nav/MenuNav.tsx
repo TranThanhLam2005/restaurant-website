@@ -19,23 +19,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {MenuSection} from "@/features/menu/types";
 import {StateCitySelected} from "@/features/location";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-
-// import icons
-import {ChevronsUpDown} from "lucide-react";
 
 export default function MenuNav({
   children,
@@ -47,7 +42,6 @@ export default function MenuNav({
   states: State[];
 }) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
   const formData = useBookingStore((state) => state.formData);
   const updateField = useBookingStore((state) => state.updateField);
 
@@ -101,70 +95,39 @@ export default function MenuNav({
               />
               <Label className="mb-2 mt-2">Restaurant</Label>
               {!formData.state || !formData.city ? (
-                <Button variant="outline" disabled>
-                  Select city first
-                  <ChevronsUpDown className="h-4 w-4 opacity-50" />
-                </Button>
+                <Select disabled>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Select city first" />
+                  </SelectTrigger>
+                </Select>
               ) : branchesLoading ? (
-                <Button variant="outline" disabled>
-                  Loading...
-                  <ChevronsUpDown className="h-4 w-4 animate-spin" />
-                </Button>
+                <Select disabled>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Loading..." />
+                  </SelectTrigger>
+                </Select>
               ) : branches?.length ? (
-                <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={open}
-                      className="w-48 justify-between"
-                    >
-                      {formData.branch || "Choose a location"}
-                      <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-48 p-0">
-                    <Command>
-                      <CommandInput
-                        placeholder="Search restaurant"
-                        className="h-9"
-                      />
-                      <CommandList>
-                        <CommandEmpty>No restaurant found.</CommandEmpty>
-                        <CommandGroup>
-                          {branches.map((branch) => (
-                            <CommandItem
-                              key={branch.id}
-                              value={branch.address}
-                              onSelect={(currentValue) => {
-                                const foundBranch = branches?.find(
-                                  (b) => b.address === currentValue,
-                                );
-                                if (foundBranch) {
-                                  updateField("branch", foundBranch.address);
-                                }
-                                setOpen(false);
-                              }}
-                            >
-                              <span className="font-medium">
-                                {branch.address}
-                              </span>
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              ) : (
-                <Button
-                  variant="outline"
-                  className="w-full md:w-64 justify-between text-destructive"
-                  disabled
+                <Select
+                  value={formData.branch}
+                  onValueChange={(value) => updateField("branch", value)}
                 >
-                  No locations found
-                  <ChevronsUpDown className="h-4 w-4 opacity-50" />
-                </Button>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Choose a location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {branches.map((branch) => (
+                      <SelectItem key={branch.id} value={branch.address}>
+                        {branch.address}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Select disabled>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="No locations found" />
+                  </SelectTrigger>
+                </Select>
               )}
             </div>
             <Accordion
