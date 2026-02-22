@@ -1,6 +1,6 @@
 "use client";
 import {useState} from "react";
-import {Flag, Layers, X} from "lucide-react";
+import {Flag, Layers, X, SlidersHorizontal} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {FeedbackUI} from "@/features/feedback";
 import {Badge} from "@/components/ui/badge";
@@ -43,12 +43,67 @@ const feedbackHubData = [
   },
 ];
 export default function FeedbackHub() {
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [selectedFilters, setSelectedFilters] = useState({
+    categories: ["Shirt"],
+    issues: ["Product"],
+    satisfaction: [
+      "Very Satisfied",
+      "Satisfied",
+      "Neutral",
+      "Dissatisfied",
+      "Very Dissatisfied",
+    ],
+  });
+
+  const toggleFilter = (type: string, value: string) => {
+    setSelectedFilters((prev) => {
+      const current = prev[type as keyof typeof prev];
+      const updated = current.includes(value)
+        ? current.filter((item) => item !== value)
+        : [...current, value];
+      return {...prev, [type]: updated};
+    });
+  };
+
+  const clearAllFilters = () => {
+    setSelectedFilters({
+      categories: [],
+      issues: [],
+      satisfaction: [],
+    });
+  };
+
+  const activeFilterCount =
+    selectedFilters.categories.length +
+    selectedFilters.issues.length +
+    selectedFilters.satisfaction.length;
+
   return (
     <div className="flex items-start justify-between gap-10">
-      <div>
-        <div className="flex items-center mb-6">
-          <Flag className="h-4 w-4 mr-2 inline-block" />
-          Feedback {feedbackHubData.length} total feedback
+      <div className="flex-1">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <Flag className="h-4 w-4 inline-block" />
+            <span className="font-medium">Feedback</span>
+            <span className="text-muted-foreground">
+              {feedbackHubData.length} total feedback
+            </span>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="gap-2"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+            {activeFilterCount > 0 && (
+              <Badge variant="secondary" className="ml-1 text-xs">
+                {activeFilterCount}
+              </Badge>
+            )}
+          </Button>
         </div>
         <div className="space-y-8">
           {feedbackHubData.map((feedback, index) => (
@@ -56,107 +111,228 @@ export default function FeedbackHub() {
           ))}
         </div>
       </div>
-      <div className="max-w-md border rounded-xl shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between p-4 border-b">
-          <div className="flex items-center gap-2">
-            <Layers className="h-5 w-5" />
-            <h5>Filter Feedback</h5>
+
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          isFilterOpen
+            ? "max-w-md w-full opacity-100 translate-x-0"
+            : "max-w-0 w-0 opacity-0 translate-x-8 overflow-hidden"
+        }`}
+      >
+        <div className="border rounded-xl shadow-xl overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b bg-muted/30">
+            <div className="flex items-center gap-2">
+              <Layers className="h-5 w-5" />
+              <h5 className="font-semibold">Filter Feedback</h5>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsFilterOpen(false)}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-5 w-5" />
+            </Button>
           </div>
-          <Button variant="ghost" size="icon" >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
 
-        <div className="p-4 space-y-4">
-          <section>
-            <h5 className="text-gray-700 mb-3">Issue Type</h5>
-            <div className="flex flex-wrap gap-2">
-              <FilterPill label="Weatherwear" count={11} />
-              <FilterPill label="Textured Trousers" count={11} />
-              <FilterPill label="Snicker" count={11} />
-              <FilterPill
-                label="Shirt"
-                count={11}
-                active
-                activeColor="bg-blue-100 text-blue-700"
-              />
-              <FilterPill label="Jacket" count={10} />
-              <FilterPill label="Sweatshirt" count={11} />
-            </div>
-          </section>
+          <div className="p-4 space-y-6">
+            <section>
+              <div className="flex items-center justify-between mb-3">
+                <h5 className="text-sm font-semibold text-gray-700">
+                  Category
+                </h5>
+                <span className="text-xs text-muted-foreground">
+                  {selectedFilters.categories.length} selected
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <FilterPill
+                  label="Weatherwear"
+                  count={11}
+                  active={selectedFilters.categories.includes("Weatherwear")}
+                  onClick={() => toggleFilter("categories", "Weatherwear")}
+                />
+                <FilterPill
+                  label="Textured Trousers"
+                  count={11}
+                  active={selectedFilters.categories.includes(
+                    "Textured Trousers",
+                  )}
+                  onClick={() =>
+                    toggleFilter("categories", "Textured Trousers")
+                  }
+                />
+                <FilterPill
+                  label="Snicker"
+                  count={11}
+                  active={selectedFilters.categories.includes("Snicker")}
+                  onClick={() => toggleFilter("categories", "Snicker")}
+                />
+                <FilterPill
+                  label="Shirt"
+                  count={11}
+                  active={selectedFilters.categories.includes("Shirt")}
+                  onClick={() => toggleFilter("categories", "Shirt")}
+                />
+                <FilterPill
+                  label="Jacket"
+                  count={10}
+                  active={selectedFilters.categories.includes("Jacket")}
+                  onClick={() => toggleFilter("categories", "Jacket")}
+                />
+                <FilterPill
+                  label="Sweatshirt"
+                  count={11}
+                  active={selectedFilters.categories.includes("Sweatshirt")}
+                  onClick={() => toggleFilter("categories", "Sweatshirt")}
+                />
+              </div>
+            </section>
 
-          <section>
-            <h5 className="text-gray-700 mb-3">Issue Type</h5>
-            <div className="flex flex-wrap gap-2">
-              <FilterPill label="Delivery Issues" count={11} />
-              <FilterPill label="Product Quality" count={11} />
-              <FilterPill label="Customer Service" count={11} />
-              <FilterPill label="Refund" count={11} />
-              <FilterPill label="Return" count={11} />
-              <FilterPill
-                label="Product"
-                count={10}
-                active
-                activeColor="bg-pink-100 text-pink-700"
-              />
-            </div>
-          </section>
+            <section>
+              <div className="flex items-center justify-between mb-3">
+                <h5 className="text-sm font-semibold text-gray-700">
+                  Issue Type
+                </h5>
+                <span className="text-xs text-muted-foreground">
+                  {selectedFilters.issues.length} selected
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <FilterPill
+                  label="Delivery Issues"
+                  count={11}
+                  active={selectedFilters.issues.includes("Delivery Issues")}
+                  onClick={() => toggleFilter("issues", "Delivery Issues")}
+                />
+                <FilterPill
+                  label="Product Quality"
+                  count={11}
+                  active={selectedFilters.issues.includes("Product Quality")}
+                  onClick={() => toggleFilter("issues", "Product Quality")}
+                />
+                <FilterPill
+                  label="Customer Service"
+                  count={11}
+                  active={selectedFilters.issues.includes("Customer Service")}
+                  onClick={() => toggleFilter("issues", "Customer Service")}
+                />
+                <FilterPill
+                  label="Refund"
+                  count={11}
+                  active={selectedFilters.issues.includes("Refund")}
+                  onClick={() => toggleFilter("issues", "Refund")}
+                />
+                <FilterPill
+                  label="Return"
+                  count={11}
+                  active={selectedFilters.issues.includes("Return")}
+                  onClick={() => toggleFilter("issues", "Return")}
+                />
+                <FilterPill
+                  label="Product"
+                  count={10}
+                  active={selectedFilters.issues.includes("Product")}
+                  onClick={() => toggleFilter("issues", "Product")}
+                />
+              </div>
+            </section>
 
-          <section>
-            <h5 className="text-gray-700 mb-3">Satisfaction Level</h5>
-            <div className="flex flex-wrap gap-2">
-              <FilterPill
-                label="Very Satisfied"
-                count={11}
-                active
-                activeColor="bg-indigo-200 text-indigo-800"
-              />
-              <FilterPill
-                label="Satisfied"
-                count={11}
-                active
-                activeColor="bg-amber-100 text-amber-800"
-              />
-              <FilterPill
-                label="Neutral"
-                count={11}
-                active
-                activeColor="bg-fuchsia-200 text-fuchsia-800"
-              />
-              <FilterPill
-                label="Dissatisfied"
-                count={11}
-                active
-                activeColor="bg-red-300 text-red-900"
-              />
-              <FilterPill
-                label="Very Dissatisfied"
-                count={11}
-                active
-                activeColor="bg-emerald-300 text-emerald-900"
-              />
-            </div>
-          </section>
-          <section>
-            <h5 className="text-gray-700">Time and Date</h5>
-          </section>
+            <section>
+              <div className="flex items-center justify-between mb-3">
+                <h5 className="text-sm font-semibold text-gray-700">
+                  Satisfaction Level
+                </h5>
+                <span className="text-xs text-muted-foreground">
+                  {selectedFilters.satisfaction.length} selected
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <FilterPill
+                  label="Very Satisfied"
+                  count={11}
+                  active={selectedFilters.satisfaction.includes(
+                    "Very Satisfied",
+                  )}
+                  onClick={() => toggleFilter("satisfaction", "Very Satisfied")}
+                />
+                <FilterPill
+                  label="Satisfied"
+                  count={11}
+                  active={selectedFilters.satisfaction.includes("Satisfied")}
+                  onClick={() => toggleFilter("satisfaction", "Satisfied")}
+                />
+                <FilterPill
+                  label="Neutral"
+                  count={11}
+                  active={selectedFilters.satisfaction.includes("Neutral")}
+                  onClick={() => toggleFilter("satisfaction", "Neutral")}
+                />
+                <FilterPill
+                  label="Dissatisfied"
+                  count={11}
+                  active={selectedFilters.satisfaction.includes("Dissatisfied")}
+                  onClick={() => toggleFilter("satisfaction", "Dissatisfied")}
+                />
+                <FilterPill
+                  label="Very Dissatisfied"
+                  count={11}
+                  active={selectedFilters.satisfaction.includes(
+                    "Very Dissatisfied",
+                  )}
+                  onClick={() =>
+                    toggleFilter("satisfaction", "Very Dissatisfied")
+                  }
+                />
+              </div>
+            </section>
+
+            <section className="pt-2 border-t">
+              <div className="flex items-center justify-between">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearAllFilters}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Clear all filters
+                </Button>
+                <Button size="sm" className="gap-2">
+                  Apply Filters
+                  {activeFilterCount > 0 && (
+                    <Badge variant="secondary" className="bg-white/20">
+                      {activeFilterCount}
+                    </Badge>
+                  )}
+                </Button>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-// Reusable Pill Component
 const FilterPill = ({
   label = "",
   count = 0,
   active = false,
-  activeColor = "",
+  onClick = () => {},
+}: {
+  label: string;
+  count: number;
+  active?: boolean;
+  onClick?: () => void;
 }) => {
   return (
-    <Badge variant={active ? "default" : "outline"} className={activeColor}>
+    <Badge
+      variant={active ? "default" : "outline"}
+      onClick={onClick}
+      className="cursor-pointer"
+    >
       <span className="font-medium">{label}</span>
       <span className={`text-xs opacity-70 ${active ? "font-bold" : ""}`}>
-        {count}
+        ({count})
       </span>
     </Badge>
   );
