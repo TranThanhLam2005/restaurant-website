@@ -134,18 +134,15 @@ export default function MenuContent({
                             </p>
                           )}
                           <div className="flex items-center justify-between text-sm text-muted-foreground font-light">
-                            {food.preparationTime && (
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-4 h-4" />
-                                <span>{food.preparationTime} min</span>
-                              </div>
-                            )}
-                            {food.calories && (
-                              <div className="flex items-center gap-1">
-                                <Flame className="w-4 h-4" />
-                                <span>{food.calories} cal</span>
-                              </div>
-                            )}
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              <span>{food.preparationTime} min</span>
+                            </div>
+
+                            <div className="flex items-center gap-1">
+                              <Flame className="w-4 h-4" />
+                              <span>{food.calories} cal</span>
+                            </div>
                             <ShoppingCart
                               className="w-5 h-5 hover:cursor-pointer hover:text-primary"
                               onClick={() => {

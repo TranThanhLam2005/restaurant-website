@@ -33,6 +33,7 @@ import {
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import {StateCitySelected} from "@/features/location";
+import {useProfile} from "@/features/profile";
 
 // import icons and utilities
 import {
@@ -54,10 +55,26 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
   const isDialogOpen = useBookingStore((state) => state.isDialogOpen);
   const setIsDialogOpen = useBookingStore((state) => state.setIsDialogOpen);
   const {data: session, status} = useSession();
+  const {profile} = useProfile(session?.user?.name);
+
   const isLoggedIn = !!session?.user;
   const isLoading = status === "loading";
 
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+
+  useEffect(() => {
+    if (profile) {
+      if (!formData.name && profile.fullname) {
+        updateField("name", profile.fullname);
+      }
+      if (!formData.phone && profile.phoneNumber) {
+        updateField("phone", profile.phoneNumber);
+      }
+      if (!formData.email && profile.email) {
+        updateField("email", profile.email);
+      }
+    }
+  }, [profile, formData.name, formData.phone, formData.email, updateField]);
 
   useEffect(() => {
     if (isDialogOpen && !isLoggedIn && !isLoading) {
@@ -225,7 +242,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                     </Label>
                     <Input
                       id="name"
-                      value={formData.name}
+                      value={formData.name || ""}
                       onChange={(e) => updateField("name", e.target.value)}
                       placeholder="e.g. Jane Doe"
                     />
@@ -237,7 +254,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                     <Input
                       id="phone"
                       type="tel"
-                      value={formData.phone}
+                      value={formData.phone || ""}
                       onChange={(e) => updateField("phone", e.target.value)}
                       placeholder="e.g. (123) 456-7890"
                     />
@@ -246,7 +263,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                     <Label htmlFor="email">Email Address</Label>
                     <Input
                       id="email"
-                      value={session?.user?.name || formData.email}
+                      value={formData.email || ""}
                       onChange={(e) => updateField("email", e.target.value)}
                       placeholder="e.g. jane@example.com"
                     />
@@ -345,7 +362,6 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
         </Dialog>
       )}
 
-      {/* Auth Dialog - Shows when trying to book without login */}
       <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>

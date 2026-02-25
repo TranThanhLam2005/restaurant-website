@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import Image from "next/image";
 import {useSession} from "next-auth/react";
 import {useOrderFood} from "@/features/menu";
+import {useProfile} from "@/features/profile";
 
 // import UI components and icons
 import {AccountNavSection} from "@/features/account-nav";
@@ -88,7 +89,7 @@ export default function AppHeader() {
   const isLoading = status === "loading";
   const {orders, deleteOrder, totalPrice, increaseQuantity, decreaseQuantity} =
     useOrderFood();
-
+  const {profile} = useProfile(session?.user?.name);
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -369,12 +370,20 @@ export default function AppHeader() {
                     <form className="space-y-4">
                       <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="johndoe" />
+                        <Input
+                          id="name"
+                          placeholder="johndoe"
+                          value={profile?.fullname || ""}
+                        />
                       </div>
 
                       <div className="grid gap-2">
                         <Label htmlFor="phone">Phone Number</Label>
-                        <Input id="phone" placeholder="eg: +1234567890" />
+                        <Input
+                          id="phone"
+                          placeholder="eg: +1234567890"
+                          value={profile?.phoneNumber || ""}
+                        />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="address">Address</Label>
@@ -423,7 +432,8 @@ export default function AppHeader() {
                           setPaymentDetailOpen(true);
                         }}
                       >
-                        Payment now - $300
+                        Payment now - $
+                        {(totalPrice + totalPrice * 0.1).toFixed(2)}
                       </Button>
                     </form>
                   </TabsContent>
@@ -433,12 +443,20 @@ export default function AppHeader() {
                     <form className="space-y-4">
                       <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="johndoe" />
+                        <Input
+                          id="name"
+                          placeholder="johndoe"
+                          value={profile?.fullname || ""}
+                        />
                       </div>
 
                       <div className="grid gap-2">
                         <Label htmlFor="phone">Phone Number</Label>
-                        <Input id="phone" placeholder="eg: +1234567890" />
+                        <Input
+                          id="phone"
+                          placeholder="eg: +1234567890"
+                          value={profile?.phoneNumber || ""}
+                        />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="address">Restaurant address</Label>
@@ -517,45 +535,32 @@ export default function AppHeader() {
                   <h4>YOUR ORDER</h4>
                   <Separator className="my-4" />
                   <div>
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
-                    </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
-                    </p>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
-                    </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
-                    </p>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
-                    </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
-                    </p>
-                    <Separator className="my-4" />
+                    {orders.map((order) => (
+                      <div key={order.id}>
+                        <div className="flex justify-between items-center">
+                          <h4>{order.name}</h4>
+                          <p>${order.price}</p>
+                        </div>
+                        <p className="text-muted-foreground text-xs">
+                          {order.description}
+                        </p>
+                        <Separator className="my-4" />
+                      </div>
+                    ))}
                     <div className="flex justify-between items-center">
                       <h5>PROVISIONAL PRICE</h5>
-                      <p>$900</p>
+                      <p>${totalPrice}</p>
                     </div>
                     <div className="flex justify-between items-center">
                       <h5>TAX</h5>
-                      <p>$10</p>
+                      <p>${(totalPrice * 0.1).toFixed(2)}</p>
                     </div>
                     <Separator className="my-4" />
                     <div className="flex justify-between items-center">
                       <h5>TOTAL</h5>
-                      <p className="font-bold">$910</p>
+                      <p className="font-bold">
+                        ${(totalPrice + totalPrice * 0.1).toFixed(2)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -612,11 +617,11 @@ export default function AppHeader() {
                     <h4>Delivery Details</h4>
                     <div className="flex items-center gap-2">
                       <p className="font-semibold">Name:</p>
-                      <p>John Doe</p>
+                      <p>{profile?.fullname || "Not provided"}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <p className="font-semibold">Phone:</p>
-                      <p>0984437830</p>
+                      <p>{profile?.phoneNumber || "Not provided"}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <p className="font-semibold">Type:</p>
@@ -640,47 +645,32 @@ export default function AppHeader() {
                 <div className="p-4 rounded-xl border shadow-3xl">
                   <h4>YOUR ORDER</h4>
                   <Separator className="my-4" />
-                  <div>
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
+                  {orders.map((order) => (
+                    <div key={order.id}>
+                      <div className="flex justify-between items-center">
+                        <h4>{order.name}</h4>
+                        <p>${order.price}</p>
+                      </div>
+                      <p className="text-muted-foreground text-xs">
+                        {order.description}
+                      </p>
+                      <Separator className="my-4" />
                     </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
+                  ))}
+                  <div className="flex justify-between items-center">
+                    <h5>PROVISIONAL PRICE</h5>
+                    <p>${totalPrice}</p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h5>TAX</h5>
+                    <p>${(totalPrice * 0.1).toFixed(2)}</p>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center">
+                    <h5>TOTAL</h5>
+                    <p className="font-bold">
+                      ${(totalPrice + totalPrice * 0.1).toFixed(2)}
                     </p>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
-                    </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
-                    </p>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>Waggu Meat</h5>
-                      <p>$300</p>
-                    </div>
-                    <p className="text-muted-foreground text-xs">
-                      Delicious wagyu beef cooked to perfection. A must-try for
-                      meat lovers.
-                    </p>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>PROVISIONAL PRICE</h5>
-                      <p>$900</p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h5>TAX</h5>
-                      <p>$10</p>
-                    </div>
-                    <Separator className="my-4" />
-                    <div className="flex justify-between items-center">
-                      <h5>TOTAL</h5>
-                      <p className="font-bold">$910</p>
-                    </div>
                   </div>
                 </div>
               </div>
