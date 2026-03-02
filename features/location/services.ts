@@ -1,11 +1,11 @@
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
-import {BookingFormData, State} from "./types";
+import { State, ReservationRequest, ReservationResponse } from "./types";
 
 // Server-side function for fetching states (SSR/SSG)
 export async function getStatesServer(): Promise<State[]> {
   try {
     const res = await fetch(`${API}/states`, {
-      next: {revalidate: 3600}, // Cache for 1 hour
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
     if (!res.ok) throw new Error("Failed to fetch states");
     return res.json();
@@ -25,10 +25,22 @@ export const bookingApi = {
   getBranches: async (cityId: string) =>
     fetch(`${API}/branches/city/${cityId}`).then((res) => res.json()),
 
-  createBooking: async (payload: BookingFormData) =>
-    fetch(`${API}/bookings`, {
+  createReservation: async (
+    data: ReservationRequest,
+  ): Promise<ReservationResponse> => {
+    const res = await fetch(`${API}/reservations`, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload),
-    }).then((res) => res.json()),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const error = await res
+        .json()
+        .catch(() => ({ message: "Failed to create reservation" }));
+      throw new Error(error.message || "Failed to create reservation");
+    }
+    return res.json();
+  },
 };

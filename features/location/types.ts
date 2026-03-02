@@ -23,6 +23,7 @@ export interface BookingFormData {
   cityId: string;
   guests: string;
   branch: string;
+  branchId: string;
   specialNote: string;
   date: Date | undefined;
   checkInTime: string;
@@ -63,6 +64,24 @@ export interface StateCitySelectedProps {
   vertical?: boolean;
 }
 
+export interface ReservationRequest {
+  branchAddress: string;
+  reservationDate: string;
+  checkInTime: string;
+  numberOfGuests: number;
+  specialNote?: string;
+  customerName: string;
+  customerEmail?: string;
+  customerPhone: string;
+  receiveOffers: boolean;
+}
+
+export interface ReservationResponse {
+  id: string;
+  status: string;
+  message: string;
+}
+
 export interface BookingStore {
   formData: BookingFormData;
   currentStep: number;
@@ -70,7 +89,7 @@ export interface BookingStore {
   totalSteps: number;
   updateField: <K extends keyof BookingFormData>(
     field: K,
-    value: BookingFormData[K]
+    value: BookingFormData[K],
   ) => void;
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
@@ -80,4 +99,5 @@ export interface BookingStore {
   canProceed: () => boolean;
   progressValue: () => number;
   syncStepWithValidation: () => void;
+  resetForm: () => void;
 }

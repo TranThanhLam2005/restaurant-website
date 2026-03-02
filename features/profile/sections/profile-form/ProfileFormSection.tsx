@@ -1,18 +1,18 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {Textarea} from "@/components/ui/textarea";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {useSession} from "next-auth/react";
-import {useProfile, useUpdateProfile} from "../../hooks";
-import {Toaster} from "@/components/ui/sonner";
-import {toast} from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
+import { useProfile, useUpdateProfile } from "../../hooks";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 export default function ProfileFormSection() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const userEmail = session?.user?.name;
-  const {profile, isLoading, error} = useProfile(userEmail);
+  const { profile, isLoading, error } = useProfile(userEmail);
   const updateProfile = useUpdateProfile(userEmail);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -78,12 +78,7 @@ export default function ProfileFormSection() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            placeholder="eg: john.doe@example.com"
-            defaultValue={profile?.email || ""}
-            disabled
-          />
+          <Input id="email" defaultValue={profile?.email || ""} disabled />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="specialFoodNote">Special food note</Label>

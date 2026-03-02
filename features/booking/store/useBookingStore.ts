@@ -1,7 +1,7 @@
 "use client";
 
-import {create} from "zustand";
-import {BookingFormData, BookingStore} from "@/features/location/types";
+import { create } from "zustand";
+import { BookingFormData, BookingStore } from "@/features/location/types";
 
 const initialFormData: BookingFormData = {
   state: "",
@@ -13,6 +13,7 @@ const initialFormData: BookingFormData = {
   specialNote: "",
   date: undefined,
   checkInTime: "",
+  branchId: "",
   name: "",
   email: "",
   phone: "",
@@ -27,29 +28,29 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
 
   updateField: (field, value) =>
     set((state) => ({
-      formData: {...state.formData, [field]: value},
+      formData: { ...state.formData, [field]: value },
     })),
 
-  setCurrentStep: (step) => set({currentStep: step}),
+  setCurrentStep: (step) => set({ currentStep: step }),
 
   nextStep: () => {
-    const {currentStep, totalSteps, canProceed} = get();
+    const { currentStep, totalSteps, canProceed } = get();
     if (currentStep < totalSteps && canProceed()) {
-      set({currentStep: currentStep + 1});
+      set({ currentStep: currentStep + 1 });
     }
   },
 
   prevStep: () => {
-    const {currentStep} = get();
+    const { currentStep } = get();
     if (currentStep > 1) {
-      set({currentStep: currentStep - 1});
+      set({ currentStep: currentStep - 1 });
     }
   },
 
-  setIsDialogOpen: (open) => set({isDialogOpen: open}),
+  setIsDialogOpen: (open) => set({ isDialogOpen: open }),
 
   isStepValid: (step) => {
-    const {formData} = get();
+    const { formData } = get();
     switch (step) {
       case 1:
         return !!(
@@ -74,17 +75,17 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   },
 
   canProceed: () => {
-    const {currentStep, isStepValid} = get();
+    const { currentStep, isStepValid } = get();
     return isStepValid(currentStep);
   },
 
   progressValue: () => {
-    const {currentStep, totalSteps} = get();
+    const { currentStep, totalSteps } = get();
     return (currentStep / totalSteps) * 100;
   },
 
   syncStepWithValidation: () => {
-    const {currentStep, isStepValid, setCurrentStep} = get();
+    const { currentStep, isStepValid, setCurrentStep } = get();
     if (currentStep > 1 && !isStepValid(1)) {
       setCurrentStep(1);
       return;
@@ -93,4 +94,10 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
       return;
     }
   },
+
+  resetForm: () =>
+    set({
+      formData: initialFormData,
+      currentStep: 1,
+    }),
 }));
