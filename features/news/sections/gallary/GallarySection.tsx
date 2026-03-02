@@ -1,7 +1,8 @@
 "use client";
 // import libraries
-import {useState, useEffect} from "react";
-import {motion} from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 // import components
 import {
@@ -12,11 +13,12 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import {useIsMobile} from "@/hooks/use-mobile";
-import {AspectRatio} from "@/components/ui/aspect-ratio";
-import {fadeVariants} from "@/components/common/animations";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { fadeVariants } from "@/components/common/animations";
 
 export default function GallarySection() {
+  const router = useRouter();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -51,8 +53,8 @@ export default function GallarySection() {
       variants={fadeVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: false}}
-      className="w-full max-w-5xl mx-auto"
+      viewport={{ once: false }}
+      className="w-full max-w-5xl mx-auto cursor-pointer"
     >
       <Carousel
         setApi={setApi}
@@ -62,13 +64,17 @@ export default function GallarySection() {
           {news.map((item, index) => (
             <CarouselItem key={index}>
               <AspectRatio ratio={3 / 1}>
-                <img src={item.image} className="w-full h-full object-cover" />
+                <img
+                  src={item.image}
+                  className="w-full h-full object-cover"
+                  onClick={() => router.push("/news/1")}
+                />
               </AspectRatio>
             </CarouselItem>
           ))}
         </CarouselContent>
         <div className="flex justify-center gap-2 py-4">
-          {Array.from({length: count}).map((_, i) => (
+          {Array.from({ length: count }).map((_, i) => (
             <button
               key={i}
               className={`h-2 w-2 rounded-full transition-all ${

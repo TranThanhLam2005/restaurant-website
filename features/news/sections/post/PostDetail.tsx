@@ -1,6 +1,10 @@
-import {Skeleton} from "@/components/ui/skeleton";
-import {Separator} from "@/components/ui/separator";
+"use client";
+
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 export default function PostDetail() {
+  const router = useRouter();
   return (
     <div>
       <div className="text-center space-y-8">
@@ -49,14 +53,21 @@ export default function PostDetail() {
             alt="Hanasaki King Crab"
             className="w-20 h-20 object-cover rounded-full"
           />
-          <div className="w-1/2">
-            <p className="text-sm text-muted-foreground">24.09.2024</p>
-            <Separator className="my-1" />
+          <div>
+            <div className="w-1/4">
+              <p className="text-sm text-muted-foreground">24.09.2024</p>
+              <Separator className="my-1" />
+            </div>
+            <p
+              className="text-sm text-muted-foreground hover:underline cursor-pointer"
+              onClick={() => {
+                router.replace("/news/2");
+              }}
+            >
+              Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
+              kiến trúc độc đáo
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
-            Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
-            kiến trúc độc đáo
-          </p>
         </div>
         <div className="flex items-center gap-4">
           <img
@@ -64,14 +75,16 @@ export default function PostDetail() {
             alt="Hanasaki King Crab"
             className="w-20 h-20 object-cover rounded-full"
           />
-          <div className="w-1/2">
-            <p className="text-sm text-muted-foreground">24.09.2024</p>
-            <Separator className="my-1" />
+          <div>
+            <div className="w-1/4">
+              <p className="text-sm text-muted-foreground">24.09.2024</p>
+              <Separator className="my-1" />
+            </div>
+            <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
+              Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
+              kiến trúc độc đáo
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
-            Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
-            kiến trúc độc đáo
-          </p>
         </div>
         <div className="flex items-center gap-4">
           <img
@@ -79,44 +92,52 @@ export default function PostDetail() {
             alt="Hanasaki King Crab"
             className="w-20 h-20 object-cover rounded-full"
           />
-          <div className="w-1/2">
-            <p className="text-sm text-muted-foreground">24.09.2024</p>
-            <Separator className="my-1" />
+          <div>
+            <div className="w-1/4">
+              <p className="text-sm text-muted-foreground">24.09.2024</p>
+              <Separator className="my-1" />
+            </div>
+            <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
+              Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
+              kiến trúc độc đáo
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
-            Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
-            kiến trúc độc đáo
-          </p>
         </div>
+
         <div className="flex items-center gap-4">
           <img
             src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?cs=srgb&dl=pexels-pixabay-260922.jpg&fm=jpg"
             alt="Hanasaki King Crab"
             className="w-20 h-20 object-cover rounded-full"
           />
-          <div className="w-1/2">
-            <p className="text-sm text-muted-foreground">24.09.2024</p>
-            <Separator className="my-1" />
+          <div>
+            <div className="w-1/4">
+              <p className="text-sm text-muted-foreground">24.09.2024</p>
+              <Separator className="my-1 w-1/2" />
+            </div>
+            <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
+              Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
+              kiến trúc độc đáo
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
-            Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
-            kiến trúc độc đáo
-          </p>
         </div>
+
         <div className="flex items-center gap-4">
           <img
             src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?cs=srgb&dl=pexels-pixabay-260922.jpg&fm=jpg"
             alt="Hanasaki King Crab"
             className="w-20 h-20 object-cover rounded-full"
           />
-          <div className="w-1/2">
-            <p className="text-sm text-muted-foreground">24.09.2024</p>
-            <Separator className="my-1" />
+          <div>
+            <div className="w-1/4">
+              <p className="text-sm text-muted-foreground">24.09.2024</p>
+              <Separator className="my-1" />
+            </div>
+            <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
+              Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
+              kiến trúc độc đáo
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground hover:underline cursor-pointer">
-            Sushi Hokkaido Sachi Thảo Điền - nâng tầm ẩm thực trong không gian
-            kiến trúc độc đáo
-          </p>
         </div>
       </div>
     </div>

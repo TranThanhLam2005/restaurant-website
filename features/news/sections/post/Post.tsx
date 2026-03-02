@@ -1,6 +1,7 @@
 "use client";
 // import libraries
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 // import animations
 import {
@@ -9,12 +10,13 @@ import {
 } from "@/components/common/animations";
 
 export default function Post() {
+  const router = useRouter();
   return (
     <motion.section
       variants={containerStaggerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{once: false, amount: 0.3}}
+      viewport={{ once: false, amount: 0.3 }}
       className="relative w-full max-w-xl mx-auto"
     >
       {/* Image Container */}
@@ -32,7 +34,10 @@ export default function Post() {
       {/* Content Card (Overlapping) */}
       <motion.div
         variants={cardVariants}
-        className="relative -mt-16 mx-auto w-[90%] bg-white p-4 shadow-lg"
+        className="relative -mt-16 mx-auto w-[90%] bg-white p-4 shadow-lg cursor-pointer"
+        onClick={() => {
+          router.push("/news/1");
+        }}
       >
         <h4 className="mb-4">
           Sushi Hokkaido Sachi continues to pursue its mission of offering
