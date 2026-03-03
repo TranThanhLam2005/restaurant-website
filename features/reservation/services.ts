@@ -4,6 +4,6 @@ const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 export const reservationApi = {
   getReservationsByEmail: async (email: string) =>
     fetch(
-      `http://localhost:8089/api/reservations/customer?email=${encodeURIComponent(email)}`,
+      `${API}/reservations/customer?email=${encodeURIComponent(email)}`,
     ).then((res) => res.json()),
 };

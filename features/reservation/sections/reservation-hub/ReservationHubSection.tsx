@@ -1,9 +1,9 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {Badge} from "@/components/ui/badge";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Tabs, TabsList, TabsTrigger, TabsContent} from "@/components/ui/tabs";
 import {
   ChevronLeft,
   Map,
@@ -21,11 +21,11 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { useSession } from "next-auth/react";
-import { useReservations } from "@/features/reservation/hooks";
-import { Reservation } from "@/features/reservation/types";
-import { format } from "date-fns";
+import {Separator} from "@/components/ui/separator";
+import {useSession} from "next-auth/react";
+import {useReservations} from "@/features/reservation/hooks";
+import {Reservation} from "@/features/reservation/types";
+import {format} from "date-fns";
 
 function ReservationCard({
   reservation,
@@ -100,10 +100,9 @@ function ReservationCard({
 }
 
 export default function ReservationHubSection() {
-  const { data: session } = useSession();
-  const { reservations, isLoading, isError } = useReservations(
-    // session?.user?.email ||
-    "tranthanhlam99nt@gmail.com",
+  const {data: session} = useSession();
+  const {reservations, isLoading, isError} = useReservations(
+    session?.user?.name || "",
   );
 
   const filterByStatus = (status: Reservation["status"]): Reservation[] =>
