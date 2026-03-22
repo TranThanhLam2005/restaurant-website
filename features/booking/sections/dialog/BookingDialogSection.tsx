@@ -312,6 +312,7 @@ export default function BookingDialogSection({states}: BookingSectionProps) {
                       value={formData.email || ""}
                       onChange={(e) => updateField("email", e.target.value)}
                       placeholder="e.g. jane@example.com"
+                      disabled={!!profile?.email}
                     />
                   </div>
                   <div className="flex items-center space-x-2 pt-2">

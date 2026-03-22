@@ -7,6 +7,7 @@ import Image from "next/image";
 import {useSession} from "next-auth/react";
 import {useOrderFood} from "@/features/menu";
 import {useProfile} from "@/features/profile";
+import {useBookingStore} from "@/features/booking/store/useBookingStore";
 
 // import UI components and icons
 import {AccountNavSection} from "@/features/account-nav";
@@ -78,6 +79,8 @@ import {
   Ticket,
   Check,
 } from "lucide-react";
+import {format} from "date-fns";
+import {set} from "zod";
 export default function AppHeader() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -90,6 +93,13 @@ export default function AppHeader() {
   const {orders, deleteOrder, totalPrice, increaseQuantity, decreaseQuantity} =
     useOrderFood();
   const {profile} = useProfile(session?.user?.name);
+
+  const formData = useBookingStore((state) => state.formData);
+  const selectedBranch = formData.branch;
+
+  // Date selected for UI only
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -361,8 +371,8 @@ export default function AppHeader() {
               <div className="flex items-start justify-between">
                 <Tabs defaultValue="delivery">
                   <TabsList>
-                    <TabsTrigger value="delivery">Giao hàng</TabsTrigger>
-                    <TabsTrigger value="pickup">Nhận tại cửa hàng</TabsTrigger>
+                    <TabsTrigger value="delivery">Delivery</TabsTrigger>
+                    <TabsTrigger value="pickup">Restaurant Pickup</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="delivery">
@@ -428,6 +438,7 @@ export default function AppHeader() {
                         type="button"
                         className="w-full"
                         onClick={() => {
+                          setOrderType("delivery");
                           setDeliveryDetailOpen(false);
                           setPaymentDetailOpen(true);
                         }}
@@ -459,12 +470,20 @@ export default function AppHeader() {
                         />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="address">Restaurant address</Label>
-                        <Textarea id="address" placeholder="eg: 123 Main St" />
+                        <Label htmlFor="address" required>
+                          Restaurant address
+                        </Label>
+                        <Textarea
+                          id="address"
+                          placeholder="Please select a branch first"
+                          value={selectedBranch}
+                          disabled
+                          className="bg-muted"
+                        />
                       </div>
                       <div className="flex items-start justify-between ">
                         <div className="grid gap-2">
-                          <Label required>Receive Date</Label>
+                          <Label required>Reservation Date</Label>
                           <Popover>
                             <PopoverTrigger asChild>
                               <Button
@@ -472,11 +491,16 @@ export default function AppHeader() {
                                 className="justify-start font-normal"
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
+                                {selectedDate
+                                  ? format(selectedDate, "PPP")
+                                  : "Pick a date"}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0">
                               <Calendar
                                 mode="single"
+                                selected={selectedDate}
+                                onSelect={(date) => setSelectedDate(date)}
                                 initialFocus
                                 disabled={{before: new Date()}}
                               />
@@ -518,16 +542,24 @@ export default function AppHeader() {
                         </div>
                       </RadioGroup>
 
-                      <Button
-                        type="button"
-                        className="w-full"
-                        onClick={() => {
-                          setDeliveryDetailOpen(false);
-                          setPaymentDetailOpen(true);
-                        }}
-                      >
-                        Payment now - $300
-                      </Button>
+                      {!selectedBranch ? (
+                        <Button disabled className="w-full">
+                          Please select a restaurant branch first
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          className="w-full"
+                          onClick={() => {
+                            setOrderType("pickup");
+                            setDeliveryDetailOpen(false);
+                            setPaymentDetailOpen(true);
+                          }}
+                        >
+                          Payment now - $
+                          {(totalPrice + totalPrice * 0.1).toFixed(2)}
+                        </Button>
+                      )}
                     </form>
                   </TabsContent>
                 </Tabs>
@@ -623,14 +655,28 @@ export default function AppHeader() {
                       <p className="font-semibold">Phone:</p>
                       <p>{profile?.phoneNumber || "Not provided"}</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-semibold">Type:</p>
-                      <p>Delivery</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-semibold">Delivery:</p>
-                      <p>Now</p>
-                    </div>
+
+                    {orderType === "pickup" ? (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold">Address:</p>
+                          <p>{selectedBranch || "Not provided"}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold">Date Pickup:</p>
+                          <p>
+                            {selectedDate
+                              ? format(selectedDate, "PPP")
+                              : "Select a date first"}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold">Delivery:</p>
+                        <p>Now</p>
+                      </div>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full">
@@ -638,6 +684,16 @@ export default function AppHeader() {
                     </Button>
                     <Button variant="outline" className="w-full">
                       Debit or Credit Card
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        setPaymentDetailOpen(false);
+                        setDeliveryDetailOpen(true);
+                      }}
+                    >
+                      Return to delivery details
                     </Button>
                   </div>
                 </div>
