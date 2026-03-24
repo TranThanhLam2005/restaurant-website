@@ -127,19 +127,28 @@ export default function ReservationHubSection() {
   return (
     <div>
       <div className="max-w-3xl mx-auto text-center">
-        <Tabs defaultValue="all" className="hidden md:block">
-          <TabsList>
+        <Tabs defaultValue="all" className="w-full">
+          <div className="w-full flex justify-center">
+            <TabsList className="hidden md:block">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+              <TabsTrigger value="waitlist">Waitlist</TabsTrigger>
+              <TabsTrigger value="completed">Completed</TabsTrigger>
+              <TabsTrigger value="canceled">Canceled</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsList className="md:hidden flex flex-wrap justify-center">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
             <TabsTrigger value="waitlist">Waitlist</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
             <TabsTrigger value="canceled">Canceled</TabsTrigger>
           </TabsList>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center">
             <ChevronLeft className="inline-block mr-2 cursor-pointer" />
             <h5>My Reservation</h5>
           </div>
-          <Separator className="my-4" />
+          <Separator className="my-2 md:my-4" />
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-2">
               <Checkbox />

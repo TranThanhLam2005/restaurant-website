@@ -74,14 +74,14 @@ export default function StateCitySelected({
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-48 justify-between"
+              className="w-40 md:w-48 justify-between"
               disabled={disabled}
             >
               {selectedState || statePlaceholder}
               <ChevronsUpDown />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-48 p-0">
+          <PopoverContent className="w-40 md:w-48 p-0">
             <Command>
               <CommandInput placeholder="Search State..." className="h-9" />
               <CommandList>
@@ -134,7 +134,7 @@ export default function StateCitySelected({
           }}
           disabled={!selectedState || disabled}
         >
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-40 md:w-48">
             <SelectValue
               placeholder={
                 selectedState ? cityPlaceholder : cityPlaceholderNoState
@@ -143,7 +143,9 @@ export default function StateCitySelected({
           </SelectTrigger>
           <SelectContent>
             {citiesLoading ? (
-              <div className="p-2 text-sm font-light">Loading cities...</div>
+              <div className="p-2 text-sm font-light w-40 md:w-48">
+                Loading cities...
+              </div>
             ) : cities?.length ? (
               cities.map((city) => (
                 <SelectItem key={city.id} value={city.name}>
@@ -151,7 +153,9 @@ export default function StateCitySelected({
                 </SelectItem>
               ))
             ) : (
-              <div className="p-2 text-sm font-light">No cities available</div>
+              <div className="p-2 text-sm font-light w-40 md:w-48">
+                No cities available
+              </div>
             )}
           </SelectContent>
         </Select>

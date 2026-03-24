@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSession } from "next-auth/react";
-import { useProfile, useUpdateProfile } from "../../hooks";
-import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {Textarea} from "@/components/ui/textarea";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {useSession} from "next-auth/react";
+import {useProfile, useUpdateProfile} from "../../hooks";
+import {Toaster} from "@/components/ui/sonner";
+import {toast} from "sonner";
 export default function ProfileFormSection() {
-  const { data: session } = useSession();
+  const {data: session} = useSession();
   const userEmail = session?.user?.name;
-  const { profile, isLoading, error } = useProfile(userEmail);
+  const {profile, isLoading, error} = useProfile(userEmail);
   const updateProfile = useUpdateProfile(userEmail);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,8 +42,8 @@ export default function ProfileFormSection() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center gap-6">
-        <Avatar className="h-24 w-24">
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        <Avatar className="h-36 w-36 md:h-24 md:w-24">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
@@ -53,7 +53,6 @@ export default function ProfileFormSection() {
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="grid gap-2">
           <Label htmlFor="fullname">FullName</Label>
-
           <Input
             id="fullname"
             name="fullname"

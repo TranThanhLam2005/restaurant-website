@@ -56,27 +56,30 @@ export default function BookingPartySection() {
   };
 
   return (
-    <div className="flex flex-col gap-20">
+    <div className="flex flex-col gap-8 md:gap-16">
       <div className="relative w-full h-screen rounded-4xl overflow-hidden">
         <img
           src="https://zeroinchinteriorsltd.com/wp-content/uploads/2023/09/The-primary-dining-area-of-a-modern-and-minimalistic-Italian-Fine-Dining-restaurant-adorned-in-raspberry-tones.-2.jpg"
           alt="Booking Party"
+          className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 text-white gap-4">
-          <h1 className="text-7xl">Private Events & Parties</h1>
-          <h3>A fantastic culinary experience for any occasion.</h3>
+          <h1 className="text-7xl text-center">Private Events & Parties</h1>
+          <h3 className="text-center">
+            A fantastic culinary experience for any occasion.
+          </h3>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <h1 className="w-2/3 text-center">
           Event and private party planning services
         </h1>
         <div className="flex flex-col gap-4">
-          <h3>
+          <h3 className="text-center md:text-left">
             Please contact us directly by phone or email if you wish to check
             availability or have any special requests.
           </h3>
-          <div className="flex gap-8">
+          <div className="flex md:gap-8">
             <div className="flex flex-col gap-2">
               <p>Vietnam: reservation@example.com</p>
               <p>USA: reservation@example.com </p>
@@ -92,9 +95,9 @@ export default function BookingPartySection() {
           </div>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <h1 className="w-2/3 text-center">Classy event</h1>
-        <h5>
+        <h5 className="text-center md:text-left">
           Elevate your event with private spaces, exquisite cuisine, and
           attentive service at El Gaucho. Whether it's a luxurious or intimate
           event, we pay attention to every detail to ensure your experience is
@@ -106,16 +109,16 @@ export default function BookingPartySection() {
         alt="Booking Party"
         className="w-full h-screen rounded-4xl object-cover"
       />
-      <div className="flex">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <h1 className="w-2/3 text-center">Private party on request</h1>
-        <h5>
+        <h5 className="text-center md:text-left">
           Wherever your birthday party, anniversary celebration, or business
           meeting is taking place, El Gaucho is ready to accompany you! Our
           service is a blend of explosive flavors, dedicated staff, and
           authentic Argentinian style all to create a memorable event for you.
         </h5>
       </div>
-      <div className="flex flex-col items-center bg-muted rounded-4xl p-8 gap-4">
+      <div className="flex flex-col items-center bg-muted rounded-4xl p-8 gap-4 text-center">
         <h1>Book private event and party planning services.</h1>
         <h3>Create a memorable event with El Gaucho.</h3>
         <Form {...form}>

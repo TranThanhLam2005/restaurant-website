@@ -33,7 +33,7 @@ export default function BookingSelectedSection({states}: BookingSectionProps) {
         className="w-full h-screen rounded-4xl shadow-lg relative object-cover "
       />
       <div className="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="flex items-end justify-evenly rounded-lg shadow-lg bg-white/80 p-4 gap-2">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-evenly rounded-lg shadow-lg bg-white/80 p-4 gap-2">
           <StateCitySelected
             states={states}
             selectedState={formData.state}
@@ -57,7 +57,7 @@ export default function BookingSelectedSection({states}: BookingSectionProps) {
           />
           <Button onClick={() => setIsDialogOpen(true)}>Reserve</Button>
         </div>
-        <div className="flex justify-evenly bg-white/80 rounded-lg mt-6 p-4 gap-4">
+        <div className="flex flex-col md:flex-row justify-evenly bg-white/80 rounded-lg mt-6 p-4 gap-4">
           {!formData.state || !formData.city ? (
             <p className="text-sm italic font-light">
               Please select a state and city to see available restaurants.
