@@ -93,11 +93,11 @@ export default function NearbySelected({states}: {states: Array<any>}) {
             </Label>
           </div>
         </RadioGroup>
-        <div className="flex items-center justify-center gap-4 mt-2">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 mt-2">
           <Input
             type="text"
             placeholder="Enter your location to find nearby restaurants"
-            className="border-black w-1/3"
+            className="border-black w-40 md:w-1/3"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -110,6 +110,7 @@ export default function NearbySelected({states}: {states: Array<any>}) {
             onStateChange={handleStateChange}
             onCityChange={handleCityChange}
             headless={true}
+            vertical
           />
         </div>
       </CardHeader>

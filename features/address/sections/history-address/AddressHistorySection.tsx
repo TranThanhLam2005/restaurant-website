@@ -15,8 +15,9 @@ export default function AddressHistorySection() {
       <Separator />
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <h4>Tran Thanh Lam</h4>|<p>0123456789</p>
+          <div className="flex flex-col md:flex-row items-start md:items-center md:gap-2">
+            <h4>Tran Thanh Lam</h4>
+            <p>0123456789</p>
           </div>
           <p>123 ABC, Phu Xuan, Nha Be, HCM</p>
         </div>
@@ -31,8 +32,9 @@ export default function AddressHistorySection() {
       <Separator />
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <h4>Tran Thanh Lam</h4>|<p>0123456789</p>
+          <div className="flex flex-col md:flex-row items-start md:items-center md:gap-2">
+            <h4>Tran Thanh Lam</h4>
+            <p>0123456789</p>
           </div>
           <p>123 ABC, Phu Xuan, Nha Be, HCM</p>
         </div>
@@ -47,8 +49,9 @@ export default function AddressHistorySection() {
       <Separator />
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2">
-            <h4>Tran Thanh Lam</h4>|<p>0123456789</p>
+          <div className="flex flex-col md:flex-row items-start md:items-center md:gap-2">
+            <h4>Tran Thanh Lam</h4>
+            <p>0123456789</p>
           </div>
           <p>123 ABC, Phu Xuan, Nha Be, HCM</p>
         </div>

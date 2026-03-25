@@ -4,9 +4,9 @@ export default async function NearbyPage() {
   const states = await getStatesServer();
 
   return (
-    <>
+    <div className="flex flex-col gap-10">
       <Hero />
       <NearbySelected states={states} />
-    </>
+    </div>
   );
 }
