@@ -73,7 +73,7 @@ export default function MenuContent({
   return (
     <>
       <ResizablePanel defaultSize={75}>
-        <ScrollArea className="h-full w-full px-6">
+        <ScrollArea className="h-full w-full md:px-6">
           {isLoading ? (
             <>
               <h3 className="mb-4">Loading menu items...</h3>
@@ -144,7 +144,7 @@ export default function MenuContent({
                               <span>{food.calories} cal</span>
                             </div>
                             <ShoppingCart
-                              className="w-5 h-5 hover:cursor-pointer hover:text-primary"
+                              className="w-7 h-7 md:w-5 md:h-5 hover:cursor-pointer hover:text-primary"
                               onClick={() => {
                                 setSelectedDish({...food, quantity: 1});
                                 setIsDialogOpen(true);
